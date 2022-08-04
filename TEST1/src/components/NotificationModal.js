@@ -23,23 +23,26 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-	animation: modal-show 0.7s;
+	position: fixed;
+	right: 26.2em;
+	animation: modal-show 0.5s;
 	@keyframes modal-show {
 		from {
 			opacity: 0;
-			margin-top: -20px;
+			margin-top: -10px;
 		}
 		to {
 			opacity: 1;
 			margin-top: 0;
 		}
 	}
+	filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.25));
 `;
 
 const ModalTri = styled.div`
 	position: fixed;
 	top: 5.7em;
-	right: 9.8em;
+	left: 15em;
 	width: 0px;
 	height: 0px;
 	border-bottom: 27px solid #fff;
@@ -54,7 +57,6 @@ const ModalBlock = styled.div`
 	width: 15em;
 	position: fixed;
 	top: 7em;
-	right: 9em;
 	@media (max-width: 1120px) {
 		width: 50rem;
 	}

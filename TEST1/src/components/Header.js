@@ -15,6 +15,15 @@ const Container = styled.div`
 	height: 5em;
 `;
 
+const NavWrapper = styled.div`
+	display: flex;
+	.active {
+		font-weight: 600;
+		color: #d38189;
+		font-size: 1.27em;
+	}
+`;
+
 const CustomNav = styled(NavLink)`
 	color: black;
 	font-family: "Noto Sans Display", sans-serif;
@@ -22,15 +31,13 @@ const CustomNav = styled(NavLink)`
 	font-size: 1.25em;
 	text-decoration: none;
 	margin: 0 1em;
+	&:hover {
+		color: #d38189;
+	}
 	&:active {
 		color: gray;
 	}
 `;
-
-const activeStyle = {
-	fontWeight: "700",
-	color: "#D38189",
-};
 
 const NotificationWrapper = styled.div`
 	cursor: pointer;
@@ -63,17 +70,17 @@ const Header = () => {
 					}}
 				>
 					<HeaderLogo />
-					<div style={{ display: "flex" }}>
-						<CustomNav activeStyle={activeStyle} to="/calendar">
+					<NavWrapper>
+						<CustomNav activeClassName="active" to="/calendar">
 							캘린더
 						</CustomNav>
-						<CustomNav activeStyle={activeStyle} to="/checklist">
+						<CustomNav activeClassName="active" to="/checklist">
 							체크리스트
 						</CustomNav>
-						<CustomNav activeStyle={activeStyle} to="/calculator">
+						<CustomNav activeClassName="active" to="/calculator">
 							계산기
 						</CustomNav>
-					</div>
+					</NavWrapper>
 					<div style={{ width: "11.4em", display: "flex" }}>
 						<NotificationWrapper>
 							<Notification onClick={_handleModal} />
