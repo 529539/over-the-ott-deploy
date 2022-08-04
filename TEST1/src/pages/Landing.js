@@ -27,33 +27,28 @@ const LadingWrapper = styled.div`
 	height: auto;
 	margin: 0;
 	padding: 0;
-	.logo {
-		//로고 아이콘 하단에 공백 없앤 파일 다시 받아 위치 수정
-		width: 100%;
-		border: solid;
-	}
 `;
 const ContentWrapper = styled.div`
-	border: solid;
 	position: absolute;
 	z-index: 2;
-	width: 37%; //717px;
-	height: 50%; //499px;
+	width: 40%;
+	height: 60%;
 	margin-left: 5%;
-	margin-top: 10%;
+	margin-top: 12%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	.logo {
+		width: 100%;
+	}
 `;
 const ButtonWrapper = styled.div`
-	border: solid;
 	width: 100%;
-	height: 23%; //91px;
+	height: 20%;
 	display: flex;
-	position: relative;
 	margin-top: 9%;
-	justify-content: space-around;
+	justify-content: space-between;
 	button {
 		font-weight: 600;
 		font-size: 28px;
@@ -63,19 +58,22 @@ const ButtonWrapper = styled.div`
 		box-shadow: 0px 2px 20px rgba(102, 102, 102, 0.3);
 	}
 	a {
-		width: 100%; //358px
-		height: 100%; //91px
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		text-decoration: none;
 	}
 `;
 const LoginBtn = styled.button`
-	width: 288px;
+	width: 86%;
 	height: 81px;
 	background: #ffffff;
 	color: #d38189;
 `;
 const SignupBtn = styled.button`
-	width: 86%; //308px;
-	height: 100%; //91px;
+	width: 86%;
+	height: 81px;
 	background: #d38189;
 	color: #ffffff;
 `;
