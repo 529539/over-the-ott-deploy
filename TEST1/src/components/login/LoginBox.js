@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
@@ -10,6 +10,12 @@ import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 const LoginBox = () => {
 	const [newID, setNewID] = useState('');
 	const [newPW, setNewPW] = useState('');
+	const navigate = useNavigate();
+	const enterKey = e => {
+		if (e.keyCode == 13) {
+			InfoSubmit(e);
+		}
+	};
 	const InfoSubmit = e => {
 		axios
 			.get('http://localhost:8888/login/')
@@ -18,13 +24,13 @@ const LoginBox = () => {
 				let success = 0;
 				for (let i = 0; i < users.length; i++) {
 					if (users[i].email == newID && users[i].pw == newPW) {
-						alert('성공');
+						alert('로그인 성공');
 						//성공 시 페이지 이동 수정 필요
 						success = 1;
 						break;
 					}
 				}
-				if (!success) alert('실패');
+				success ? navigate('/checklist') : alert('로그인 실패');
 			})
 			.then(() => {
 				setNewID('');
@@ -52,8 +58,10 @@ const LoginBox = () => {
 					type='password'
 					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
 					onChange={e => setNewPW(e.target.value)}
+					onKeyUp={enterKey}
 				/>
 				<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
+
 				<FindLinks>
 					<Link to='/signup'>
 						<p>회원가입</p>
@@ -141,6 +149,12 @@ const LoginCenter = styled.div`
 		outline: none;
 	}
 `;
+// const LoginForm = styled.form`
+// 	width: 100%;
+// 	height: 188px;
+// 	display: flex;
+// 	flex-direction: column;
+// `;
 const IdInput = styled.input`
 	margin: 30px 0 12px 0;
 `;
