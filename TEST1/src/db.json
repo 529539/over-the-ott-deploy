@@ -1,0 +1,26 @@
+{
+	"login": {
+		"user": [
+			{
+				"email": "chaewon@naver.com",
+				"pw": "12345678*"
+			},
+			{
+				"email": "seojin@naver.com",
+				"pw": "12345678*"
+			},
+			{
+				"email": "eunjin@naver.com",
+				"pw": "12345678*"
+			},
+			{
+				"email": "doyeon@naver.com",
+				"pw": "12345678*"
+			},
+			{
+				"email": "hyeonyoung@naver.com",
+				"pw": "12345678*"
+			}
+		]
+	}
+}
