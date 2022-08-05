@@ -1,20 +1,20 @@
 // eslint-disable-next-line
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../static/landingLogo.svg';
-import Background from '../components/Background';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../static/landingLogo.svg";
+import Background from "../components/Background";
 
 const Landing = () => {
 	return (
 		<LadingWrapper>
 			<Background />
 			<ContentWrapper>
-				<Logo className='logo' />
+				<Logo className="logo" />
 				<ButtonWrapper>
-					<Link to='/login'>
+					<Link to="/login">
 						<LoginBtn>로그인</LoginBtn>
 					</Link>
-					<Link to='/signup'>
+					<Link to="/signup">
 						<SignupBtn>회원가입</SignupBtn>
 					</Link>
 				</ButtonWrapper>
@@ -50,6 +50,7 @@ const ButtonWrapper = styled.div`
 	margin-top: 9%;
 	justify-content: space-between;
 	button {
+		cursor: pointer;
 		font-weight: 600;
 		font-size: 28px;
 		border-radius: 52.5px;
