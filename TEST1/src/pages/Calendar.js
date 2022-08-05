@@ -1,20 +1,24 @@
-import React, { useEffect } from "react";
+import React from "react";
+import styled from "styled-components";
 import Header from "../components/Header";
 import CalendarTable from "../components/calendar/CalendarTable";
 import CalendarSub from "../components/calendar/CalendarSub";
 
-const Calendar = () => {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+const Wrapper = styled.div`
+	display: flex;
+	margin: 8em 8em 4em 8em;
+`;
 
+const Calendar = () => {
 	return (
 		<>
 			<Header />
-			<div style={{ display: "flex" }}>
-				<CalendarTable />
-				<CalendarSub />
-			</div>
+			<Wrapper>
+				<div style={{ display: "flex" }}>
+					<CalendarTable />
+					<CalendarSub />
+				</div>
+			</Wrapper>
 		</>
 	);
 };
