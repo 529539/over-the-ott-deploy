@@ -1,69 +1,69 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styled from 'styled-components';
-import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
-import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
-import NaverIcon from '../../static/naverIcon.png';
-import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { CgClose } from "react-icons/cg";
+import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
+import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
+import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
 
 const LoginBox = () => {
-	const [newID, setNewID] = useState('');
-	const [newPW, setNewPW] = useState('');
+	const [newID, setNewID] = useState("");
+	const [newPW, setNewPW] = useState("");
 	const navigate = useNavigate();
-	const enterKey = e => {
-		if (e.keyCode == 13) {
+	const enterKey = (e) => {
+		if (e.keyCode === 13) {
 			InfoSubmit(e);
 		}
 	};
-	const InfoSubmit = e => {
+	const InfoSubmit = (e) => {
 		axios
-			.get('http://localhost:8888/login/')
-			.then(res => {
+			.get("http://localhost:8888/login/")
+			.then((res) => {
 				let users = res.data.user;
 				let success = 0;
 				for (let i = 0; i < users.length; i++) {
-					if (users[i].email == newID && users[i].pw == newPW) {
-						alert('로그인 성공');
+					if (users[i].email === newID && users[i].pw === newPW) {
+						alert("로그인 성공");
 						//성공 시 페이지 이동 수정 필요
 						success = 1;
 						break;
 					}
 				}
-				success ? navigate('/checklist') : alert('로그인 실패');
+				success ? navigate("/checklist") : alert("로그인 실패");
 			})
 			.then(() => {
-				setNewID('');
-				setNewPW('');
+				setNewID("");
+				setNewPW("");
 			});
 	};
 	return (
 		<BoxWrapper>
 			<LoginTop>
-				<Link to='/'>
-					<DeleteIcon className='deleteIcon' />
+				<Link to="/">
+					<CgClose className="closeIcon" size="25" />
 				</Link>
 				<p>Login</p>
 				<p>로그인 하기</p>
 			</LoginTop>
-			<div className='line1'></div>
+			<div className="line1"></div>
 			<LoginCenter>
 				<IdInput
 					value={newID}
-					placeholder='이메일'
-					onChange={e => setNewID(e.target.value)}
+					placeholder="이메일"
+					onChange={(e) => setNewID(e.target.value)}
 				/>
 				<PwInput
 					value={newPW}
-					type='password'
-					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
-					onChange={e => setNewPW(e.target.value)}
+					type="password"
+					placeholder="비밀번호 (8자 이상, 특수문자 포함)"
+					onChange={(e) => setNewPW(e.target.value)}
 					onKeyUp={enterKey}
 				/>
 				<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
 
 				<FindLinks>
-					<Link to='/signup'>
+					<Link to="/signup">
 						<p>회원가입</p>
 					</Link>
 					<p>|</p>
@@ -78,11 +78,11 @@ const LoginBox = () => {
 				<div />
 			</CenterEndLine>
 			<LoginBottom>
-				<p>다음 계정으로 로그인하기</p>
+				<p style={{ textAlign: "center" }}>다음 계정으로 로그인하기</p>
 				<SNSIcons>
-					<GoogleIcon className='googleIcon' />
-					<img src={NaverIcon} className='naverIcon' />
-					<KakaoIcon className='kakaoIcon' />
+					<GoogleIcon className="googleIcon" />
+					<NaverIcon className="naverIcon" />
+					<KakaoIcon className="kakaoIcon" />
 				</SNSIcons>
 			</LoginBottom>
 		</BoxWrapper>
@@ -116,7 +116,7 @@ const LoginTop = styled.div`
 	align-items: center;
 	width: 20%;
 	margin-top: 52px;
-	.deleteIcon {
+	.closeIcon {
 		position: absolute;
 		top: 56px;
 		right: 52px;
@@ -162,6 +162,7 @@ const PwInput = styled.input`
 	margin-bottom: 28px;
 `;
 const LoginBtn = styled.button`
+	cursor: pointer;
 	height: 51px;
 	background: #d38189;
 	border-radius: 24.5px;
