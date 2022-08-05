@@ -90,12 +90,12 @@ const LoginBox = () => {
 };
 
 const BoxWrapper = styled.div`
-	width: 52.8%; //1006px;
-	height: 560px; //65%;
+	width: 52.39vw;
+	height: 65.09vh;
 	position: absolute;
 	z-index: 2;
-	top: 20%;
-	left: 23.75%;
+	top: 20.27vh;
+	left: 23.75vw;
 	background: #ffffff;
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
 	border-radius: 24px;
@@ -103,7 +103,7 @@ const BoxWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	.line1 {
-		width: 63%; //641px;
+		width: 33.38vw;
 		height: 0px;
 		background: #d7d7d7;
 		border: 0.5px solid #d7d7d7;
@@ -114,67 +114,70 @@ const LoginTop = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 20%;
-	margin-top: 52px;
+	justify-content: space-between;
+	width: 9.85vw;
+	height: 6.75vh;
+	margin: 4.81vh 0 2.54vh 0;
 	.deleteIcon {
 		position: absolute;
-		top: 56px;
-		right: 52px;
+		top: 5.18vh;
+		right: 2.7vw;
 	}
 	p:nth-child(2) {
 		font-weight: 300;
-		font-size: 15px;
-		height: 20px;
+		font-size: 0.78vw;
+		margin: 0;
 	}
 	p:nth-child(3) {
-		margin: 0 0 20px 0;
+		margin: 0;
 		font-weight: 600;
-		font-size: 27px;
+		font-size: 1.82vw;
 	}
 `;
 const LoginCenter = styled.div`
-	width: 39%;
-	height: 238px;
+	width: 19.67vw;
+	height: 22.03vh; // 238px;
+	margin-top: 4.8vh;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	input {
-		height: 51px;
+		width: 19.05vw;
+		height: 4.72vh;
 		border: 0.8px solid #979797;
 		box-shadow: 0px 1px 8px rgba(156, 156, 156, 0.15);
-		border-radius: 10px;
+		border-radius: 8px;
 		font-weight: 400;
-		font-size: 14px;
+		font-size: 0.78vw;
 		color: #767676;
-		padding-left: 10px;
+		padding-left: 0.29vw;
 		outline: none;
 	}
 `;
-// const LoginForm = styled.form`
-// 	width: 100%;
-// 	height: 188px;
-// 	display: flex;
-// 	flex-direction: column;
-// `;
 const IdInput = styled.input`
-	margin: 30px 0 12px 0;
+	margin: 0 0 1.2vh 0;
 `;
 const PwInput = styled.input`
-	margin-bottom: 28px;
+	margin-bottom: 2.59vh;
 `;
 const LoginBtn = styled.button`
-	height: 51px;
+	width: 19.67vw;
+	height: 4.72vh;
+	margin-bottom: 2.77vh;
 	background: #d38189;
-	border-radius: 24.5px;
+	border-radius: 2.66vw;
 	border-style: none;
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 0.93vw; //18px;;
 	color: #ffffff;
 `;
 const FindLinks = styled.div`
+	width: 16.4vw;
+	height: 1.96vh;
 	display: flex;
 	justify-content: space-around;
 	font-weight: 300;
-	font-size: 15px;
+	font-size: 0.78vw; //15px;;
 	color: #333333;
 	a {
 		color: #333333;
@@ -183,39 +186,40 @@ const FindLinks = styled.div`
 `;
 const CenterEndLine = styled.div`
 	width: 100%;
-	height: 20px;
+	height: 1.85vh;
+	margin-top: 3.7vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	div {
-		width: 27%;
-		height: 0px;
+		width: 14.32vw;
+		height: 0vh;
 		background: #d7d7d7;
-		border: 0.5px solid #d7d7d7;
+		border: 0.02vw solid #d7d7d7;
 	}
 	p {
-		margin: 0 33px 0 34px;
+		margin: 0 1.71vw 0 1.77vw;
 	}
 `;
 const LoginBottom = styled.div`
-	width: 27%;
-	height: 104px;
+	width: 13.09vw;
+	height: 9.62vh;
 	display: flex;
 	flex-direction: column;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 1.04vw;
 `;
 const SNSIcons = styled.div`
-	height: 51px;
+	height: 4.72vh;
 	display: flex;
 	justify-content: space-around;
 	.googleIcon,
 	.naverIcon,
 	.kakaoIcon {
-		width: 41px;
-		height: 41px;
-		border-radius: 10px;
+		width: 2.13vw;
+		height: auto;
+		border-radius: 0.49vw;
 	}
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `;

@@ -24,33 +24,35 @@ const Login = () => {
 };
 
 const LoginWrapper = styled.div`
-	width: 100%;
+	width: 100vw;
 	height: auto;
 `;
 const LoginHeader = styled.div`
-	width: 100%;
-	height: 43px;
+	width: 100vw;
+	height: 3.98vh;
 	display: flex;
 	justify-content: space-between;
 	position: absolute;
-	top: 3%;
+	top: 2.14vw;
 	.logo {
-		margin-left: 2%;
+		width: 10.41vw;
+		height: 3.98vh;
+		margin-left: 2.5vw;
 	}
 `;
 const IconsWrapper = styled.div`
-	width: 87px;
-	margin-right: 3.9%;
+	width: 4.29vw;
+	margin-right: 4.19vw;
 	display: flex;
 	justify-content: space-between;
 	.notiIcon {
-		width: 22.5px;
-		height: 22.5px;
+		width: 1.17vw;
+		height: 2.08vh;
 	}
 	.userIcon {
 		color: white;
-		width: 22.51px;
-		height: 23.5px;
+		width: 1.17vw;
+		height: 2.17vh;
 	}
 `;
 export default Login;
