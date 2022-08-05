@@ -57,12 +57,6 @@ const ModalBlock = styled.div`
 	width: 15em;
 	position: fixed;
 	top: 7em;
-	@media (max-width: 1120px) {
-		width: 50rem;
-	}
-	@media (max-width: 50rem) {
-		width: 80%;
-	}
 	min-height: 3em;
 `;
 
