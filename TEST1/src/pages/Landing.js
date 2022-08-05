@@ -6,7 +6,7 @@ import Background from "../components/Background";
 
 const Landing = () => {
 	return (
-		<LadingWrapper>
+		<LandingWrapper>
 			<Background />
 			<ContentWrapper>
 				<Logo className="logo" />
@@ -19,10 +19,10 @@ const Landing = () => {
 					</Link>
 				</ButtonWrapper>
 			</ContentWrapper>
-		</LadingWrapper>
+		</LandingWrapper>
 	);
 };
-const LadingWrapper = styled.div`
+const LandingWrapper = styled.div`
 	width: 100%;
 	height: auto;
 	margin: 0;

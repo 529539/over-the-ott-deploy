@@ -1,6 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+const NotificationModal = ({ _handleModal, children, ...rest }) => {
+	return (
+		<Container>
+			<Background onClick={_handleModal} />
+			<ModalWrapper>
+				<ModalTri />
+				<ModalBlock {...rest}>
+					<Contents>{children}</Contents>
+				</ModalBlock>
+			</ModalWrapper>
+		</Container>
+	);
+};
+
+export default NotificationModal;
+
 const Container = styled.div`
 	position: absolute;
 	width: 100%;
@@ -65,19 +81,3 @@ const Contents = styled.div`
 	flex-direction: column;
 	align-items: center;
 `;
-
-const NotificationModal = ({ _handleModal, children, ...rest }) => {
-	return (
-		<Container>
-			<Background onClick={_handleModal} />
-			<ModalWrapper>
-				<ModalTri />
-				<ModalBlock {...rest}>
-					<Contents>{children}</Contents>
-				</ModalBlock>
-			</ModalWrapper>
-		</Container>
-	);
-};
-
-export default NotificationModal;

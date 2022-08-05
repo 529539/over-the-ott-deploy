@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
+import Background from "../components/Background";
 
 const Calculator = () => {
 	useEffect(() => {
@@ -9,6 +10,7 @@ const Calculator = () => {
 	return (
 		<>
 			<Header />
+			<Background />
 		</>
 	);
 };
