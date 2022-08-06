@@ -34,19 +34,5 @@ const LoginHeader = styled.div`
 		margin-left: 2.5vw;
 	}
 `;
-const IconsWrapper = styled.div`
-	width: 4.29vw;
-	margin-right: 4.19vw;
-	display: flex;
-	justify-content: space-between;
-	.notiIcon {
-		width: 1.17vw;
-		height: 2.08vh;
-	}
-	.userIcon {
-		color: white;
-		width: 1.17vw;
-		height: 2.17vh;
-	}
-`;
+
 export default Login;
