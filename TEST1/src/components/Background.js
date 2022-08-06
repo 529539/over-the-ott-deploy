@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { ReactComponent as BackgroundImg } from "../static/backgroundImg.svg";
+import styled from 'styled-components';
+import { ReactComponent as BackgroundImg } from '../static/backgroundImg.svg';
 
 const Background = () => {
 	return (
 		<Wrapper
 			style={{
-				width: "100vw",
-				height: "100vh",
+				width: '100vw',
+				height: '100vh',
 			}}
 		>
 			<BackgroundImg />

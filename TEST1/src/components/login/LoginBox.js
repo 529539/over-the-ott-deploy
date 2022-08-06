@@ -4,7 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
 import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
-import NaverIcon from '../../static/naverIcon.png';
+import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
 import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 
 const LoginBox = () => {
@@ -91,7 +91,7 @@ const LoginBox = () => {
 				<p>다음 계정으로 로그인하기</p>
 				<SNSIcons>
 					<GoogleIcon className='googleIcon' />
-					<img src={NaverIcon} className='naverIcon' />
+					<NaverIcon className='naverIcon' />
 					<KakaoIcon className='kakaoIcon' />
 				</SNSIcons>
 			</LoginBottom>

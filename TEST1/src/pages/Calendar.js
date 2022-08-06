@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Header from "../components/Header";
-import CalendarTable from "../components/calendar/CalendarTable";
-import CalendarSub from "../components/calendar/CalendarSub";
+import React from 'react';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import CalendarTable from '../components/calendar/CalendarTable';
+import CalendarSub from '../components/calendar/CalendarSub';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -14,7 +14,7 @@ const Calendar = () => {
 		<>
 			<Header />
 			<Wrapper>
-				<div style={{ display: "flex" }}>
+				<div style={{ display: 'flex' }}>
 					<CalendarTable />
 					<CalendarSub />
 				</div>
