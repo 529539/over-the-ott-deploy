@@ -25,7 +25,6 @@ const LoginBox = () => {
 				for (let i = 0; i < users.length; i++) {
 					if (users[i].email == newID && users[i].pw == newPW) {
 						alert('로그인 성공');
-						//성공 시 페이지 이동 수정 필요
 						success = 1;
 						break;
 					}
@@ -37,6 +36,17 @@ const LoginBox = () => {
 				setNewPW('');
 			});
 	};
+	// api 받고난 후 수정 버전 코드
+	// 로그인 실패시 모달창 생성 수정 필요
+	// const InfoSubmit = e => {
+	// 	axios.post('/acount/login/',{
+	// 		"email": newID,
+	// 		"password": newPW,
+	// 	}).then(res=> {
+	// 		let success = res.data.message
+	// 		(success.indexOf('성공') != -1) ? navigate('/checklist') : alert('로그인 실패');
+
+	// 	})}
 	return (
 		<BoxWrapper>
 			<LoginTop>
@@ -202,13 +212,14 @@ const CenterEndLine = styled.div`
 	}
 `;
 const LoginBottom = styled.div`
-	width: 13.09vw;
+	width: 14.09vw;
 	height: 9.62vh;
+	margin-top: 1.8vh;
 	display: flex;
 	flex-direction: column;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 1.04vw;
+	font-size: 1.2vw;
 `;
 const SNSIcons = styled.div`
 	height: 4.72vh;
