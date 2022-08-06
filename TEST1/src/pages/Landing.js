@@ -1,20 +1,20 @@
 // eslint-disable-next-line
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../static/landingLogo.svg";
-import Background from "../components/Background";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../static/landingLogo.svg';
+import Background from '../components/Background';
 
 const Landing = () => {
 	return (
 		<LandingWrapper>
 			<Background />
 			<ContentWrapper>
-				<Logo className="logo" />
+				<Logo className='logo' />
 				<ButtonWrapper>
-					<Link to="/login">
+					<Link to='/login'>
 						<LoginBtn>로그인</LoginBtn>
 					</Link>
-					<Link to="/signup">
+					<Link to='/signup'>
 						<SignupBtn>회원가입</SignupBtn>
 					</Link>
 				</ButtonWrapper>

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ReactComponent as BackgroundImg } from "../static/backgroundImg.svg";
+import styled from 'styled-components';
+import { ReactComponent as BackgroundImg } from '../static/backgroundImg.svg';
 
 const Background = () => {
 	return (
