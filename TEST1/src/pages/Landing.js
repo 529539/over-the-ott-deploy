@@ -23,7 +23,7 @@ const Landing = () => {
 	);
 };
 const LandingWrapper = styled.div`
-	width: 100%;
+	width: 100vw;
 	height: auto;
 	margin: 0;
 	padding: 0;
@@ -31,23 +31,23 @@ const LandingWrapper = styled.div`
 const ContentWrapper = styled.div`
 	position: absolute;
 	z-index: 2;
-	width: 40%;
-	height: 60%;
-	margin-left: 5%;
-	margin-top: 12%;
+	width: 37.34vw;
+	height: 48.92vh;
+	margin-left: 9.06vw;
+	margin-top: 31.75vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	.logo {
-		width: 100%;
+		width: 37.34vw;
 	}
 `;
 const ButtonWrapper = styled.div`
-	width: 100%;
-	height: 20%;
+	width: 37.34vw;
+	height: 8.42vh;
 	display: flex;
-	margin-top: 9%;
+	margin-top: 5vh;
 	justify-content: space-between;
 	button {
 		cursor: pointer;
@@ -59,22 +59,22 @@ const ButtonWrapper = styled.div`
 		box-shadow: 0px 2px 20px rgba(102, 102, 102, 0.3);
 	}
 	a {
-		width: 100%;
-		height: 100%;
+		width: 18.67vw;
+		height: 8.45vh;
 		display: flex;
 		justify-content: center;
 		text-decoration: none;
 	}
 `;
 const LoginBtn = styled.button`
-	width: 86%;
-	height: 81px;
+	width: 16.04vw;
+	height: 8.45vh;
 	background: #ffffff;
 	color: #d38189;
 `;
 const SignupBtn = styled.button`
-	width: 86%;
-	height: 81px;
+	width: 16.04vw;
+	height: 8.45vh;
 	background: #d38189;
 	color: #ffffff;
 `;
