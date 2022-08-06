@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import Background from '../components/Background';
 import { ReactComponent as Logo } from '../static/loginLogo.svg';
-import { ReactComponent as Notification } from '../static/notificationW.svg';
-import { BsFillPersonFill } from 'react-icons/bs';
 import LoginBox from '../components/login/LoginBox';
 
 const Login = () => {
@@ -12,10 +10,6 @@ const Login = () => {
 				<Background />
 				<LoginHeader>
 					<Logo className='logo' />
-					<IconsWrapper>
-						<Notification className='notiIcon' />
-						<BsFillPersonFill className='userIcon' />
-					</IconsWrapper>
 				</LoginHeader>
 				<LoginBox />
 			</LoginWrapper>

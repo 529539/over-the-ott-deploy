@@ -1,122 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
-const Wrapper = styled.div`
-	width: 65vw;
-`;
-
-const ControlBar = styled.div`
-	width: 10em;
-	padding-left: 2em;
-	position: relative;
-`;
-
-const Year = styled.div`
-	font-size: 1em;
-	font-weight: 600;
-	display: flex;
-	justify-content: center;
-`;
-
-const MonthWrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 10em;
-	height: 2em;
-	margin-top: 0.5em;
-`;
-
-const Month = styled.div`
-	font-weight: 600;
-	font-size: 1.8em;
-`;
-
-const MonthButtonWrapper = styled.div`
-	cursor: pointer;
-	width: 1.5em;
-	height: 1.5em;
-	color: #343434;
-	&:hover {
-		color: gray;
-	}
-	margin-top: 0.4em;
-`;
-
-const TableWrapper = styled.div`
-	padding-top: 4.3vh;
-	position: relative;
-`;
-
-let TableBackground = styled.div``;
-
-const Border = styled.div`
-	border: 3px solid #fff;
-	width: 57vw;
-	margin-top: 5.1vh;
-	margin-left: 1.8vw;
-	position: absolute;
-	z-index: 1;
-`;
-
-const Day = styled.div`
-	font-weight: 500;
-	font-size: 1.3em;
-	width: 8.3vw;
-	text-align: center;
-`;
-
-const Table = styled.table`
-	position: absolute;
-	display: flex;
-	margin-left: 1.8vw;
-	width: 56vw;
-	height: 56vh;
-`;
-
-const Tbody = styled.tbody`
-	display: flex;
-	flex-direction: column;
-	tr > :nth-child(1) {
-		color: #c72d2a;
-	}
-	tr > :nth-child(7) {
-		color: #192f72;
-	}
-`;
-
-const Tr = styled.tr``;
-
-const Td1 = styled.td`
-	display: flex;
-	width: 8vw;
-	height: 5vh;
-`;
-
-let Td = styled.td``;
-
-const DateCircle = styled.div`
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
-	background-color: #d38189;
-	border-radius: 50%;
-	width: 2.1em;
-	height: 2.1em;
-	margin: 1vw;
-	margin-left: 0.7vw;
-	margin-top: 0.9vw;
-`;
-
-const Date = styled.span`
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
-	margin: 1vw;
-	font-weight: 400;
-	font-size: 1.3em;
-`;
 
 const CalendarTable = () => {
 	/*
@@ -130,6 +15,9 @@ const CalendarTable = () => {
 		// ㄴ달마다 위치가 달라지므로 사용하지 말것
 		//  요소 삽입 가능한지 테스트 용도로만 사용 예정
 		//-useRef 사용하기
+		//
+		//또는 position: absolute와 top, left 값을 구해서
+		//z-index 적용하여 위에 올리기
 	};
 	OTT();
 	*/
@@ -298,3 +186,118 @@ const CalendarTable = () => {
 };
 
 export default CalendarTable;
+
+const Wrapper = styled.div`
+	width: 64vw;
+`;
+
+const ControlBar = styled.div`
+	width: 10em;
+	padding-left: 2em;
+	position: relative;
+`;
+
+const Year = styled.div`
+	font-size: 1em;
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+`;
+
+const MonthWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 10em;
+	height: 2em;
+	margin-top: 0.5em;
+`;
+
+const Month = styled.div`
+	font-weight: 600;
+	font-size: 1.8em;
+`;
+
+const MonthButtonWrapper = styled.div`
+	cursor: pointer;
+	width: 1.5em;
+	height: 1.5em;
+	color: #343434;
+	&:hover {
+		color: gray;
+	}
+	margin-top: 0.4em;
+`;
+
+const TableWrapper = styled.div`
+	padding-top: 4.3vh;
+	position: relative;
+`;
+
+let TableBackground = styled.div``;
+
+const Border = styled.div`
+	border: 3px solid #fff;
+	width: 57vw;
+	margin-top: 5.1vh;
+	margin-left: 1.8vw;
+	position: absolute;
+	z-index: 1;
+`;
+
+const Day = styled.div`
+	font-weight: 500;
+	font-size: 1.3em;
+	width: 8.3vw;
+	text-align: center;
+`;
+
+const Table = styled.table`
+	position: absolute;
+	display: flex;
+	margin-left: 1.8vw;
+	width: 56vw;
+	height: 56vh;
+`;
+
+const Tbody = styled.tbody`
+	display: flex;
+	flex-direction: column;
+	tr > :nth-child(1) {
+		color: #c72d2a;
+	}
+	tr > :nth-child(7) {
+		color: #192f72;
+	}
+`;
+
+const Tr = styled.tr``;
+
+const Td1 = styled.td`
+	display: flex;
+	width: 8vw;
+	height: 5vh;
+`;
+
+let Td = styled.td``;
+
+const DateCircle = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	background-color: #d38189;
+	border-radius: 50%;
+	width: 2.1em;
+	height: 2.1em;
+	margin: 1vw;
+	margin-left: 0.7vw;
+	margin-top: 0.9vw;
+`;
+
+const Date = styled.span`
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin: 1vw;
+	font-weight: 400;
+	font-size: 1.3em;
+`;
