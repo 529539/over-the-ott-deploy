@@ -1,69 +1,79 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
-import { CgClose } from "react-icons/cg";
-import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
-import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
-import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
+import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
+import NaverIcon from '../../static/naverIcon.png';
+import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 
 const LoginBox = () => {
-	const [newID, setNewID] = useState("");
-	const [newPW, setNewPW] = useState("");
+	const [newID, setNewID] = useState('');
+	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
-	const enterKey = (e) => {
-		if (e.keyCode === 13) {
+	const enterKey = e => {
+		if (e.keyCode == 13) {
 			InfoSubmit(e);
 		}
 	};
-	const InfoSubmit = (e) => {
+	const InfoSubmit = e => {
 		axios
-			.get("http://localhost:8888/login/")
-			.then((res) => {
+			.get('http://localhost:8888/login/')
+			.then(res => {
 				let users = res.data.user;
 				let success = 0;
 				for (let i = 0; i < users.length; i++) {
-					if (users[i].email === newID && users[i].pw === newPW) {
-						alert("로그인 성공");
-						//성공 시 페이지 이동 수정 필요
+					if (users[i].email == newID && users[i].pw == newPW) {
+						alert('로그인 성공');
 						success = 1;
 						break;
 					}
 				}
-				success ? navigate("/checklist") : alert("로그인 실패");
+				success ? navigate('/checklist') : alert('로그인 실패');
 			})
 			.then(() => {
-				setNewID("");
-				setNewPW("");
+				setNewID('');
+				setNewPW('');
 			});
 	};
+	// api 받고난 후 수정 버전 코드
+	// 로그인 실패시 모달창 생성 수정 필요
+	// const InfoSubmit = e => {
+	// 	axios.post('/acount/login/',{
+	// 		"email": newID,
+	// 		"password": newPW,
+	// 	}).then(res=> {
+	// 		let success = res.data.message
+	// 		(success.indexOf('성공') != -1) ? navigate('/checklist') : alert('로그인 실패');
+
+	// 	})}
 	return (
 		<BoxWrapper>
 			<LoginTop>
-				<Link to="/">
-					<CgClose className="closeIcon" size="25" />
+				<Link to='/'>
+					<DeleteIcon className='deleteIcon' />
 				</Link>
 				<p>Login</p>
 				<p>로그인 하기</p>
 			</LoginTop>
-			<div className="line1"></div>
+			<div className='line1'></div>
 			<LoginCenter>
 				<IdInput
 					value={newID}
-					placeholder="이메일"
-					onChange={(e) => setNewID(e.target.value)}
+					placeholder='이메일'
+					onChange={e => setNewID(e.target.value)}
 				/>
 				<PwInput
 					value={newPW}
-					type="password"
-					placeholder="비밀번호 (8자 이상, 특수문자 포함)"
-					onChange={(e) => setNewPW(e.target.value)}
+					type='password'
+					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+					onChange={e => setNewPW(e.target.value)}
 					onKeyUp={enterKey}
 				/>
 				<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
 
 				<FindLinks>
-					<Link to="/signup">
+					<Link to='/signup'>
 						<p>회원가입</p>
 					</Link>
 					<p>|</p>
@@ -78,11 +88,11 @@ const LoginBox = () => {
 				<div />
 			</CenterEndLine>
 			<LoginBottom>
-				<p style={{ textAlign: "center" }}>다음 계정으로 로그인하기</p>
+				<p>다음 계정으로 로그인하기</p>
 				<SNSIcons>
-					<GoogleIcon className="googleIcon" />
-					<NaverIcon className="naverIcon" />
-					<KakaoIcon className="kakaoIcon" />
+					<GoogleIcon className='googleIcon' />
+					<img src={NaverIcon} className='naverIcon' />
+					<KakaoIcon className='kakaoIcon' />
 				</SNSIcons>
 			</LoginBottom>
 		</BoxWrapper>
@@ -114,16 +124,17 @@ const LoginTop = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 	width: 9.85vw;
 	height: 6.75vh;
 	margin: 4.81vh 0 2.54vh 0;
-	.closeIcon {
+	.deleteIcon {
 		position: absolute;
 		top: 5.18vh;
 		right: 2.7vw;
 	}
 	p:nth-child(2) {
-		ffont-weight: 300;
+		font-weight: 300;
 		font-size: 0.78vw;
 		margin: 0;
 	}
@@ -139,6 +150,7 @@ const LoginCenter = styled.div`
 	margin-top: 4.8vh;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	input {
 		width: 19.05vw;
 		height: 4.72vh;
@@ -159,7 +171,6 @@ const PwInput = styled.input`
 	margin-bottom: 2.59vh;
 `;
 const LoginBtn = styled.button`
-	cursor: pointer;
 	width: 19.67vw;
 	height: 4.72vh;
 	margin-bottom: 2.77vh;
@@ -171,7 +182,7 @@ const LoginBtn = styled.button`
 	color: #ffffff;
 `;
 const FindLinks = styled.div`
-	width: 19.67vw;
+	width: 16.4vw;
 	height: 1.96vh;
 	display: flex;
 	justify-content: space-around;
@@ -201,13 +212,14 @@ const CenterEndLine = styled.div`
 	}
 `;
 const LoginBottom = styled.div`
-	width: 13.09vw;
+	width: 14.09vw;
 	height: 9.62vh;
+	margin-top: 1.8vh;
 	display: flex;
 	flex-direction: column;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 1.04vw;
+	font-size: 1.2vw;
 `;
 const SNSIcons = styled.div`
 	height: 4.72vh;
