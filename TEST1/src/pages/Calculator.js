@@ -13,10 +13,10 @@ const Calculator = () => {
 			<Background />
 			<Wrapper>
 				<IconWrapper>
-					<Link to="/calcultor">
+					<Link to="/calculator">
 						<CalculatorIcon />
 					</Link>
-					<Link to="/calcultor/data">
+					<Link to="/calculator/data">
 						<CalculatorDataIcon />
 					</Link>
 				</IconWrapper>
@@ -32,6 +32,15 @@ const Wrapper = styled.div`
 	height: auto;
 	margin: 0;
 	padding: 0;
+	position: relative;
 `;
 
-const IconWrapper = styled.div``;
+const IconWrapper = styled.div`
+	position: absolute;
+	margin-top: 20vh;
+	margin-left: 5vw;
+	z-index: 5;
+	background-color: black;
+	width: 4vw;
+	height: 30vh;
+`;
