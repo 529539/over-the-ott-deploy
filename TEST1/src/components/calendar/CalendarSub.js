@@ -5,10 +5,18 @@ import { ReactComponent as NetflixLogo } from "../../static/ott/Netflix.svg";
 import { ReactComponent as WatchaLogo } from "../../static/ott/Watcha.svg";
 import { ReactComponent as DisneyPlusLogo } from "../../static/ott/DisneyPlus.svg";
 import { ReactComponent as WavveLogo } from "../../static/ott/Wavve.svg";
+import { ReactComponent as AppleTVLogo } from "../../static/ott/AppleTV.svg";
+import { ReactComponent as PrimeVideoLogo } from "../../static/ott/PrimeVideo.svg";
 
 const CalendarSub = () => {
 	let today = moment().format("D");
+	let lastDayofMonth = Number(moment().endOf("month").format("DD"));
 	let subArray = [
+		{
+			name: "PrimeVideo",
+			color: "#11BBDF",
+			date: 5,
+		},
 		{
 			name: "Netflix",
 			color: "#D90B1C",
@@ -26,10 +34,27 @@ const CalendarSub = () => {
 		},
 		{
 			name: "Wavve",
-			color: "#0D8FFF",
+			color: "#1F4EF5",
+			date: 25,
+		},
+		{
+			name: "AppleTV",
+			color: "#77848C",
 			date: 29,
 		},
 	];
+	const ddayCal = (date) => {
+		let dday = date - today;
+		let nextDday = dday + lastDayofMonth;
+		if (date >= today) return dday;
+		else return nextDday;
+	};
+	for (let i = 0; i < subArray.length; i++) {
+		subArray[i].dday = ddayCal(subArray[i].date);
+	}
+	console.log(subArray);
+	let sortedSubArray = subArray.sort((a, b) => a.dday - b.dday);
+	console.log(sortedSubArray);
 	const ottImage = (name) => {
 		if (name === "Netflix")
 			return (
@@ -75,6 +100,29 @@ const CalendarSub = () => {
 					/>
 				</>
 			);
+		else if (name === "AppleTV")
+			return (
+				<>
+					<AppleTVLogo
+						style={{
+							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+						}}
+						size="30"
+					/>
+				</>
+			);
+		else if (name === "PrimeVideo")
+			return (
+				<>
+					<PrimeVideoLogo
+						style={{
+							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+						}}
+						size="30"
+					/>
+				</>
+			);
+		else console.error("Error: invalid OTT");
 	};
 	return (
 		<>
@@ -82,7 +130,7 @@ const CalendarSub = () => {
 				<Wrapper>
 					<SubTitle>구독 중인 OTT별 남은 결제일</SubTitle>
 					<LineWrapper>
-						{subArray.map((ott) => {
+						{sortedSubArray.map((ott) => {
 							return (
 								<>
 									<LineContainer key={ott.name}>
@@ -97,7 +145,7 @@ const CalendarSub = () => {
 														color: ott.color,
 													}}
 												>
-													{ott.date - today}일
+													{ott.dday}일
 												</Text>
 											</div>
 
@@ -129,7 +177,7 @@ const Wrapper = styled.div`
 
 const SubTitle = styled.div`
 	font-weight: 600;
-	font-size: 1.5em;
+	font-size: 1.4vw;
 	padding-bottom: 3vh;
 `;
 
@@ -151,5 +199,5 @@ const TextContainer = styled.div`
 
 const Text = styled.div`
 	font-weight: 400;
-	font-size: 1.3em;
+	font-size: 1vw;
 `;

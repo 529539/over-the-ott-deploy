@@ -3,17 +3,14 @@ import { ReactComponent as BackgroundImg } from '../static/backgroundImg.svg';
 
 const Background = () => {
 	return (
-		<Wrapper
-			style={{
-				width: '100vw',
-				height: '100vh',
-			}}
-		>
+		<Wrapper>
 			<BackgroundImg />
 		</Wrapper>
 	);
 };
 const Wrapper = styled.div`
+	width: 100vw;
+	height: 100vh;
 	overflow: hidden;
 	margin: 0;
 	position: absolute;

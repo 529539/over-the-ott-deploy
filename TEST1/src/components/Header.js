@@ -70,6 +70,7 @@ export default Header;
 
 const Container = styled.div`
 	position: fixed;
+	z-index: 100;
 	background-color: #fafafa;
 	left: 0px;
 	top: 0px;
