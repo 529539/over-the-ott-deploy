@@ -17,6 +17,8 @@ const Login = () => {
 	);
 };
 
+export default Login;
+
 const LoginWrapper = styled.div`
 	width: 100vw;
 	height: auto;
@@ -34,4 +36,3 @@ const LoginHeader = styled.div`
 		margin-left: 2.5vw;
 	}
 `;
-export default Login;
