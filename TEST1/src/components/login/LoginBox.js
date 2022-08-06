@@ -123,7 +123,7 @@ const LoginTop = styled.div`
 		right: 2.7vw;
 	}
 	p:nth-child(2) {
-		ffont-weight: 300;
+		font-weight: 300;
 		font-size: 0.78vw;
 		margin: 0;
 	}

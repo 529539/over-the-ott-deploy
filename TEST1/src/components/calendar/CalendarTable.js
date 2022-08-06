@@ -76,12 +76,12 @@ const CalendarTable = () => {
 		}
 		if (result.length === 5) {
 			TableBackground = styled.div`
-				background: rgba(255, 255, 255, 0.93);
+				background: rgba(255, 255, 255, 0.9);
 				box-shadow: 0px 3px 15px rgba(105, 105, 105, 0.15);
 				border-radius: 20px;
 				position: absolute;
 				z-index: -1;
-				margin-top: 5vh;
+				margin-top: 5.5vh;
 				width: 60vw;
 				height: 60vh;
 			`;
@@ -100,14 +100,14 @@ const CalendarTable = () => {
 		}
 		if (result.length === 6) {
 			TableBackground = styled.div`
-				background: rgba(255, 255, 255, 0.93);
+				background: rgba(255, 255, 255, 0.9);
 				box-shadow: 0px 3px 15px rgba(105, 105, 105, 0.15);
 				border-radius: 20px;
 				position: absolute;
 				z-index: -1;
-				margin-top: 5vh;
+				margin-top: 5.5vh;
 				width: 60vw;
-				height: 67vh;
+				height: 67.5vh;
 			`;
 			Td = styled.td`
 				position: relative;
@@ -198,7 +198,7 @@ const ControlBar = styled.div`
 `;
 
 const Year = styled.div`
-	font-size: 1em;
+	font-size: 0.9vw;
 	font-weight: 600;
 	display: flex;
 	justify-content: center;
@@ -214,7 +214,7 @@ const MonthWrapper = styled.div`
 
 const Month = styled.div`
 	font-weight: 600;
-	font-size: 1.8em;
+	font-size: 1.5vw;
 `;
 
 const MonthButtonWrapper = styled.div`
@@ -229,7 +229,7 @@ const MonthButtonWrapper = styled.div`
 `;
 
 const TableWrapper = styled.div`
-	padding-top: 4.3vh;
+	padding-top: 4.5vh;
 	position: relative;
 `;
 
@@ -238,7 +238,7 @@ let TableBackground = styled.div``;
 const Border = styled.div`
 	border: 3px solid #fff;
 	width: 57vw;
-	margin-top: 5.1vh;
+	margin-top: 5.7vh;
 	margin-left: 1.8vw;
 	position: absolute;
 	z-index: 1;
@@ -246,7 +246,7 @@ const Border = styled.div`
 
 const Day = styled.div`
 	font-weight: 500;
-	font-size: 1.3em;
+	font-size: 1.1vw;
 	width: 8.3vw;
 	text-align: center;
 `;
@@ -275,7 +275,7 @@ const Tr = styled.tr``;
 const Td1 = styled.td`
 	display: flex;
 	width: 8vw;
-	height: 5vh;
+	height: 5.7vh;
 `;
 
 let Td = styled.td``;
@@ -286,8 +286,8 @@ const DateCircle = styled.div`
 	align-items: flex-start;
 	background-color: #d38189;
 	border-radius: 50%;
-	width: 2.1em;
-	height: 2.1em;
+	width: 1.6vw;
+	height: 1.6vw;
 	margin: 1vw;
 	margin-left: 0.7vw;
 	margin-top: 0.9vw;
@@ -299,5 +299,5 @@ const Date = styled.span`
 	align-items: flex-start;
 	margin: 1vw;
 	font-weight: 400;
-	font-size: 1.3em;
+	font-size: 1vw;
 `;
