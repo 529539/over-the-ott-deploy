@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import Background from '../components/Background';
-import { ReactComponent as Logo } from '../static/loginLogo.svg';
-import LoginBox from '../components/login/LoginBox';
+import styled from "styled-components";
+import Background from "../components/Background";
+import { ReactComponent as Logo } from "../static/loginLogo.svg";
+import LoginBox from "../components/login/LoginBox";
 
 const Login = () => {
 	return (
@@ -9,13 +9,15 @@ const Login = () => {
 			<LoginWrapper>
 				<Background />
 				<LoginHeader>
-					<Logo className='logo' />
+					<Logo className="logo" />
 				</LoginHeader>
 				<LoginBox />
 			</LoginWrapper>
 		</>
 	);
 };
+
+export default Login;
 
 const LoginWrapper = styled.div`
 	width: 100vw;
@@ -34,5 +36,3 @@ const LoginHeader = styled.div`
 		margin-left: 2.5vw;
 	}
 `;
-
-export default Login;
