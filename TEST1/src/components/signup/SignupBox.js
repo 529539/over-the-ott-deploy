@@ -1,54 +1,55 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
-import { ReactComponent as DeleteIcon } from "../../static/xIcon.svg";
-import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
-import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
-import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
+import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
+import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
+import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
+import SignupModal from './SignupModal';
 
 const SignupBox = () => {
-	const [newID, setNewID] = useState("");
-	const [newPW, setNewPW] = useState("");
+	const [newID, setNewID] = useState('');
+	const [newPW, setNewPW] = useState('');
+	const [modal, setModal] = useState(false);
+	const [warning, setWarning] = useState('');
+
 	const navigate = useNavigate();
-	const enterKey = (e) => {
-		if (e.keyCode === 13) {
-			InfoSubmit(e);
+
+	// 유효성 검사용 정규표현식
+	const IDregExp =
+		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	const PWregExp = /^(?=.*\d)(?=.*[~!@#$%^&*()+|=])[\d~!@#$%^&*()+|=]{8,16}$/;
+
+	const SignupSubmit = e => {
+		var validID = IDregExp.test(newID);
+		var validPW = PWregExp.test(newPW);
+		if (validID && validPW) {
+			axios
+				.post('http://localhost:8888/user', {
+					email: newID,
+					password: newPW,
+				})
+				.then(() => {
+					setNewID('');
+					setNewPW('');
+				})
+				.then(() => {
+					navigate('/checklist');
+				});
+		} else {
+			setModal(true);
+			if (!validID) {
+				if (!validPW) {
+					setWarning('유효한 이메일과 비밀번호를 입력하세요');
+				} else setWarning('유효한 이메일을 입력하세요');
+			} else setWarning('유효한 비밀번호를 입력하세요');
 		}
 	};
-	const InfoSubmit = (e) => {
-		axios
-			.get("http://localhost:8888/login/")
-			.then((res) => {
-				let users = res.data.user;
-				let success = 0;
-				for (let i = 0; i < users.length; i++) {
-					if (users[i].email === newID && users[i].pw === newPW) {
-						alert("로그인 성공");
-						success = 1;
-						break;
-					}
-				}
-				success ? navigate("/checklist") : alert("로그인 실패");
-			})
-			.then(() => {
-				setNewID("");
-				setNewPW("");
-			});
-	};
 	// api 받고난 후 수정 버전 코드
-	// 로그인 실패시 모달창 생성 수정 필요
-	// const InfoSubmit = e => {
-	// 	axios.post('/acount/login/',{
-	// 		"email": newID,
-	// 		"password": newPW,
-	// 	}).then(res=> {
-	// 		let success = res.data.message
-	// 		(success.indexOf('성공') != -1) ? navigate('/checklist') : alert('로그인 실패');
-
-	// 	})}
 	return (
 		<BoxWrapper>
+			{modal === true ? <SignupModal {...warning} /> : null}
 			<SignupTop>
 				<Link to="/">
 					<DeleteIcon className="deleteIcon" />
@@ -64,17 +65,18 @@ const SignupBox = () => {
 			<SignupCenter>
 				<IdInput
 					value={newID}
-					placeholder="이메일"
-					onChange={(e) => setNewID(e.target.value)}
+					placeholder='이메일'
+					onChange={e => setNewID(e.target.value)}
+					// onBlur={checkEmail}
 				/>
 				<PwInput
 					value={newPW}
-					type="password"
-					placeholder="비밀번호 (8자 이상, 특수문자 포함)"
-					onChange={(e) => setNewPW(e.target.value)}
-					onKeyUp={enterKey}
+					type='password'
+					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+					onChange={e => setNewPW(e.target.value)}
+					// onBlur={checkPassword}
 				/>
-				<SignupBtn onClick={InfoSubmit}>계정 만들기</SignupBtn>
+				<SignupBtn onClick={SignupSubmit}>계정 만들기</SignupBtn>
 			</SignupCenter>
 			<CenterEndLine>
 				<div />
