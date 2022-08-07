@@ -51,17 +51,17 @@ const SignupBox = () => {
 		<BoxWrapper>
 			{modal === true ? <SignupModal {...warning} /> : null}
 			<SignupTop>
-				<Link to='/'>
-					<DeleteIcon className='deleteIcon' />
+				<Link to="/">
+					<DeleteIcon className="deleteIcon" />
 				</Link>
 				<p>Create an account</p>
 				<p>회원가입하기</p>
 				<GoLogin>
 					<p>이미 계정이 있으신가요?</p>
-					<Link to='/login'>로그인하기</Link>
+					<Link to="/login">로그인하기</Link>
 				</GoLogin>
 			</SignupTop>
-			<div className='line1'></div>
+			<div className="line1"></div>
 			<SignupCenter>
 				<IdInput
 					value={newID}
@@ -86,9 +86,9 @@ const SignupBox = () => {
 			<SignupBottom>
 				<p>다음 계정으로 가입하기</p>
 				<SNSIcons>
-					<GoogleIcon className='googleIcon' />
-					<NaverIcon className='naverIcon' />
-					<KakaoIcon className='kakaoIcon' />
+					<GoogleIcon className="googleIcon" />
+					<NaverIcon className="naverIcon" />
+					<KakaoIcon className="kakaoIcon" />
 				</SNSIcons>
 			</SignupBottom>
 		</BoxWrapper>
