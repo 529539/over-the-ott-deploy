@@ -1,39 +1,39 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
-import { ReactComponent as DeleteIcon } from "../../static/xIcon.svg";
-import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
-import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
-import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
+import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
+import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
+import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 
 const LoginBox = () => {
-	const [newID, setNewID] = useState("");
-	const [newPW, setNewPW] = useState("");
+	const [newID, setNewID] = useState('');
+	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
-	const enterKey = (e) => {
+	const enterKey = e => {
 		if (e.keyCode === 13) {
 			InfoSubmit(e);
 		}
 	};
-	const InfoSubmit = (e) => {
+	const InfoSubmit = e => {
 		axios
-			.get("http://localhost:8888/login/")
-			.then((res) => {
-				let users = res.data.user;
+			.get('http://localhost:8888/user')
+			.then(res => {
+				let users = res.data;
 				let success = 0;
 				for (let i = 0; i < users.length; i++) {
-					if (users[i].email === newID && users[i].pw === newPW) {
-						alert("로그인 성공");
+					if (users[i].email === newID && users[i].password === newPW) {
+						alert('로그인 성공');
 						success = 1;
 						break;
 					}
 				}
-				success ? navigate("/checklist") : alert("로그인 실패");
+				success ? navigate('/checklist') : alert('로그인 실패');
 			})
 			.then(() => {
-				setNewID("");
-				setNewPW("");
+				setNewID('');
+				setNewPW('');
 			});
 	};
 	// api 받고난 후 수정 버전 코드
@@ -50,30 +50,30 @@ const LoginBox = () => {
 	return (
 		<BoxWrapper>
 			<LoginTop>
-				<Link to="/">
-					<DeleteIcon className="deleteIcon" />
+				<Link to='/'>
+					<DeleteIcon className='deleteIcon' />
 				</Link>
 				<p>Login</p>
 				<p>로그인 하기</p>
 			</LoginTop>
-			<div className="line1"></div>
+			<div className='line1'></div>
 			<LoginCenter>
 				<IdInput
 					value={newID}
-					placeholder="이메일"
-					onChange={(e) => setNewID(e.target.value)}
+					placeholder='이메일'
+					onChange={e => setNewID(e.target.value)}
 				/>
 				<PwInput
 					value={newPW}
-					type="password"
-					placeholder="비밀번호 (8자 이상, 특수문자 포함)"
-					onChange={(e) => setNewPW(e.target.value)}
+					type='password'
+					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+					onChange={e => setNewPW(e.target.value)}
 					onKeyUp={enterKey}
 				/>
 				<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
 
 				<FindLinks>
-					<Link to="/signup">
+					<Link to='/signup'>
 						<p>회원가입</p>
 					</Link>
 					<p>|</p>
@@ -90,9 +90,9 @@ const LoginBox = () => {
 			<LoginBottom>
 				<p>다음 계정으로 로그인하기</p>
 				<SNSIcons>
-					<GoogleIcon className="googleIcon" />
-					<NaverIcon className="naverIcon" />
-					<KakaoIcon className="kakaoIcon" />
+					<GoogleIcon className='googleIcon' />
+					<NaverIcon className='naverIcon' />
+					<KakaoIcon className='kakaoIcon' />
 				</SNSIcons>
 			</LoginBottom>
 		</BoxWrapper>
