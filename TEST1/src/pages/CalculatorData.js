@@ -30,33 +30,43 @@ const CalculatorData = () => {
 									</InnerContainer>
 								</div>
 
-								<div>
-									<Link to="/calculator" style={{ textDecoration: "none" }}>
-										<Button>
-											<CalculatorIcon />
-											<ButtonText>계산기로 돌아가기</ButtonText>
-										</Button>
-									</Link>
-									<ControlBar>
-										<Year>{today.format("YYYY")}</Year>
-										<MonthWrapper>
-											<MonthButtonWrapper
-												onClick={() => {
-													setMoment(getMoment.clone().subtract(1, "month"));
-												}}
-											>
-												<FiChevronLeft size="30" />
-											</MonthButtonWrapper>
-											<Month>{today.format("M월")}</Month>
-											<MonthButtonWrapper
-												onClick={() => {
-													setMoment(getMoment.clone().add(1, "month"));
-												}}
-											>
-												<FiChevronRight size="30" />
-											</MonthButtonWrapper>
-										</MonthWrapper>
-									</ControlBar>
+								<Link to="/calculator" style={{ textDecoration: "none" }}>
+									<Button>
+										<CalculatorIcon />
+										<ButtonText>계산기로 돌아가기</ButtonText>
+									</Button>
+								</Link>
+								<div
+									style={{ position: "absolute", bottom: "5vh", width: "70vw" }}
+								>
+									<div
+										style={{
+											position: "relative",
+											display: "flex",
+											justifyContent: "center",
+										}}
+									>
+										<ControlBar>
+											<Year>{today.format("YYYY")}</Year>
+											<MonthWrapper>
+												<MonthButtonWrapper
+													onClick={() => {
+														setMoment(getMoment.clone().subtract(1, "month"));
+													}}
+												>
+													<FiChevronLeft size="30" />
+												</MonthButtonWrapper>
+												<Month>{today.format("M월")}</Month>
+												<MonthButtonWrapper
+													onClick={() => {
+														setMoment(getMoment.clone().add(1, "month"));
+													}}
+												>
+													<FiChevronRight size="30" />
+												</MonthButtonWrapper>
+											</MonthWrapper>
+										</ControlBar>
+									</div>
 								</div>
 							</div>
 						</Container>
@@ -151,8 +161,7 @@ const ButtonText = styled.div`
 const ControlBar = styled.div`
 	width: 10em;
 	line-height: 4vh;
-	position: relative;
-	margin: 0 auto;
+	border: 10vh;
 `;
 
 const Year = styled.div`
