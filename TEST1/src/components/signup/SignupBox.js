@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styled from 'styled-components';
-import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
-import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
-import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
-import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
-import SignupModal from './SignupModal';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { ReactComponent as DeleteIcon } from "../../static/xIcon.svg";
+import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
+import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
+import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
+import SignupModal from "./SignupModal";
 
 const SignupBox = () => {
-	const [newID, setNewID] = useState('');
-	const [newPW, setNewPW] = useState('');
+	const [newID, setNewID] = useState("");
+	const [newPW, setNewPW] = useState("");
 	const [modal, setModal] = useState(false);
-	const [warning, setWarning] = useState('');
+	const [warning, setWarning] = useState("");
 	const [BtnActive, setBtnActive] = useState(false);
 
 	const navigate = useNavigate();
@@ -31,69 +31,68 @@ const SignupBox = () => {
 		else setBtnActive(false);
 	};
 	//엔터로 입력받는 함수
-	const enterInput = e => {
+	const enterInput = (e) => {
 		if (e.keyCode === 13) {
 			SignupSubmit(e);
 		}
 	};
 	//회원가입 후 정보 전달하는 함수
-	const SignupSubmit = e => {
+	const SignupSubmit = (e) => {
 		if (validID && validPW) {
 			setBtnActive(true);
 			axios
-				.post('http://localhost:8888/user', {
+				.post("http://localhost:8888/user", {
 					email: newID,
 					password: newPW,
 				})
 				.then(() => {
-					navigate('/checklist');
+					navigate("/checklist");
 				});
 		} else {
 			if (!validID) {
 				if (!validPW) {
-					setWarning('유효한 이메일과 비밀번호를 입력하세요');
-				} else setWarning('유효한 이메일을 입력하세요');
-			} else setWarning('유효한 비밀번호를 입력하세요');
+					setWarning("유효한 이메일과 비밀번호를 입력하세요");
+				} else setWarning("유효한 이메일을 입력하세요");
+			} else setWarning("유효한 비밀번호를 입력하세요");
 			setModal(true);
 		}
-		setNewID('');
-		setNewPW('');
+		setNewID("");
+		setNewPW("");
 	};
 
 	return (
-<<<<<<< HEAD
 		<Wrapper>
 			{modal ? <SignupModal warning={warning} setModal={setModal} /> : null}
 			<Container>
 				<SignupTop>
-					<Link to='/'>
-						<DeleteIcon className='deleteIcon' />
+					<Link to="/">
+						<DeleteIcon className="deleteIcon" />
 					</Link>
 					<p>Create an account</p>
 					<p>회원가입하기</p>
 					<GoLogin>
 						<p>이미 계정이 있으신가요?</p>
-						<Link to='/login'>로그인하기</Link>
+						<Link to="/login">로그인하기</Link>
 					</GoLogin>
 				</SignupTop>
-				<div className='line1'></div>
+				<div className="line1"></div>
 				<SignupCenter>
 					<IdInput
 						value={newID}
-						placeholder='이메일'
-						onChange={e => setNewID(e.target.value)}
+						placeholder="이메일"
+						onChange={(e) => setNewID(e.target.value)}
 						onKeyUp={ChangeBtn}
 					/>
 					<PwInput
 						value={newPW}
-						placeholder='비밀번호 (8자 이상, 특수문자 포함)'
-						onChange={e => setNewPW(e.target.value)}
+						placeholder="비밀번호 (8자 이상, 특수문자 포함)"
+						onChange={(e) => setNewPW(e.target.value)}
 						onKeyUp={ChangeBtn}
 						onKeyDown={enterInput}
 					/>
 					<SignupBtn
 						onClick={SignupSubmit}
-						className={BtnActive ? ' active' : ''}
+						className={BtnActive ? " active" : ""}
 					>
 						계정 만들기
 					</SignupBtn>
@@ -106,59 +105,13 @@ const SignupBox = () => {
 				<SignupBottom>
 					<p>다음 계정으로 가입하기</p>
 					<SNSIcons>
-						<GoogleIcon className='googleIcon' />
-						<NaverIcon className='naverIcon' />
-						<KakaoIcon className='kakaoIcon' />
+						<GoogleIcon className="googleIcon" />
+						<NaverIcon className="naverIcon" />
+						<KakaoIcon className="kakaoIcon" />
 					</SNSIcons>
 				</SignupBottom>
 			</Container>
 		</Wrapper>
-=======
-		<BoxWrapper>
-			{modal === true ? <SignupModal {...warning} /> : null}
-			<SignupTop>
-				<Link to="/">
-					<DeleteIcon className="deleteIcon" />
-				</Link>
-				<p>Create an account</p>
-				<p>회원가입하기</p>
-				<GoLogin>
-					<p>이미 계정이 있으신가요?</p>
-					<Link to="/login">로그인하기</Link>
-				</GoLogin>
-			</SignupTop>
-			<div className="line1"></div>
-			<SignupCenter>
-				<IdInput
-					value={newID}
-					placeholder='이메일'
-					onChange={e => setNewID(e.target.value)}
-					// onBlur={checkEmail}
-				/>
-				<PwInput
-					value={newPW}
-					type='password'
-					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
-					onChange={e => setNewPW(e.target.value)}
-					// onBlur={checkPassword}
-				/>
-				<SignupBtn onClick={SignupSubmit}>계정 만들기</SignupBtn>
-			</SignupCenter>
-			<CenterEndLine>
-				<div />
-				<p>OR</p>
-				<div />
-			</CenterEndLine>
-			<SignupBottom>
-				<p>다음 계정으로 가입하기</p>
-				<SNSIcons>
-					<GoogleIcon className="googleIcon" />
-					<NaverIcon className="naverIcon" />
-					<KakaoIcon className="kakaoIcon" />
-				</SNSIcons>
-			</SignupBottom>
-		</BoxWrapper>
->>>>>>> c6544f754f42f17977f8a66b52218a7dcb6c28dc
 	);
 };
 const Wrapper = styled.div`
