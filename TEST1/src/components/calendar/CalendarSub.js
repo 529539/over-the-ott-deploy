@@ -14,7 +14,7 @@ const CalendarSub = () => {
 	let subArray = [
 		{
 			name: "PrimeVideo",
-			color: "#11BBDF",
+			color: "#10BBE0",
 			date: 5,
 		},
 		{

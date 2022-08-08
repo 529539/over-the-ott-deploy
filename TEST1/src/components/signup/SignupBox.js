@@ -61,6 +61,7 @@ const SignupBox = () => {
 	};
 
 	return (
+<<<<<<< HEAD
 		<Wrapper>
 			{modal ? <SignupModal warning={warning} setModal={setModal} /> : null}
 			<Container>
@@ -112,6 +113,52 @@ const SignupBox = () => {
 				</SignupBottom>
 			</Container>
 		</Wrapper>
+=======
+		<BoxWrapper>
+			{modal === true ? <SignupModal {...warning} /> : null}
+			<SignupTop>
+				<Link to="/">
+					<DeleteIcon className="deleteIcon" />
+				</Link>
+				<p>Create an account</p>
+				<p>회원가입하기</p>
+				<GoLogin>
+					<p>이미 계정이 있으신가요?</p>
+					<Link to="/login">로그인하기</Link>
+				</GoLogin>
+			</SignupTop>
+			<div className="line1"></div>
+			<SignupCenter>
+				<IdInput
+					value={newID}
+					placeholder='이메일'
+					onChange={e => setNewID(e.target.value)}
+					// onBlur={checkEmail}
+				/>
+				<PwInput
+					value={newPW}
+					type='password'
+					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+					onChange={e => setNewPW(e.target.value)}
+					// onBlur={checkPassword}
+				/>
+				<SignupBtn onClick={SignupSubmit}>계정 만들기</SignupBtn>
+			</SignupCenter>
+			<CenterEndLine>
+				<div />
+				<p>OR</p>
+				<div />
+			</CenterEndLine>
+			<SignupBottom>
+				<p>다음 계정으로 가입하기</p>
+				<SNSIcons>
+					<GoogleIcon className="googleIcon" />
+					<NaverIcon className="naverIcon" />
+					<KakaoIcon className="kakaoIcon" />
+				</SNSIcons>
+			</SignupBottom>
+		</BoxWrapper>
+>>>>>>> c6544f754f42f17977f8a66b52218a7dcb6c28dc
 	);
 };
 const Wrapper = styled.div`
