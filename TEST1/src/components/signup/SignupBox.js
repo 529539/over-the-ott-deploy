@@ -13,6 +13,7 @@ const SignupBox = () => {
 	const [newPW, setNewPW] = useState('');
 	const [modal, setModal] = useState(false);
 	const [warning, setWarning] = useState('');
+	const [BtnActive, setBtnActive] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -21,33 +22,98 @@ const SignupBox = () => {
 		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	const PWregExp = /^(?=.*\d)(?=.*[~!@#$%^&*()+|=])[\d~!@#$%^&*()+|=]{8,16}$/;
 
+	var validID = IDregExp.test(newID);
+	var validPW = PWregExp.test(newPW);
+
+	//유효성 검사 후 버튼 색 변경함수
+	const ChangeBtn = () => {
+		if (validID && validPW) setBtnActive(true);
+		else setBtnActive(false);
+	};
+	//엔터로 입력받는 함수
+	const enterInput = e => {
+		if (e.keyCode === 13) {
+			SignupSubmit(e);
+		}
+	};
+	//회원가입 후 정보 전달하는 함수
 	const SignupSubmit = e => {
-		var validID = IDregExp.test(newID);
-		var validPW = PWregExp.test(newPW);
 		if (validID && validPW) {
+			setBtnActive(true);
 			axios
 				.post('http://localhost:8888/user', {
 					email: newID,
 					password: newPW,
 				})
 				.then(() => {
-					setNewID('');
-					setNewPW('');
-				})
-				.then(() => {
 					navigate('/checklist');
 				});
 		} else {
-			setModal(true);
 			if (!validID) {
 				if (!validPW) {
 					setWarning('유효한 이메일과 비밀번호를 입력하세요');
 				} else setWarning('유효한 이메일을 입력하세요');
 			} else setWarning('유효한 비밀번호를 입력하세요');
+			setModal(true);
 		}
+		setNewID('');
+		setNewPW('');
 	};
-	// api 받고난 후 수정 버전 코드
+
 	return (
+<<<<<<< HEAD
+		<Wrapper>
+			{modal ? <SignupModal warning={warning} setModal={setModal} /> : null}
+			<Container>
+				<SignupTop>
+					<Link to='/'>
+						<DeleteIcon className='deleteIcon' />
+					</Link>
+					<p>Create an account</p>
+					<p>회원가입하기</p>
+					<GoLogin>
+						<p>이미 계정이 있으신가요?</p>
+						<Link to='/login'>로그인하기</Link>
+					</GoLogin>
+				</SignupTop>
+				<div className='line1'></div>
+				<SignupCenter>
+					<IdInput
+						value={newID}
+						placeholder='이메일'
+						onChange={e => setNewID(e.target.value)}
+						onKeyUp={ChangeBtn}
+					/>
+					<PwInput
+						value={newPW}
+						placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+						onChange={e => setNewPW(e.target.value)}
+						onKeyUp={ChangeBtn}
+						onKeyDown={enterInput}
+					/>
+					<SignupBtn
+						onClick={SignupSubmit}
+						className={BtnActive ? ' active' : ''}
+					>
+						계정 만들기
+					</SignupBtn>
+				</SignupCenter>
+				<CenterEndLine>
+					<div />
+					<p>OR</p>
+					<div />
+				</CenterEndLine>
+				<SignupBottom>
+					<p>다음 계정으로 가입하기</p>
+					<SNSIcons>
+						<GoogleIcon className='googleIcon' />
+						<NaverIcon className='naverIcon' />
+						<KakaoIcon className='kakaoIcon' />
+					</SNSIcons>
+				</SignupBottom>
+			</Container>
+		</Wrapper>
+=======
 		<BoxWrapper>
 			{modal === true ? <SignupModal {...warning} /> : null}
 			<SignupTop>
@@ -92,10 +158,14 @@ const SignupBox = () => {
 				</SNSIcons>
 			</SignupBottom>
 		</BoxWrapper>
+>>>>>>> c6544f754f42f17977f8a66b52218a7dcb6c28dc
 	);
 };
-
-const BoxWrapper = styled.div`
+const Wrapper = styled.div`
+	width: 100vw;
+	height: 100vh;
+`;
+const Container = styled.div`
 	width: 52.39vw;
 	height: 65.09vh;
 	position: absolute;
@@ -178,6 +248,7 @@ const PwInput = styled.input`
 	margin-bottom: 2.59vh;
 `;
 const SignupBtn = styled.button`
+	cursor: pointer;
 	width: 19.67vw;
 	height: 4.72vh;
 	margin-bottom: 2.77vh;
@@ -187,6 +258,9 @@ const SignupBtn = styled.button`
 	font-weight: 400;
 	font-size: 0.93vw; //18px;;
 	color: #ffffff;
+	&.active {
+		background-color: #d38189;
+	}
 `;
 
 const CenterEndLine = styled.div`

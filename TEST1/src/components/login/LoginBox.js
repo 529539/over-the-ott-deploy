@@ -171,6 +171,7 @@ const PwInput = styled.input`
 	margin-bottom: 2.59vh;
 `;
 const LoginBtn = styled.button`
+	cursor: pointer;
 	width: 19.67vw;
 	height: 4.72vh;
 	margin-bottom: 2.77vh;
