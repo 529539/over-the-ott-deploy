@@ -29,6 +29,17 @@ const ModalWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	z-index: 5;
+	animation: modal-show 0.5s;
+	@keyframes modal-show {
+		from {
+			opacity: 0;
+			margin-top: -10px;
+		}
+		to {
+			opacity: 1;
+			margin-top: 0;
+		}
+	}
 `;
 const BoxWrapper = styled.div`
 	position: absolute;
