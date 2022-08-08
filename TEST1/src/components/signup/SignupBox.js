@@ -46,14 +46,14 @@ const SignupBox = () => {
 					password: newPW,
 				})
 				.then(() => {
-					navigate('/signup/setting');
+					navigate('/checklist');
 				});
 		} else {
 			if (!validID) {
 				if (!validPW) {
-					setWarning('유효한 이메일과 비밀번호를 입력해주세요.');
-				} else setWarning('유효한 이메일을 입력해주세요.');
-			} else setWarning('유효한 비밀번호를 입력해주세요.');
+					setWarning('유효한 이메일과 비밀번호를 입력하세요');
+				} else setWarning('유효한 이메일을 입력하세요');
+			} else setWarning('유효한 비밀번호를 입력하세요');
 			setModal(true);
 		}
 		setNewID('');

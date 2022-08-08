@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { ReactComponent as NetflixLogo } from '../../static/ott/Netflix.svg';
-import { ReactComponent as WatchaLogo } from '../../static/ott/Watcha.svg';
-import { ReactComponent as DisneyPlusLogo } from '../../static/ott/DisneyPlus.svg';
-import { ReactComponent as WavveLogo } from '../../static/ott/Wavve.svg';
-import { ReactComponent as AppleTVLogo } from '../../static/ott/AppleTV.svg';
-import { ReactComponent as PrimeVideoLogo } from '../../static/ott/PrimeVideo.svg';
+import { ReactComponent as NetflixLogo } from '../../static/OTTcircle/Netflix.svg';
+import { ReactComponent as WatchaLogo } from '../../static/OTTcircle/Watcha.svg';
+import { ReactComponent as DisneyPlusLogo } from '../../static/OTTcircle/DisneyPlus.svg';
+import { ReactComponent as WavveLogo } from '../../static/OTTcircle/Wavve.svg';
+import { ReactComponent as AppleTVLogo } from '../../static/OTTcircle/AppleTV.svg';
+import { ReactComponent as PrimeVideoLogo } from '../../static/OTTcircle/PrimeVideo.svg';
 
 const CalendarSub = () => {
 	let today = moment().format('D');
