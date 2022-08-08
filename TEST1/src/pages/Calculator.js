@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../components/Header";
-import Background from "../components/Background";
-import { ReactComponent as NetflixRect } from "../static/OTTrect/NetflixRect.svg";
-import { ReactComponent as WatchaRect } from "../static/OTTrect/WatchaRect.svg";
-import { ReactComponent as WavveRect } from "../static/OTTrect/WavveRect.svg";
-import { ReactComponent as DisneyPlusRect } from "../static/OTTrect/DisneyPlusRect.svg";
-import { ReactComponent as AppleTVRect } from "../static/OTTrect/AppleTVRect.svg";
-import { ReactComponent as PrimeVideoRect } from "../static/OTTrect/PrimeVideoRect.svg";
-import { ReactComponent as DisableRect } from "../static/OTTrect/disableRect.svg";
-import { ReactComponent as CalculatorDataIcon } from "../static/CalculatorDataIcon.svg";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import Background from '../components/Background';
+import { ReactComponent as NetflixRect } from '../static/OTTrect/NetflixRect.svg';
+import { ReactComponent as WatchaRect } from '../static/OTTrect/WatchaRect.svg';
+import { ReactComponent as WavveRect } from '../static/OTTrect/WavveRect.svg';
+import { ReactComponent as DisneyPlusRect } from '../static/OTTrect/DisneyPlusRect.svg';
+import { ReactComponent as AppleTVRect } from '../static/OTTrect/AppleTVRect.svg';
+import { ReactComponent as PrimeVideoRect } from '../static/OTTrect/PrimeVideoRect.svg';
+import { ReactComponent as DisableRect } from '../static/OTTrect/disableRect.svg';
+import { ReactComponent as CalculatorDataIcon } from '../static/CalculatorDataIcon.svg';
 
 const Calculator = () => {
 	let ottArray = [
 		{
-			name: "Netflix",
+			name: 'Netflix',
 			price: 1,
 		},
 		{
-			name: "Watcha",
+			name: 'Watcha',
 			price: 2,
 		},
 		{
-			name: "Wavve",
+			name: 'Wavve',
 			price: 3,
 		},
 		{
-			name: "DisneyPlus",
+			name: 'DisneyPlus',
 			price: 4,
 		},
 
 		{
-			name: "AppleTV",
+			name: 'AppleTV',
 			price: 5,
 		},
 		{
-			name: "PrimeVideo",
+			name: 'PrimeVideo',
 			price: 6,
 		},
 	];
@@ -111,15 +111,15 @@ const Calculator = () => {
 		setIs6Clicked(false);
 	}, []);
 
-	const [selectedOTT, setSelectedOTT] = useState("");
+	const [selectedOTT, setSelectedOTT] = useState('');
 	useEffect(() => {
-		setSelectedOTT("");
-		if (is1Clicked === true) setSelectedOTT("Netflix");
-		if (is2Clicked === true) setSelectedOTT("Watcha");
-		if (is3Clicked === true) setSelectedOTT("Wavve");
-		if (is4Clicked === true) setSelectedOTT("DisneyPlus");
-		if (is5Clicked === true) setSelectedOTT("AppleTV");
-		if (is6Clicked === true) setSelectedOTT("PrimeVideo");
+		setSelectedOTT('');
+		if (is1Clicked === true) setSelectedOTT('Netflix');
+		if (is2Clicked === true) setSelectedOTT('Watcha');
+		if (is3Clicked === true) setSelectedOTT('Wavve');
+		if (is4Clicked === true) setSelectedOTT('DisneyPlus');
+		if (is5Clicked === true) setSelectedOTT('AppleTV');
+		if (is6Clicked === true) setSelectedOTT('PrimeVideo');
 		printNumber();
 	});
 
@@ -138,103 +138,103 @@ const Calculator = () => {
 			<Background />
 			<Wrapper>
 				<NotHeaderArea>
-					<div className="inner">
+					<div className='inner'>
 						<Container>
-							<div style={{ padding: "5vh 4vw 5vh 4vw" }}>
+							<div style={{ padding: '5vh 4vw 5vh 4vw' }}>
 								<Title>계산하고자 하는 OTT 서비스</Title>
-								<div style={{ display: "flex" }}>
+								<div style={{ display: 'flex' }}>
 									<DisableWrapper>
 										<DisableRect
-											className="dis1"
+											className='dis1'
 											onClick={setStyle1}
-											style={{ display: is1Clicked ? "none" : "block" }}
+											style={{ display: is1Clicked ? 'none' : 'block' }}
 										/>
 										<DisableRect
-											className="dis2"
+											className='dis2'
 											onClick={setStyle2}
-											style={{ display: is2Clicked ? "none" : "block" }}
+											style={{ display: is2Clicked ? 'none' : 'block' }}
 										/>
 										<DisableRect
-											className="dis3"
+											className='dis3'
 											onClick={setStyle3}
-											style={{ display: is3Clicked ? "none" : "block" }}
+											style={{ display: is3Clicked ? 'none' : 'block' }}
 										/>
 										<DisableRect
-											className="dis4"
+											className='dis4'
 											onClick={setStyle4}
-											style={{ display: is4Clicked ? "none" : "block" }}
+											style={{ display: is4Clicked ? 'none' : 'block' }}
 										/>
 										<DisableRect
-											className="dis5"
+											className='dis5'
 											onClick={setStyle5}
-											style={{ display: is5Clicked ? "none" : "block" }}
+											style={{ display: is5Clicked ? 'none' : 'block' }}
 										/>
 										<DisableRect
-											className="dis6"
+											className='dis6'
 											onClick={setStyle6}
-											style={{ display: is6Clicked ? "none" : "block" }}
+											style={{ display: is6Clicked ? 'none' : 'block' }}
 										/>
 									</DisableWrapper>
 								</div>
 								<OTTWrapper>
 									<NetflixRect
-										className="ottrect1"
+										className='ottrect1'
 										style={{
-											border: is1Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is1Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is1Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 									<WatchaRect
-										className="ottrect2"
+										className='ottrect2'
 										style={{
-											border: is2Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is2Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is2Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 									<WavveRect
-										className="ottrect3"
+										className='ottrect3'
 										style={{
-											border: is3Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is3Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is3Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 									<DisneyPlusRect
-										className="ottrect4"
+										className='ottrect4'
 										style={{
-											border: is4Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is4Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is4Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 									<AppleTVRect
-										className="ottrect5"
+										className='ottrect5'
 										style={{
-											border: is5Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is5Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is5Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 									<PrimeVideoRect
-										className="ottrect6"
+										className='ottrect6'
 										style={{
-											border: is6Clicked ? "1px solid #FFFFFF" : "0px",
+											border: is6Clicked ? '1px solid #FFFFFF' : '0px',
 											boxShadow: is6Clicked
-												? "0px 0px 1.8vw 0.5vw #FFF"
-												: "0px 0px 0px 0px #FFF",
-											borderRadius: "1.7vw",
+												? '0px 0px 1.8vw 0.5vw #FFF'
+												: '0px 0px 0px 0px #FFF',
+											borderRadius: '1.7vw',
 										}}
 									/>
 								</OTTWrapper>
@@ -247,7 +247,7 @@ const Calculator = () => {
 									<LargeText>원</LargeText>
 									<SmallText>/ 1분</SmallText>
 								</TexWrapper>
-								<Link to="/calculator/data" style={{ textDecoration: "none" }}>
+								<Link to='/calculator/data' style={{ textDecoration: 'none' }}>
 									<Button>
 										<CalculatorDataIcon />
 										<ButtonText>통계 보러가기</ButtonText>

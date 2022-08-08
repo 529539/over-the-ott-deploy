@@ -1,49 +1,49 @@
-import React from "react";
-import styled from "styled-components";
-import moment from "moment";
-import { ReactComponent as NetflixLogo } from "../../static/OTTcircle/Netflix.svg";
-import { ReactComponent as WatchaLogo } from "../../static/OTTcircle/Watcha.svg";
-import { ReactComponent as DisneyPlusLogo } from "../../static/OTTcircle/DisneyPlus.svg";
-import { ReactComponent as WavveLogo } from "../../static/OTTcircle/Wavve.svg";
-import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.svg";
-import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
+import React from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import { ReactComponent as NetflixLogo } from '../../static/OTTcircle/Netflix.svg';
+import { ReactComponent as WatchaLogo } from '../../static/OTTcircle/Watcha.svg';
+import { ReactComponent as DisneyPlusLogo } from '../../static/OTTcircle/DisneyPlus.svg';
+import { ReactComponent as WavveLogo } from '../../static/OTTcircle/Wavve.svg';
+import { ReactComponent as AppleTVLogo } from '../../static/OTTcircle/AppleTV.svg';
+import { ReactComponent as PrimeVideoLogo } from '../../static/OTTcircle/PrimeVideo.svg';
 
 const CalendarSub = () => {
-	let today = moment().format("D");
-	let lastDayofMonth = Number(moment().endOf("month").format("DD"));
+	let today = moment().format('D');
+	let lastDayofMonth = Number(moment().endOf('month').format('DD'));
 	let subArray = [
 		{
-			name: "PrimeVideo",
-			color: "#10BBE0",
+			name: 'PrimeVideo',
+			color: '#10BBE0',
 			date: 5,
 		},
 		{
-			name: "Netflix",
-			color: "#D90B1C",
+			name: 'Netflix',
+			color: '#D90B1C',
 			date: 10,
 		},
 		{
-			name: "Watcha",
-			color: "#FF0558",
+			name: 'Watcha',
+			color: '#FF0558',
 			date: 16,
 		},
 		{
-			name: "DisneyPlus",
-			color: "#192F72",
+			name: 'DisneyPlus',
+			color: '#192F72',
 			date: 20,
 		},
 		{
-			name: "Wavve",
-			color: "#1F4EF5",
+			name: 'Wavve',
+			color: '#1F4EF5',
 			date: 25,
 		},
 		{
-			name: "AppleTV",
-			color: "#77848C",
+			name: 'AppleTV',
+			color: '#77848C',
 			date: 29,
 		},
 	];
-	const ddayCal = (date) => {
+	const ddayCal = date => {
 		let dday = date - today;
 		let nextDday = dday + lastDayofMonth;
 		if (date >= today) return dday;
@@ -55,74 +55,74 @@ const CalendarSub = () => {
 	console.log(subArray);
 	let sortedSubArray = subArray.sort((a, b) => a.dday - b.dday);
 	console.log(sortedSubArray);
-	const ottImage = (name) => {
-		if (name === "Netflix")
+	const ottImage = name => {
+		if (name === 'Netflix')
 			return (
 				<>
 					<NetflixLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else if (name === "Watcha")
+		else if (name === 'Watcha')
 			return (
 				<>
 					<WatchaLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else if (name === "Wavve")
+		else if (name === 'Wavve')
 			return (
 				<>
 					<WavveLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else if (name === "DisneyPlus")
+		else if (name === 'DisneyPlus')
 			return (
 				<>
 					<DisneyPlusLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else if (name === "AppleTV")
+		else if (name === 'AppleTV')
 			return (
 				<>
 					<AppleTVLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else if (name === "PrimeVideo")
+		else if (name === 'PrimeVideo')
 			return (
 				<>
 					<PrimeVideoLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="30"
+						size='30'
 					/>
 				</>
 			);
-		else console.error("Error: invalid OTT");
+		else console.error('Error: invalid OTT');
 	};
 	return (
 		<>
@@ -130,18 +130,18 @@ const CalendarSub = () => {
 				<Wrapper>
 					<SubTitle>구독 중인 OTT별 남은 결제일</SubTitle>
 					<LineWrapper>
-						{sortedSubArray.map((ott) => {
+						{sortedSubArray.map(ott => {
 							return (
 								<>
 									<LineContainer key={ott.name}>
 										{ottImage(ott.name)}
 										<TextContainer>
 											<Text>다음 결제일이</Text>
-											<div style={{ width: "3.5vw", marginRight: "1vw" }}>
+											<div style={{ width: '3.5vw', marginRight: '1vw' }}>
 												<Text
 													style={{
-														float: "right",
-														fontWeight: "600",
+														float: 'right',
+														fontWeight: '600',
 														color: ott.color,
 													}}
 												>

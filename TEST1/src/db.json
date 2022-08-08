@@ -64,6 +64,26 @@
 			"email": "jiwon@naver.com",
 			"password": "12345678*",
 			"id": 14
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 15
+		},
+		{
+			"email": "casdasdf@naver.com",
+			"password": "12345678*",
+			"id": 16
+		},
+		{
+			"email": "asfs@naver.com",
+			"password": "12345678*",
+			"id": 17
+		},
+		{
+			"email": "asfs@naver.com",
+			"password": "12345678*",
+			"id": 18
 		}
 	]
 }
