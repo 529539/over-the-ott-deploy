@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Header from "../components/Header";
-import Background from "../components/Background";
+import React from 'react';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import Background from '../components/Background';
 
 const Calculator = () => {
 	return (
@@ -10,7 +10,7 @@ const Calculator = () => {
 			<Background />
 			<Wrapper>
 				<NotHeaderArea>
-					<div className="inner"></div>
+					<div className='inner'></div>
 				</NotHeaderArea>
 			</Wrapper>
 		</>
