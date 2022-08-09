@@ -7,7 +7,7 @@ import Background from "../components/Background";
 
 const Landing = () => {
 	useEffect(() => {
-		//window.scrollTo(0, 0);
+		window.scrollTo(0, 0);
 	}, []);
 
 	return (
