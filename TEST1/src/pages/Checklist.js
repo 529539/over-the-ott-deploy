@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
@@ -7,10 +7,6 @@ import ChecklistList from "../components/checklist/ChecklistList";
 import ChecklistDoneList from "../components/checklist/ChecklistDoneList";
 
 const Checklist = () => {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
 	return (
 		<>
 			<Header />

@@ -32,7 +32,6 @@ function App() {
 					<Route path="/checklist" element={<Checklist />} />
 					<Route path="/checklist/search" element={<ChecklistSearch />} />
 					<Route path="/calendar" element={<Calendar />} />
-					<Route path="/checklist/search" element={<ChecklistSearch />} />
 					<Route path="/calculator" element={<Calculator />} />
 					<Route path="/calculator/data" element={<CalculatorData />} />
 				</Routes>
