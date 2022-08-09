@@ -47,9 +47,11 @@ const Title = styled.div`
 `;
 
 const IconWrapper = styled.div`
-	cursor: pointer;
 	display: flex;
 	align-items: center;
+	svg {
+		cursor: pointer;
+	}
 `;
 
 const Line = styled.div`
