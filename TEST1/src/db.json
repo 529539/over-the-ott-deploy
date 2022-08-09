@@ -79,11 +79,44 @@
 			"email": "asfs@naver.com",
 			"password": "12345678*",
 			"id": 17
+		}
+	],
+	"ottArray": [
+		{
+			"id": 1,
+			"name": "Netflix",
+			"price": 1,
+			"img": "/OTTcircle/Netflix.svg"
 		},
 		{
-			"email": "asfs@naver.com",
-			"password": "12345678*",
-			"id": 18
+			"id": 2,
+			"name": "Watcha",
+			"price": 2,
+			"img": "/OTTcircle/Watcha.svg"
+		},
+		{
+			"id": 3,
+			"name": "Wavve",
+			"price": 3,
+			"img": "/OTTcircle/Wavve.svg"
+		},
+		{
+			"id": 4,
+			"name": "DisneyPlus",
+			"price": 4,
+			"img": "/OTTcircle/AppleTV.svg"
+		},
+		{
+			"id": 5,
+			"name": "AppleTV",
+			"price": 5,
+			"img": "/OTTcircle/AppleTV.svg"
+		},
+		{
+			"id": 6,
+			"name": "PrimeVideo",
+			"price": 6,
+			"img": "/OTTcircle/PrimeVideo.svg"
 		}
 	]
 }

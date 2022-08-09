@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
-import SettingContainer from './SettingContainer';
 
-const SignupSettingBox = props => {
+const SettingForm = props => {
 	return (
 		<Container>
 			<SignupTop>
@@ -14,7 +13,6 @@ const SignupSettingBox = props => {
 				<p>{props.title2}</p>
 			</SignupTop>
 			<div className='line1'></div>
-			{props.subPage ? <SettingContainer /> : <SettingContainer />}
 			<GoNextBtn className={props.btnActive ? ' active' : ''}>
 				{props.btnText}
 			</GoNextBtn>
@@ -80,4 +78,4 @@ const GoNextBtn = styled.button`
 		background-color: #d38189;
 	}
 `;
-export default SignupSettingBox;
+export default SettingForm;
