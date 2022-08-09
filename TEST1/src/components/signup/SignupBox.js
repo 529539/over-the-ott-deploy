@@ -46,7 +46,7 @@ const SignupBox = () => {
 					password: newPW,
 				})
 				.then(() => {
-					navigate('/checklist');
+					navigate('/signup/setting');
 				});
 		} else {
 			if (!validID) {
