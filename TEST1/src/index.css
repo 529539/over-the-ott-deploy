@@ -7,4 +7,10 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+	display: none;
 }
