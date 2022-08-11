@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import Background from "../components/Background";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { ReactComponent as CalculatorIcon } from "../static/CalculatorIcon.svg";
+import BarChart from "../components/calculator/BarChart.js";
+import PieChart from "../components/calculator/PieChart.js";
 
 const CalculatorData = () => {
 	const [getMoment, setMoment] = useState(moment());
@@ -23,13 +25,14 @@ const CalculatorData = () => {
 									<InnerContainer>
 										<Title>OTT 별 분당 사용 요금</Title>
 										<Line />
+										<BarChart />
 									</InnerContainer>
 									<InnerContainer>
 										<Title>OTT 별 이용 시간 비교</Title>
 										<Line />
+										<PieChart />
 									</InnerContainer>
 								</div>
-
 								<Link to="/calculator" style={{ textDecoration: "none" }}>
 									<Button>
 										<CalculatorIcon />
