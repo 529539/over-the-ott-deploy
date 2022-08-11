@@ -4,25 +4,8 @@ import moment from "moment";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const CalendarTable = () => {
-	/*
-	const OTT = () => {
-		//OTT 구독일 정보를 받아오고,
-		//innerText가 해당 날짜와 일치하는 Date(<span>) 태그의
-		//부모 태그인 Td(<td>) 태그를 찾아 OTT 이미지 삽입
-		//
-		//특정 셀 접근하는 방법
-		//-행열 정보로 접근하기 : .week34 > :nth-child(6) {}
-		// ㄴ달마다 위치가 달라지므로 사용하지 말것
-		//  요소 삽입 가능한지 테스트 용도로만 사용 예정
-		//-useRef 사용하기
-		//
-		//또는 position: absolute와 top, left 값을 구해서
-		//z-index 적용하여 위에 올리기
-	};
-	OTT();
-	*/
-
 	const [getMoment, setMoment] = useState(moment());
+	const [getCurrentMoment, setCurrentMoment] = useState(moment());
 	const today = getMoment;
 	const firstWeek = today.clone().startOf("month").week();
 	const lastWeek =
@@ -125,6 +108,11 @@ const CalendarTable = () => {
 		return result;
 	};
 
+	const currentMonth = getCurrentMoment;
+	let subDisplay;
+	if (today.format("MM") === currentMonth.format("MM")) subDisplay = true;
+	else subDisplay = false;
+
 	return (
 		<>
 			<Wrapper>
@@ -193,8 +181,10 @@ const Wrapper = styled.div`
 
 const ControlBar = styled.div`
 	width: 10em;
+	height: 7vh;
 	padding-left: 2em;
 	position: relative;
+	z-index: 50;
 `;
 
 const Year = styled.div`
