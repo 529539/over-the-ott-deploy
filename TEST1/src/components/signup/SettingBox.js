@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import SettingForm from './SettingForm';
+import data from '../../db.json';
 
-const SettingBox = props => {
+const SettingBox = () => {
 	//Box text 렌더링
 	useEffect(() => {
 		setTitle1('Create an account');
@@ -22,49 +23,47 @@ const SettingBox = props => {
 		{
 			name: 'Netflix',
 			active: false,
-			img: props.ottIcons[0].img,
+			img: data.ottArray[0].img,
 		},
 		{
 			name: 'Watcha',
 			active: false,
-			img: props.ottIcons[1].img,
+			img: data.ottArray[1].img,
 		},
 		{
 			name: 'Wavve',
 			active: false,
-			img: props.ottIcons[2].img,
+			img: data.ottArray[2].img,
 		},
 		{
 			name: 'Disney Plus',
 			active: false,
-			img: props.ottIcons[3].img,
+			img: data.ottArray[3].img,
 		},
 		{
 			name: 'Apple TV',
 			active: false,
-			img: props.ottIcons[4].img,
+			img: data.ottArray[4].img,
 		},
 		{
 			name: 'Prime Video',
 			active: false,
-			img: props.ottIcons[5].img,
+			img: data.ottArray[5].img,
 		},
 	]);
 
 	//user에게 받아올 정보 관리
 	const [newName, setNewName] = useState('');
-	//const otts = [];
+	const otts = [];
 
 	const SelectOtt = e => {
 		console.log(e.target.id);
-		setOttActive(prevTries => {
-			{
-				ottActive.map(ott =>
-					ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
-				);
-			}
-		});
-		console.log(ottActive[0]);
+		setOttActive(
+			ottActive.map(ott =>
+				ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
+			)
+		);
+		console.log(ottActive);
 	};
 
 	return (
