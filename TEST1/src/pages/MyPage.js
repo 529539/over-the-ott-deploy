@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../components/Header";
-import Background from "../components/Background";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { ReactComponent as CalculatorIcon } from "../static/CalculatorIcon.svg";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import Background from '../components/Background';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { ReactComponent as CalculatorIcon } from '../static/CalculatorIcon.svg';
 
 const MyPage = () => {
 	return (
@@ -13,7 +13,7 @@ const MyPage = () => {
 			<Background />
 			<Wrapper>
 				<NotHeaderArea>
-					<div className="inner"></div>
+					<div className='inner'></div>
 				</NotHeaderArea>
 			</Wrapper>
 		</>

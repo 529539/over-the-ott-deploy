@@ -16,37 +16,23 @@ const LoginBox = () => {
 			InfoSubmit(e);
 		}
 	};
+
 	const InfoSubmit = e => {
 		axios
-			.get('http://localhost:8888/user')
-			.then(res => {
-				let users = res.data;
-				let success = 0;
-				for (let i = 0; i < users.length; i++) {
-					if (users[i].email === newID && users[i].password === newPW) {
-						alert('로그인 성공');
-						success = 1;
-						break;
-					}
-				}
-				success ? navigate('/checklist') : alert('로그인 실패');
+			.post('https://over-the-ott.herokuapp.com/account/login/', {
+				email: newID,
+				password: newPW,
 			})
-			.then(() => {
-				setNewID('');
-				setNewPW('');
+			.then(res => {
+				console.log(res.data.message);
+				let valid = res.data.message.indexOf('성공');
+				console.log(valid);
+				valid != -1 ? navigate('/checklist') : alert('로그인 실패');
 			});
+		/*.catch(res => {
+				console.log(res.data.message);
+			});*/
 	};
-	// api 받고난 후 수정 버전 코드
-	// 로그인 실패시 모달창 생성 수정 필요
-	// const InfoSubmit = e => {
-	// 	axios.post('/acount/login/',{
-	// 		"email": newID,
-	// 		"password": newPW,
-	// 	}).then(res=> {
-	// 		let success = res.data.message
-	// 		(success.indexOf('성공') != -1) ? navigate('/checklist') : alert('로그인 실패');
-
-	// 	})}
 	return (
 		<BoxWrapper>
 			<LoginTop>

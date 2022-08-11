@@ -79,6 +79,66 @@
 			"email": "asfs@naver.com",
 			"password": "12345678*",
 			"id": 17
+		},
+		{
+			"email": "conjs1@naver.com",
+			"password": "1231242234&",
+			"id": 18
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 19
+		},
+		{
+			"email": "casdf@naver.com",
+			"password": "21132321&",
+			"id": 20
+		},
+		{
+			"email": "chawe@naver.com",
+			"password": "12345678*",
+			"id": 21
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 22
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 23
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 24
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 25
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 26
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 27
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 28
+		},
+		{
+			"email": "chaewon@naver.com",
+			"password": "12345678*",
+			"id": 29
 		}
 	],
 	"ottArray": [
@@ -102,19 +162,19 @@
 		},
 		{
 			"id": 4,
-			"name": "DisneyPlus",
+			"name": "Disney Plus",
 			"price": 4,
-			"img": "/OTTcircle/AppleTV.svg"
+			"img": "/OTTcircle/DisneyPlus.svg"
 		},
 		{
 			"id": 5,
-			"name": "AppleTV",
+			"name": "Apple TV",
 			"price": 5,
 			"img": "/OTTcircle/AppleTV.svg"
 		},
 		{
 			"id": 6,
-			"name": "PrimeVideo",
+			"name": "Prime Video",
 			"price": 6,
 			"img": "/OTTcircle/PrimeVideo.svg"
 		}
