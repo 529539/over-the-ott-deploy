@@ -39,13 +39,13 @@ const SignupBox = () => {
 	//회원가입 후 정보 전달하는 함수
 	const SignupSubmit = e => {
 		if (validID && validPW) {
-			setBtnActive(true);
 			axios
-				.post('http://localhost:8888/user', {
+				.post('https://over-the-ott.herokuapp.com/account/signup/', {
 					email: newID,
 					password: newPW,
 				})
 				.then(() => {
+					console.log('회원가입 성공');
 					navigate('/signup/setting');
 				});
 		} else {

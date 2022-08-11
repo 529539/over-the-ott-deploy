@@ -13,9 +13,6 @@ const SettingForm = props => {
 				<p>{props.title2}</p>
 			</SignupTop>
 			<div className='line1'></div>
-			<GoNextBtn className={props.btnActive ? ' active' : ''}>
-				{props.btnText}
-			</GoNextBtn>
 		</Container>
 	);
 };
@@ -64,18 +61,5 @@ const SignupTop = styled.div`
 		font-size: 1.82vw;
 	}
 `;
-const GoNextBtn = styled.button`
-	cursor: pointer;
-	width: 20.67vw;
-	height: 4.16vh;
-	position: absolute;
-	top: 54.5vh;
-	background: #dcdcdc;
-	border-radius: 1.27vw;
-	border-style: none;
-	color: #ffffff;
-	&.active {
-		background-color: #d38189;
-	}
-`;
+
 export default SettingForm;
