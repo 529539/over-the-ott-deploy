@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Header from "../components/Header";
@@ -13,6 +13,16 @@ import { ReactComponent as PrimeVideoLogo } from "../static/OTTcircle/PrimeVideo
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 
 const MyPage = () => {
+	const nav = useNavigate();
+	const logoutHandler = () => {
+		axios
+			.get("https://over-the-ott.herokuapp.com/account/logout/")
+			.then((response) => {
+				console.log(response.data);
+				nav("/");
+			});
+	};
+
 	const [isEditing, setIsEditing] = useState(false);
 	const [otts, setOtts] = useState([]);
 
@@ -42,6 +52,7 @@ const MyPage = () => {
 				console.log("구독 정보 불러오기 실패", error.message);
 			});
 	};
+	console.log(otts);
 
 	let disableOtts = [];
 	if (otts.map((row) => row.ott.ott).includes("Netflix") === false) {
@@ -235,7 +246,7 @@ const MyPage = () => {
 				getOtts(response.data);
 			})
 			.catch((error) => {
-				console.log("삭제 실패", error);
+				console.log("추가 실패", error);
 			});
 	};
 	const turnOff = (name, id) => {
@@ -268,9 +279,9 @@ const MyPage = () => {
 									}}
 								>
 									<MTitle>마이페이지</MTitle>
-									<Link to="/">
-										<SText>로그아웃</SText>
-									</Link>
+									<div>
+										<SText onClick={logoutHandler}>로그아웃</SText>
+									</div>
 								</div>
 								<div
 									style={{
@@ -307,7 +318,7 @@ const MyPage = () => {
 												<BlackLight>결제</BlackLight>
 												<DevideLine />
 												<BlackLight style={{ fontWeight: "600" }}>
-													{ott.ott.membership}
+													{isEditing ? " " : ott.ott.membership}
 												</BlackLight>
 												{ott.fee === 0 ? null : (
 													<BlackLight
@@ -426,6 +437,7 @@ const MTitle = styled.div`
 `;
 
 const SText = styled.div`
+	cursor: pointer;
 	text-decoration: underline;
 	font-weight: 600;
 	font-size: 1vw;
