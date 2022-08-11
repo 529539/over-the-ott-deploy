@@ -237,7 +237,7 @@ const MyPage = () => {
 			.post("https://over-the-ott.herokuapp.com/account/addott/", [
 				{
 					ott_name: name,
-					membership: "프리미엄",
+					membership: "월간",
 					pay_date: 1,
 					share: 4,
 				},
@@ -259,6 +259,36 @@ const MyPage = () => {
 			.catch((error) => {
 				console.log("삭제 실패", error);
 			});
+	};
+
+	const dropdownD = (date) => {
+		return (
+			<Select defaultValue={"default"}>
+				<option className="default" style={{ color: "gray" }} value={"default"}>
+					{date}일
+				</option>
+			</Select>
+		);
+	};
+
+	const dropdownM = (membership) => {
+		return (
+			<Select defaultValue={"default"}>
+				<option className="default" style={{ color: "gray" }} value={"default"}>
+					{membership}
+				</option>
+			</Select>
+		);
+	};
+
+	const dropdownS = (share) => {
+		return (
+			<Select defaultValue={"default"}>
+				<option className="default" style={{ color: "gray" }} value={"default"}>
+					{share}인
+				</option>
+			</Select>
+		);
 	};
 
 	return (
@@ -288,7 +318,7 @@ const MyPage = () => {
 										display: "flex",
 										alignItems: "center",
 										height: "1.6vw",
-										margin: "7vh 0 4vh 0",
+										margin: "8vh 0 4vh 0",
 									}}
 								>
 									<Title>구독 중인 OTT 정보</Title>
@@ -308,17 +338,31 @@ const MyPage = () => {
 												<ImageWrapper>{ottImage(ott.ott.ott)}</ImageWrapper>
 												<BlackLight>매달</BlackLight>
 												<Bold style={{ color: color(ott.ott.ott) }}>
-													{ott.pay_date}일
+													{isEditing
+														? dropdownD(ott.pay_date)
+														: ott.pay_date + "일"}
 												</Bold>
 												<Bold
-													style={{ width: "5vw", color: color(ott.ott.ott) }}
+													style={{
+														width: "5vw",
+														color: color(ott.ott.ott),
+														marginLeft: isEditing ? "0.9vw" : "0",
+														marginRight: isEditing ? "0" : "0.5vw",
+													}}
 												>
 													{ott.pay_amount}원
 												</Bold>
-												<BlackLight>결제</BlackLight>
+												<BlackLight>{isEditing ? null : "결제"}</BlackLight>
 												<DevideLine />
-												<BlackLight style={{ fontWeight: "600" }}>
-													{isEditing ? " " : ott.ott.membership}
+												<BlackLight
+													style={{
+														fontWeight: "600",
+														marginLeft: isEditing ? "0.6vw" : "0.3vw",
+													}}
+												>
+													{isEditing
+														? dropdownM(ott.ott.membership)
+														: ott.ott.membership}
 												</BlackLight>
 												{ott.fee === 0 ? null : (
 													<BlackLight
@@ -328,7 +372,9 @@ const MyPage = () => {
 															fontWeight: "600",
 														}}
 													>
-														{ott.share}인
+														{isEditing
+															? dropdownS(ott.share)
+															: ott.share + "인"}
 													</BlackLight>
 												)}
 												{isEditing ? showButton(ott.ott.ott, ott.id) : null}
@@ -561,5 +607,27 @@ const EditBtn = styled.button`
 	align-items: center;
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.3);
+	}
+`;
+
+const Select = styled.select`
+	width: auto;
+	height: 4.5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 1.1vw;
+	font-weight: 500;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 0.5vw;
+	padding: 0.3vw;
+	option {
+		padding: 0;
+		margin: 0;
+	}
+	&:focus {
+		outline: none;
 	}
 `;
