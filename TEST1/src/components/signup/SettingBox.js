@@ -2,41 +2,74 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
-import data from '../../db.json';
 import SettingForm from './SettingForm';
 
-const SettingBox = () => {
-	// form에 들어갈 text 및 상태 관리
+const SettingBox = props => {
+	//Box text 렌더링
+	useEffect(() => {
+		setTitle1('Create an account');
+		setTitle2('회원가입하기');
+	}, []);
+
+	// form에 들어갈 text
 	const [title1, setTitle1] = useState('');
 	const [title2, setTitle2] = useState('');
+	//버튼 관리
 	const [btnActive, setBtnActive] = useState(false);
 	const [btnText, setBtnText] = useState('');
-	const [ottIcons, setOttIcons] = useState([]);
+	//ott 버튼 관리
+	const [ottActive, setOttActive] = useState([
+		{
+			name: 'Netflix',
+			active: false,
+			img: props.ottIcons[0].img,
+		},
+		{
+			name: 'Watcha',
+			active: false,
+			img: props.ottIcons[1].img,
+		},
+		{
+			name: 'Wavve',
+			active: false,
+			img: props.ottIcons[2].img,
+		},
+		{
+			name: 'Disney Plus',
+			active: false,
+			img: props.ottIcons[3].img,
+		},
+		{
+			name: 'Apple TV',
+			active: false,
+			img: props.ottIcons[4].img,
+		},
+		{
+			name: 'Prime Video',
+			active: false,
+			img: props.ottIcons[5].img,
+		},
+	]);
 
 	//user에게 받아올 정보 관리
 	const [newName, setNewName] = useState('');
-	const [otts, setOtts] = useState([]);
+	//const otts = [];
 
-	useEffect(() => {
-		getOttIcons();
-		setTitle1('Create an account');
-		setTitle2('회원가입하기');
-		setBtnText('다음');
-	}, []);
-
-	//ott icon 받아오기
-	const getOttIcons = () => {
-		setOttIcons(data.ottArray);
+	const SelectOtt = e => {
+		console.log(e.target.id);
+		setOttActive(prevTries => {
+			{
+				ottActive.map(ott =>
+					ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
+				);
+			}
+		});
+		console.log(ottActive[0]);
 	};
 
 	return (
 		<Wrapper>
-			<SettingForm
-				title1={title1}
-				title2={title2}
-				btnText={btnText}
-				btnActive={btnActive}
-			/>
+			<SettingForm title1={title1} title2={title2} btnText={btnText} />
 			<InputWrapper>
 				<InputUserName>
 					<p>사용자 이름을 입력해 주세요</p>
@@ -45,18 +78,33 @@ const SettingBox = () => {
 				<SelectOTT>
 					<p>구독 중인 OTT를 모두 선택해 주세요</p>
 					<OTTWrapper>
-						{ottIcons.map(icon => (
-							<button key={icon.id}>
-								<img src={icon.img} />
-							</button>
+						{/* {props.ottIcons.map(icon => (
+							<img
+								id={icon.name}
+								src={icon.img}
+								onClick={e => SelectOtt(e)}
+								style={{ opacity: active ? 1 : 0.4 }}
+							/>
+						))} */}
+						{ottActive.map(ott => (
+							<img
+								id={ott.name}
+								src={ott.img}
+								onClick={e => SelectOtt(e)}
+								style={{ opacity: ott.active ? 1 : 0.4 }}
+							/>
 						))}
 					</OTTWrapper>
 				</SelectOTT>
 			</InputWrapper>
+			<GoNextBtn className={btnActive ? ' active' : ''}>다음</GoNextBtn>
 		</Wrapper>
 	);
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: center;
+`;
 const InputWrapper = styled.div`
 	position: absolute;
 	z-index: 2;
@@ -97,19 +145,32 @@ const OTTWrapper = styled.div`
 	height: 5.46vh;
 	display: flex;
 	justify-content: space-around;
-	button {
-		width: 2.96vw;
-		height: 5.27vh;
-		cursor: pointer;
-		border-style: none;
-		background-color: transparent;
-		width: auto;
-		height: auto;
-	}
+
 	img {
+		cursor: pointer;
 		padding: none;
 		width: 100%;
 		height: 100%;
+		opacity: 0.4;
+		filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
+		&.active {
+			opacity: 1;
+		}
+	}
+`;
+const GoNextBtn = styled.button`
+	cursor: pointer;
+	width: 20.67vw;
+	height: 4.16vh;
+	position: absolute;
+	z-index: 2;
+	top: 70.55vh;
+	background: #dcdcdc;
+	border-radius: 1.27vw;
+	border-style: none;
+	color: #ffffff;
+	&.active {
+		background-color: #d38189;
 	}
 `;
 export default SettingBox;
