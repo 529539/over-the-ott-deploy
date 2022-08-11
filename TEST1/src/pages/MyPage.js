@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import Header from "../components/Header";
 import Background from "../components/Background";
 import { ReactComponent as NetflixLogo } from "../static/OTTcircle/Netflix.svg";
@@ -12,62 +14,116 @@ import { HiMinusSm, HiPlusSm } from "react-icons/hi";
 
 const MyPage = () => {
 	const [isEditing, setIsEditing] = useState(false);
+	const [otts, setOtts] = useState([]);
+
 	const btnClick = () => {
 		setIsEditing(!isEditing);
 	};
-	const btnText = () => {
-		if (isEditing === false) return "수정하기";
-		else return "완료";
-	};
+	console.log(isEditing);
 
 	useEffect(() => {
 		setIsEditing(false);
 	}, []);
 
-	const subArray = [
-		{
-			ott: "Netflix",
-			fee: 17000,
-			pay_date: 10,
-			share: 4,
-			color: "#D90B1C",
-		},
-		{
-			ott: "Watcha",
-			fee: 12900,
-			pay_date: 16,
-			share: 4,
-			color: "#FF0558",
-		},
-		{
-			ott: "Wavve",
-			fee: 13900,
-			pay_date: 25,
-			share: 4,
-			color: "#1F4EF5",
-		},
-		{
-			ott: "DisneyPlus",
-			fee: 9900,
-			pay_date: 20,
-			share: 4,
-			color: "#192F72",
-		},
-		{
-			ott: "AppleTV",
-			fee: 6500,
-			pay_date: 29,
-			share: 1,
-			color: "#77848C",
-		},
-		{
-			ott: "PrimeVideo",
-			fee: 0,
-			pay_date: 5,
-			share: 1,
-			color: "#10BBE0",
-		},
-	];
+	useEffect(() => {
+		getOtts();
+	}, []);
+
+	const getOtts = async () => {
+		const response = await axios
+			.get("https://over-the-ott.herokuapp.com/account/addott/")
+			.then((response) => {
+				let result = response.data.data.sort((a, b) => {
+					return a.ott.id - b.ott.id;
+				});
+				setOtts(result);
+			})
+			.catch((error) => {
+				console.log("구독 정보 불러오기 실패", error.message);
+			});
+	};
+
+	let disableOtts = [];
+	if (otts.map((row) => row.ott.ott).includes("Netflix") === false) {
+		disableOtts.push({
+			ott: {
+				id: 1,
+				ott: "Netflix",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	if (otts.map((row) => row.ott.ott).includes("Watcha") === false) {
+		disableOtts.push({
+			ott: {
+				id: 4,
+				ott: "Watcha",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	if (otts.map((row) => row.ott.ott).includes("Wavve") === false) {
+		disableOtts.push({
+			ott: {
+				id: 11,
+				ott: "Wavve",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	if (otts.map((row) => row.ott.ott).includes("Disney Plus") === false) {
+		disableOtts.push({
+			ott: {
+				id: 6,
+				ott: "Disney Plus",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	if (otts.map((row) => row.ott.ott).includes("Apple TV") === false) {
+		disableOtts.push({
+			ott: {
+				id: 8,
+				ott: "Apple TV",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	if (otts.map((row) => row.ott.ott).includes("Prime Video") === false) {
+		disableOtts.push({
+			ott: {
+				id: 9,
+				ott: "Prime Video",
+				membership: "선택",
+				fee: 0,
+			},
+			pay_date: 0,
+			pay_amount: 0.0,
+			share: 0,
+		});
+	}
+	console.log(disableOtts);
+
 	const ottImage = (name) => {
 		if (name === "Netflix")
 			return (
@@ -102,7 +158,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "DisneyPlus")
+		else if (name === "Disney Plus")
 			return (
 				<>
 					<DisneyPlusLogo
@@ -113,7 +169,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "AppleTV")
+		else if (name === "Apple TV")
 			return (
 				<>
 					<AppleTVLogo
@@ -124,7 +180,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "PrimeVideo")
+		else if (name === "Prime Video")
 			return (
 				<>
 					<PrimeVideoLogo
@@ -137,43 +193,62 @@ const MyPage = () => {
 			);
 		else console.error("Error: invalid OTT");
 	};
-	const devide = (a, b) => {
-		return a / b;
-	};
-	const subName = (ott, price) => {
-		if (ott === "Netflix") {
-			if (price === 9500) return "베이직";
-			else if (price === 13500) return "스탠다드";
-			else if (price === 17000) return "프리미엄";
-			else console.error("invalid fee");
-		} else if (ott === "Watcha") {
-			if (price === 7900) return "베이직";
-			else if (price === 12900) return "프리미엄";
-			else console.error("invalid fee");
-		} else if (ott === "Wavve") {
-			if (price === 7900) return "베이직";
-			else if (price === 10900) return "스탠다드";
-			else if (price === 13900) return "프리미엄";
-			else console.error("invalid fee");
-		} else if (ott === "DisneyPlus") {
-			if (price === 9900) return "월간";
-			else if (price === 99000) return "연간";
-			else console.error("invalid fee");
-		} else if (ott === "AppleTV") {
-			return "월간";
-		} else if (ott === "PrimeVideo") {
-			return "프리미엄";
-		} else console.error("invalid OTT");
-	};
-	const showButton = () => {
-		return (
-			<EditBtn>
-				<HiMinusSm size="1.7vw" fill="#fff" />
-			</EditBtn>
-		);
+
+	const color = (name) => {
+		if (name === "Netflix") return "#D90B1C";
+		else if (name === "Watcha") return "#FF0558";
+		else if (name === "Wavve") return "#1F4EF5";
+		else if (name === "Disney Plus") return "#192F72";
+		else if (name === "Apple TV") return "#77848C";
+		else if (name === "Prime Video") return "#10BBE0";
+		else console.error("Error: invalid OTT");
 	};
 
-	console.log(isEditing);
+	const showButton = (name, id) => {
+		if (otts.map((row) => row.ott.ott).includes(name) === true) {
+			return (
+				<EditBtn type="button" onClick={() => turnOff(name, id)}>
+					<HiMinusSm size="1.7vw" fill="#fff" />
+				</EditBtn>
+			);
+		} else {
+			return (
+				<EditBtn type="button" onClick={() => turnOn(name, id)}>
+					<HiPlusSm size="1.7vw" fill="#fff" />
+				</EditBtn>
+			);
+		}
+	};
+
+	const turnOn = (name, id) => {
+		console.log("+" + name);
+		axios
+			.post("https://over-the-ott.herokuapp.com/account/addott/", [
+				{
+					ott_name: name,
+					membership: "프리미엄",
+					pay_date: 1,
+					share: 4,
+				},
+			])
+			.then((response) => {
+				getOtts(response.data);
+			})
+			.catch((error) => {
+				console.log("삭제 실패", error);
+			});
+	};
+	const turnOff = (name, id) => {
+		console.log("-" + name);
+		axios
+			.delete(`https://over-the-ott.herokuapp.com/account/addott/${id}`)
+			.then((response) => {
+				getOtts(response.data);
+			})
+			.catch((error) => {
+				console.log("삭제 실패", error);
+			});
+	};
 
 	return (
 		<>
@@ -183,44 +258,100 @@ const MyPage = () => {
 				<NotHeaderArea>
 					<div className="inner">
 						<Container>
-							<div style={{ padding: "7vh 5vw 5vh 5vw" }}>
-								<div style={{ display: "flex" }}>
+							<div style={{ padding: "5vh 5vw 5vh 5vw" }}>
+								<div
+									style={{
+										display: "flex",
+										height: "2.2vw",
+										position: "relative",
+										margin: "4vh 0",
+									}}
+								>
+									<MTitle>마이페이지</MTitle>
+									<Link to="/">
+										<SText>로그아웃</SText>
+									</Link>
+								</div>
+								<div
+									style={{
+										display: "flex",
+										alignItems: "center",
+										height: "1.6vw",
+										margin: "7vh 0 4vh 0",
+									}}
+								>
 									<Title>구독 중인 OTT 정보</Title>
 									<Btn
+										type="button"
 										onClick={btnClick}
 										className={isEditing ? "editing" : ""}
 									>
-										<BtnText>{btnText()}</BtnText>
+										<BtnText>{isEditing ? "완료" : "수정하기"}</BtnText>
 									</Btn>
 								</div>
 								<Line />
 								<OTTsWrapper>
-									{subArray.map((ott) => {
+									{otts.map((ott, index) => {
 										return (
 											<OTTContainer>
-												<ImageWrapper>{ottImage(ott.ott)}</ImageWrapper>
+												<ImageWrapper>{ottImage(ott.ott.ott)}</ImageWrapper>
 												<BlackLight>매달</BlackLight>
-												<Bold style={{ color: ott.color }}>
+												<Bold style={{ color: color(ott.ott.ott) }}>
 													{ott.pay_date}일
 												</Bold>
-												<Bold style={{ color: ott.color, width: "5vw" }}>
-													{devide(ott.fee, ott.share)}원
+												<Bold
+													style={{ width: "5vw", color: color(ott.ott.ott) }}
+												>
+													{ott.pay_amount}원
 												</Bold>
 												<BlackLight>결제</BlackLight>
 												<DevideLine />
 												<BlackLight style={{ fontWeight: "600" }}>
-													{subName(ott.ott, ott.fee)}
+													{ott.ott.membership}
 												</BlackLight>
-												<BlackLight
-													style={{
-														marginLeft: "0.6vw",
-														marginRight: "0.8vw",
-														fontWeight: "600",
-													}}
+												{ott.fee === 0 ? null : (
+													<BlackLight
+														style={{
+															marginLeft: "0.6vw",
+															marginRight: "0.8vw",
+															fontWeight: "600",
+														}}
+													>
+														{ott.share}인
+													</BlackLight>
+												)}
+												{isEditing ? showButton(ott.ott.ott, ott.id) : null}
+											</OTTContainer>
+										);
+									})}
+									{disableOtts.map((ott, index) => {
+										return (
+											<OTTContainer>
+												<ImageWrapper className="notText">
+													{ottImage(ott.ott.ott)}
+												</ImageWrapper>
+												<BlackLight className="notText">매달</BlackLight>
+												<Bold
+													style={{ color: color(ott.ott.ott) }}
+													className="notText"
 												>
-													{ott.share}인
+													{ott.pay_date}일
+												</Bold>
+												<Bold
+													style={{ width: "5vw", color: color(ott.ott.ott) }}
+													className="notText"
+												>
+													{ott.pay_amount}원
+												</Bold>
+												<BlackLight className="notText">결제</BlackLight>
+												<DevideLine className="notText" />
+												<BlackLight
+													style={{ fontWeight: "600" }}
+													className="notText"
+												>
+													{ott.ott.membership}
 												</BlackLight>
-												{isEditing ? showButton() : null}
+												{isEditing ? showButton(ott.ott.ott, ott.id) : null}
 											</OTTContainer>
 										);
 									})}
@@ -263,7 +394,7 @@ const NotHeaderArea = styled.div`
 const Container = styled.div`
 	position: relative;
 	width: 80vw;
-	height: 75vh;
+	height: 80vh;
 	background: rgba(255, 255, 255, 0.7);
 	box-shadow: 0px 1vw 2vw rgba(0, 0, 0, 0.1);
 	border-radius: 1vw;
@@ -276,7 +407,6 @@ const Container = styled.div`
 		height: 4vh;
 		position: absolute;
 		right: 5vw;
-		top: 9.5vh;
 		div {
 			color: #fff;
 		}
@@ -289,7 +419,27 @@ const Container = styled.div`
 	}
 `;
 
-const Title = styled.h1`
+const MTitle = styled.div`
+	font-weight: 600;
+	font-size: 2.2vw;
+	line-height: 2.2vw;
+`;
+
+const SText = styled.div`
+	text-decoration: underline;
+	font-weight: 600;
+	font-size: 1vw;
+	line-height: 1vw;
+	color: #343434;
+	position: absolute;
+	margin-left: 1vw;
+	bottom: 0.2vh;
+	&:hover {
+		color: #6a6a6a;
+	}
+`;
+
+const Title = styled.div`
 	font-weight: 600;
 	font-size: 1.6vw;
 	line-height: 1.6vw;
@@ -304,7 +454,6 @@ const Btn = styled.button`
 	height: 4vh;
 	position: absolute;
 	right: 5vw;
-	top: 9.5vh;
 	&:hover {
 		background-color: rgba(255, 255, 255, 0.3);
 		div {
@@ -333,7 +482,7 @@ const OTTsWrapper = styled.div`
 	height: 40vh;
 	border-radius: 1vw;
 	margin: 0 auto;
-	margin-top: 7vh;
+	margin-top: 5vh;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -350,14 +499,18 @@ const OTTContainer = styled.div`
 	position: relative;
 	button {
 		position: absolute;
-		right: 0.3vw;
+		right: 1vw;
+	}
+	.notText {
+		opacity: 0.4;
 	}
 `;
 
 const ImageWrapper = styled.div`
-	width: 5vw;
+	width: 3vw;
 	height: 5vw;
 	margin-left: 1vw;
+	margin-right: 1vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
