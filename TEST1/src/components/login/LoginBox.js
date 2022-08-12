@@ -24,14 +24,21 @@ const LoginBox = () => {
 				password: newPW,
 			})
 			.then(res => {
-				console.log(res.data.message);
-				let valid = res.data.message.indexOf('성공');
-				console.log(valid);
-				valid != -1 ? navigate('/checklist') : alert('로그인 실패');
+				alert(res.data.message);
+				navigate('/checklist');
+				// let success = res.data.message.indexOf('성공');
+				// if (success != -1) navigate('/checklist');
+			})
+			.catch(error => {
+				alert(error.response.data.message);
+				// let fail = error.response.data.message.indexOf('실패');
+				// console.log(fail);
+				// if (fail != -1) alert('로그인 실패');
+			})
+			.then(() => {
+				setNewID('');
+				setNewPW('');
 			});
-		/*.catch(res => {
-				console.log(res.data.message);
-			});*/
 	};
 	return (
 		<BoxWrapper>

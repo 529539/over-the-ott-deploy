@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
+
 import SettingForm from './SettingForm';
 import data from '../../db.json';
 
@@ -54,16 +55,28 @@ const SettingBox = () => {
 
 	//user에게 받아올 정보 관리
 	const [newName, setNewName] = useState('');
-	const otts = [];
+	const [otts, setOtts] = useState([]);
 
+	//ott 선택시 투명도 조절
 	const SelectOtt = e => {
-		console.log(e.target.id);
 		setOttActive(
 			ottActive.map(ott =>
 				ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
 			)
 		);
-		console.log(ottActive);
+	};
+
+	//선택된 ott를 배열에 추가하는 함수
+	const SaveOtts = e => {
+		setOtts(ottActive.filter(ott => ott.active));
+		ChangeBtn();
+	};
+
+	//input을 받고 ott 1개 이상 선택한 경우 버튼 색 바꾸는 함수
+	const ChangeBtn = async () => {
+		newName !== '' && otts.length > 0
+			? setBtnActive(true)
+			: setBtnActive(false);
 	};
 
 	return (
@@ -72,24 +85,22 @@ const SettingBox = () => {
 			<InputWrapper>
 				<InputUserName>
 					<p>사용자 이름을 입력해 주세요</p>
-					<input value={newName} onChange={e => setNewName(e.target.value)} />
+					<input
+						value={newName}
+						onChange={e => setNewName(e.target.value)}
+						onKeyUp={ChangeBtn}
+					/>
 				</InputUserName>
 				<SelectOTT>
 					<p>구독 중인 OTT를 모두 선택해 주세요</p>
 					<OTTWrapper>
-						{/* {props.ottIcons.map(icon => (
-							<img
-								id={icon.name}
-								src={icon.img}
-								onClick={e => SelectOtt(e)}
-								style={{ opacity: active ? 1 : 0.4 }}
-							/>
-						))} */}
 						{ottActive.map(ott => (
 							<img
 								id={ott.name}
 								src={ott.img}
-								onClick={e => SelectOtt(e)}
+								onClick={e => {
+									SelectOtt(e);
+								}}
 								style={{ opacity: ott.active ? 1 : 0.4 }}
 							/>
 						))}
