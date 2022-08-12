@@ -8,9 +8,11 @@ import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
 import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 
 const LoginBox = () => {
+	axios.defaults.withCredentials = true;
 	const [newID, setNewID] = useState('');
 	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
+
 	const enterKey = e => {
 		if (e.keyCode === 13) {
 			InfoSubmit(e);
@@ -22,6 +24,7 @@ const LoginBox = () => {
 			.post('https://over-the-ott.herokuapp.com/account/login/', {
 				email: newID,
 				password: newPW,
+				withCredentials: true,
 			})
 			.then(res => {
 				alert(res.data.message);

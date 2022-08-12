@@ -64,13 +64,13 @@ const SettingBox = () => {
 				ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
 			)
 		);
+
 		SaveOtts();
 	};
 
 	//선택된 ott를 배열에 추가하는 함수
 	const SaveOtts = () => {
 		setOtts(ottActive.filter(ott => ott.active));
-		console.log(otts);
 		ChangeBtn();
 	};
 
@@ -80,6 +80,10 @@ const SettingBox = () => {
 			? setBtnActive(true)
 			: setBtnActive(false);
 	};
+	useEffect(() => {
+		SaveOtts();
+		console.log(ottActive);
+	}, [ottActive]);
 	const SubmitInfo = () => {
 		if (newName) {
 			axios.patch('https://over-the-ott.herokuapp.com/account/signup/', {
