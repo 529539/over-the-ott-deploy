@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 import SettingForm from './SettingForm';
 import data from '../../db.json';
@@ -64,19 +64,28 @@ const SettingBox = () => {
 				ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
 			)
 		);
+		SaveOtts();
 	};
 
 	//선택된 ott를 배열에 추가하는 함수
-	const SaveOtts = e => {
+	const SaveOtts = () => {
 		setOtts(ottActive.filter(ott => ott.active));
+		console.log(otts);
 		ChangeBtn();
 	};
 
 	//input을 받고 ott 1개 이상 선택한 경우 버튼 색 바꾸는 함수
-	const ChangeBtn = async () => {
+	const ChangeBtn = () => {
 		newName !== '' && otts.length > 0
 			? setBtnActive(true)
 			: setBtnActive(false);
+	};
+	const SubmitInfo = () => {
+		if (newName) {
+			axios.patch('https://over-the-ott.herokuapp.com/account/signup/', {
+				username: newName,
+			});
+		}
 	};
 
 	return (
@@ -107,7 +116,9 @@ const SettingBox = () => {
 					</OTTWrapper>
 				</SelectOTT>
 			</InputWrapper>
-			<GoNextBtn className={btnActive ? ' active' : ''}>다음</GoNextBtn>
+			<GoNextBtn className={btnActive ? ' active' : ''} onClick={SubmitInfo}>
+				다음
+			</GoNextBtn>
 		</Wrapper>
 	);
 };
