@@ -44,9 +44,15 @@ const SignupBox = () => {
 					email: newID,
 					password: newPW,
 				})
-				.then(() => {
-					console.log('회원가입 성공');
-					navigate('/signup/setting');
+				.then(res => {
+					if (res.data.message === '회원가입 성공') {
+						alert(res.data.message);
+						navigate('/signup/setting');
+					} else {
+						alert('이미 가입한 이메일입니다.');
+					}
+					// let warning = false;
+					// res.data.error.email ? (warning = true) : (warning = false);
 				});
 		} else {
 			if (!validID) {
