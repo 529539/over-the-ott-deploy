@@ -237,8 +237,8 @@ const MyPage = () => {
 				{
 					ott_name: name,
 					membership: "일반",
-					pay_date: 1,
-					share: 4,
+					pay_date: 30,
+					share: 1,
 				},
 			])
 			.then((response) => {
@@ -298,49 +298,26 @@ const MyPage = () => {
 
 	const dropdownM = (membership, id, name) => {
 		const printM = () => {
-			if (id === 1 || id === 6)
-				return (
-					<>
-						<option>스탠다드</option>
-						<option>프리미엄</option>
-					</>
-				);
-			else if (id === 2 || id === 7)
-				return (
-					<>
-						<option>베이직</option>
-						<option>프리미엄</option>
-					</>
-				);
-			else if (id === 3 || id === 8)
+			if (id === 1 || id === 2 || id === 3 || id === 6 || id === 7 || id === 8)
 				return (
 					<>
 						<option>베이직</option>
 						<option>스탠다드</option>
-					</>
-				);
-			else if (id === 4)
-				return (
-					<>
 						<option>프리미엄</option>
 					</>
 				);
-			else if (id === 5)
+			else if (id === 4 || id === 5)
 				return (
 					<>
 						<option>일반</option>
+						<option>프리미엄</option>
 					</>
 				);
-			else if (id === 9 || id === 12)
-				return (
-					<>
-						<option>연간</option>
-					</>
-				);
-			else if (id === 10 || id === 13)
+			else if (id === 9 || id === 10 || id === 12 || id === 13)
 				return (
 					<>
 						<option>월간</option>
+						<option>연간</option>
 					</>
 				);
 		};
@@ -359,12 +336,45 @@ const MyPage = () => {
 		);
 	};
 
-	const dropdownS = (share) => {
+	const dropdownS = (share, id, name) => {
+		const printS = () => {
+			if (id === 1 || id === 4 || id === 6 || id === 11) return null;
+			else if (id === 2 || id === 7)
+				return (
+					<>
+						<option>1인</option>
+						<option>2인</option>
+					</>
+				);
+			else if (
+				id === 3 ||
+				id === 5 ||
+				id === 8 ||
+				id === 9 ||
+				id === 10 ||
+				id === 12 ||
+				id === 13
+			)
+				return (
+					<>
+						<option>1인</option>
+						<option>2인</option>
+						<option>3인</option>
+						<option>4인</option>
+					</>
+				);
+		};
 		return (
 			<Select defaultValue={"default"}>
-				<option className="default" style={{ color: "gray" }} value={"default"}>
+				<option
+					className="default"
+					style={{ color: color(name), fontWeight: "600" }}
+					value={"default"}
+					disabled
+				>
 					{share}인
 				</option>
+				{printS()}
 			</Select>
 		);
 	};
@@ -418,7 +428,7 @@ const MyPage = () => {
 												<Bold
 													style={{
 														color: color(ott.ott.ott),
-														marginRight: isEditing ? "0.7vw" : "0",
+														marginRight: isEditing ? "0.7vw" : "0.5vw",
 													}}
 												>
 													{isEditing
@@ -460,7 +470,7 @@ const MyPage = () => {
 														}}
 													>
 														{isEditing
-															? dropdownS(ott.share)
+															? dropdownS(ott.share, ott.ott.id, ott.ott.ott)
 															: ott.share + "인"}
 													</BlackLight>
 												)}
