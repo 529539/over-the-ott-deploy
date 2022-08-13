@@ -6,9 +6,6 @@ const SettingForm = props => {
 	return (
 		<Container>
 			<SignupTop>
-				<Link to='/'>
-					<DeleteIcon className='deleteIcon' />
-				</Link>
 				<p>{props.title1}</p>
 				<p>{props.title2}</p>
 			</SignupTop>
@@ -45,17 +42,12 @@ const SignupTop = styled.div`
 	width: 24.96vw;
 	height: 10.64vh;
 	margin: 4.81vh 0 2.54vh 0;
-	.deleteIcon {
-		position: absolute;
-		top: 5.18vh;
-		right: 2.7vw;
-	}
-	p:nth-child(2) {
+	p:nth-child(1) {
 		font-weight: 300;
 		font-size: 0.78vw;
-		margin: 0;
+		margin: 3.32vh 0 0 0;
 	}
-	p:nth-child(3) {
+	p:nth-child(2) {
 		margin: 0;
 		font-weight: 600;
 		font-size: 1.82vw;
