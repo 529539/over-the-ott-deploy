@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -7,11 +7,16 @@ import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
 import ChecklistTemplate from "../components/checklist/ChecklistTemplate";
 import ChecklistList from "../components/checklist/ChecklistList";
 import ChecklistDoneList from "../components/checklist/ChecklistDoneList";
+import {
+	InputProvider,
+	useInputState,
+} from "../components/checklist/InputContext";
 
 const ChecklistSearch = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
+	const inputs = useInputState();
 
 	return (
 		<>
@@ -24,7 +29,12 @@ const ChecklistSearch = () => {
 							<Text>체크리스트로 돌아가기</Text>
 						</Link>
 						<Line />
-						<ChecklistSearchInput />
+						<InputProvider>
+							<ChecklistSearchInput
+								selected={inputs[0].status}
+								input={inputs[1].status}
+							/>
+						</InputProvider>
 					</HeaderWrapper>
 				</NotHeaderArea>
 			</Wrapper>
