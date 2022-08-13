@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
@@ -7,13 +7,22 @@ import ChecklistList from "../components/checklist/ChecklistList";
 import ChecklistDoneList from "../components/checklist/ChecklistDoneList";
 
 const Checklist = () => {
+	const [selected, setSelected] = useState("default");
+	const [input, setInput] = useState("");
+	console.log(selected, input);
+
 	return (
 		<>
 			<Header />
 			<Wrapper>
 				<NotHeaderArea>
 					<div>
-						<ChecklistSearchInput />
+						<ChecklistSearchInput
+							selected={selected}
+							input={input}
+							setSelected={setSelected}
+							setInput={setInput}
+						/>
 						<div style={{ display: "flex", justifyContent: "center" }}>
 							<ChecklistTemplate>
 								<ChecklistList />

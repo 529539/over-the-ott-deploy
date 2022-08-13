@@ -25,6 +25,7 @@ const MyPage = () => {
 
 	const [isEditing, setIsEditing] = useState(false);
 	const [otts, setOtts] = useState([]);
+	const [ottsInfos, setOttsInfos] = useState([]);
 
 	const btnClick = () => {
 		setIsEditing(!isEditing);
@@ -33,10 +34,8 @@ const MyPage = () => {
 
 	useEffect(() => {
 		setIsEditing(false);
-	}, []);
-
-	useEffect(() => {
 		getOtts();
+		getOttsInfos();
 	}, []);
 
 	const getOtts = async () => {
@@ -237,9 +236,9 @@ const MyPage = () => {
 			.post("https://over-the-ott.herokuapp.com/account/addott/", [
 				{
 					ott_name: name,
-					membership: "월간",
-					pay_date: 1,
-					share: 4,
+					membership: "일반",
+					pay_date: 30,
+					share: 1,
 				},
 			])
 			.then((response) => {
@@ -261,32 +260,121 @@ const MyPage = () => {
 			});
 	};
 
-	const dropdownD = (date) => {
+	const getOttsInfos = async () => {
+		const response = await axios
+			.get("https://over-the-ott.herokuapp.com/account/ott/")
+			.then((response) => {
+				setOttsInfos(response.data.data);
+			})
+			.catch((error) => {
+				console.log("구독권 정보 불러오기 실패", error.message);
+			});
+	};
+	console.log(ottsInfos);
+
+	const dropdownD = (date, name) => {
 		return (
 			<Select defaultValue={"default"}>
-				<option className="default" style={{ color: "gray" }} value={"default"}>
+				<option
+					className="default"
+					style={{
+						color: color(name),
+						backgroundColor: "#c4c4c4",
+						fontWeight: "600",
+					}}
+					value={"default"}
+					disabled
+				>
 					{date}일
 				</option>
+				{Array(30)
+					.fill(0)
+					.map((data, index) => {
+						return <option>{index + 1}일</option>;
+					})}
 			</Select>
 		);
 	};
 
-	const dropdownM = (membership) => {
+	const dropdownM = (membership, id, name) => {
+		const printM = () => {
+			if (id === 1 || id === 2 || id === 3 || id === 6 || id === 7 || id === 8)
+				return (
+					<>
+						<option>베이직</option>
+						<option>스탠다드</option>
+						<option>프리미엄</option>
+					</>
+				);
+			else if (id === 4 || id === 5)
+				return (
+					<>
+						<option>일반</option>
+						<option>프리미엄</option>
+					</>
+				);
+			else if (id === 9 || id === 10 || id === 12 || id === 13)
+				return (
+					<>
+						<option>월간</option>
+						<option>연간</option>
+					</>
+				);
+		};
 		return (
 			<Select defaultValue={"default"}>
-				<option className="default" style={{ color: "gray" }} value={"default"}>
+				<option
+					className="default"
+					style={{ color: color(name), fontWeight: "600" }}
+					value={"default"}
+					disabled
+				>
 					{membership}
 				</option>
+				{printM()}
 			</Select>
 		);
 	};
 
-	const dropdownS = (share) => {
+	const dropdownS = (share, id, name) => {
+		const printS = () => {
+			if (id === 1 || id === 4 || id === 6 || id === 11) return null;
+			else if (id === 2 || id === 7)
+				return (
+					<>
+						<option>1인</option>
+						<option>2인</option>
+					</>
+				);
+			else if (
+				id === 3 ||
+				id === 5 ||
+				id === 8 ||
+				id === 9 ||
+				id === 10 ||
+				id === 12 ||
+				id === 13
+			)
+				return (
+					<>
+						<option>1인</option>
+						<option>2인</option>
+						<option>3인</option>
+						<option>4인</option>
+					</>
+				);
+		};
 		return (
 			<Select defaultValue={"default"}>
-				<option className="default" style={{ color: "gray" }} value={"default"}>
+				<option
+					className="default"
+					style={{ color: color(name), fontWeight: "600" }}
+					value={"default"}
+					disabled
+				>
 					{share}인
 				</option>
+				{printS()}
 			</Select>
 		);
 	};
@@ -337,16 +425,21 @@ const MyPage = () => {
 											<OTTContainer>
 												<ImageWrapper>{ottImage(ott.ott.ott)}</ImageWrapper>
 												<BlackLight>매달</BlackLight>
-												<Bold style={{ color: color(ott.ott.ott) }}>
+												<Bold
+													style={{
+														color: color(ott.ott.ott),
+														marginRight: isEditing ? "0.7vw" : "0.5vw",
+													}}
+												>
 													{isEditing
-														? dropdownD(ott.pay_date)
+														? dropdownD(ott.pay_date, ott.ott.ott)
 														: ott.pay_date + "일"}
 												</Bold>
 												<Bold
 													style={{
 														width: "5vw",
 														color: color(ott.ott.ott),
-														marginLeft: isEditing ? "0.9vw" : "0",
+														marginLeft: isEditing ? "1.6vw" : "0",
 														marginRight: isEditing ? "0" : "0.5vw",
 													}}
 												>
@@ -361,7 +454,11 @@ const MyPage = () => {
 													}}
 												>
 													{isEditing
-														? dropdownM(ott.ott.membership)
+														? dropdownM(
+																ott.ott.membership,
+																ott.ott.id,
+																ott.ott.ott
+														  )
 														: ott.ott.membership}
 												</BlackLight>
 												{ott.fee === 0 ? null : (
@@ -373,7 +470,7 @@ const MyPage = () => {
 														}}
 													>
 														{isEditing
-															? dropdownS(ott.share)
+															? dropdownS(ott.share, ott.ott.id, ott.ott.ott)
 															: ott.share + "인"}
 													</BlackLight>
 												)}
@@ -555,10 +652,6 @@ const OTTContainer = styled.div`
 	display: flex;
 	align-items: center;
 	position: relative;
-	button {
-		position: absolute;
-		right: 1vw;
-	}
 	.notText {
 		opacity: 0.4;
 	}
@@ -596,6 +689,8 @@ const DevideLine = styled.div`
 `;
 
 const EditBtn = styled.button`
+	position: absolute;
+	right: 1vw;
 	border: 0;
 	background-color: rgba(0, 0, 0, 0.2);
 	border-radius: 0.2vw;
@@ -612,20 +707,18 @@ const EditBtn = styled.button`
 
 const Select = styled.select`
 	width: auto;
-	height: 4.5vh;
+	height: 4vh;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	text-align: center;
-	font-size: 1.1vw;
+	font-size: 1vw;
 	font-weight: 500;
+	padding: 0 0.1vw;
 	border: none;
 	background-color: rgba(255, 255, 255, 0.2);
 	border-radius: 0.5vw;
-	padding: 0.3vw;
 	option {
 		padding: 0;
-		margin: 0;
 	}
 	&:focus {
 		outline: none;

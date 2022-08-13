@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
+import { InputProvider } from "./InputContext";
 
-const ChecklistSearchInput = () => {
-	const navigate = useNavigate();
+const ChecklistSearchInput = (props) => {
 	const [selected, setSelected] = useState("default");
 	const [input, setInput] = useState("");
+	const navigate = useNavigate();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (selected === "default") {
+		if (props.selected === "default") {
 			alert("검색 필터(TV 또는 영화)를 선택해주세요");
 		}
-		if (input === "") {
+		if (props.input === "") {
 			alert("제목을 입력해주세요");
 		}
-		if (selected !== "default" && input !== "") {
-			navigate("/checklist/search");
+		if (props.selected !== "default" && props.input !== "") {
+			//navigate("/checklist/search");
 		}
 	};
 
