@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SettingForm from './SettingForm';
 import data from '../../db.json';
+import SettingSubBox from './SettingSubBox';
 
 const SettingBox = () => {
+	const navigate = useNavigate();
 	//Box text 렌더링
 	useEffect(() => {
 		setTitle1('Create an account');
 		setTitle2('회원가입하기');
 	}, []);
+	//Box 렌더링
+	const [SubBox, setSubBox] = useState(false);
 
 	// form에 들어갈 text
 	const [title1, setTitle1] = useState('');
@@ -55,7 +59,7 @@ const SettingBox = () => {
 
 	//user에게 받아올 정보 관리
 	const [newName, setNewName] = useState('');
-	const [otts, setOtts] = useState([]);
+	let activeNum = 0;
 
 	//ott 선택시 투명도 조절
 	const SelectOtt = e => {
@@ -64,44 +68,48 @@ const SettingBox = () => {
 				ott.name === e.target.id ? { ...ott, active: !ott.active } : ott
 			)
 		);
-
-		SaveOtts();
 	};
-
-	//선택된 ott를 배열에 추가하는 함수
-	const SaveOtts = () => {
-		setOtts(ottActive.filter(ott => ott.active));
-		ChangeBtn();
-	};
-
-	//input을 받고 ott 1개 이상 선택한 경우 버튼 색 바꾸는 함수
-	const ChangeBtn = () => {
-		newName !== '' && otts.length > 0
-			? setBtnActive(true)
-			: setBtnActive(false);
-	};
+	//input을 받고 ott 1개 이상 선택한 경우 버튼 색 바꾸기
 	useEffect(() => {
-		SaveOtts();
-		console.log(ottActive);
+		ottActive.map(ott => {
+			if (ott.active === true) {
+				activeNum++;
+			}
+			newName !== '' && activeNum > 0
+				? setBtnActive(true)
+				: setBtnActive(false);
+		});
 	}, [ottActive]);
+
 	const SubmitInfo = () => {
-		if (newName) {
-			axios.patch('https://over-the-ott.herokuapp.com/account/signup/', {
-				username: newName,
-			});
+		if (btnActive) {
+			axios
+				.patch('https://over-the-ott.herokuapp.com/account/signup/', {
+					username: newName,
+				})
+				.then(res => {
+					console.log(res.data.message);
+					setNewName('');
+					setSubBox(true);
+					// navigate('/signup/setting/subscribe');
+				})
+				.catch(error => {
+					console.log(error.response);
+				});
 		}
 	};
 
 	return (
 		<Wrapper>
 			<SettingForm title1={title1} title2={title2} btnText={btnText} />
+
 			<InputWrapper>
 				<InputUserName>
 					<p>사용자 이름을 입력해 주세요</p>
 					<input
 						value={newName}
 						onChange={e => setNewName(e.target.value)}
-						onKeyUp={ChangeBtn}
+						onKeyUp={SelectOtt}
 					/>
 				</InputUserName>
 				<SelectOTT>
@@ -123,6 +131,7 @@ const SettingBox = () => {
 			<GoNextBtn className={btnActive ? ' active' : ''} onClick={SubmitInfo}>
 				다음
 			</GoNextBtn>
+			{SubBox ? <SettingSubBox ottActive={ottActive} /> : null}
 		</Wrapper>
 	);
 };
