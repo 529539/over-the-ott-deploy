@@ -10,72 +10,88 @@ import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVi
 
 const ChecklistSearchResult = (props) => {
 	const [selectedPv, setSelectedPv] = useState("");
+
 	class OTTCircle extends React.Component {
 		state = { isClicked: false };
 
-		onClick = () => {
+		onClick() {
 			this.setState({ isClicked: !this.state.isClicked });
-		};
-		clickPv = (pv) => {
-			setSelectedPv(pv);
-		};
+		}
 
 		render() {
 			const { isClicked } = this.state;
 			const { name } = this.props;
 			if (name === "Netflix")
 				return (
-					<>
+					<div>
 						<NetflixLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick && this.clickPv(name)}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else if (name === "Watcha")
 				return (
-					<>
+					<div>
 						<WatchaLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else if (name === "wavve")
 				return (
-					<>
+					<div>
 						<WavveLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else if (name === "Disney Plus")
 				return (
-					<>
+					<div>
 						<DisneyPlusLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else if (name === "Apple TV Plus")
 				return (
-					<>
+					<div>
 						<AppleTVLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else if (name === "Amazon Prime Video")
 				return (
-					<>
+					<div>
 						<PrimeVideoLogo
 							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
+							onClick={() => {
+								setSelectedPv(name);
+								this.onClick();
+							}}
 						/>
-					</>
+					</div>
 				);
 			else console.error("Error: invalid OTT");
 		}
@@ -86,7 +102,11 @@ const ChecklistSearchResult = (props) => {
 		return (
 			<CircleWrapper>
 				{provider.map((ott) => {
-					return <OTTCircle name={ott} onClick={() => setSelectedPv(ott)} />;
+					return (
+						<>
+							<OTTCircle name={ott} />
+						</>
+					);
 				})}
 				{Array(num)
 					.fill(0)
@@ -99,6 +119,7 @@ const ChecklistSearchResult = (props) => {
 
 	useEffect(() => {
 		console.log(selectedPv);
+		console.log(selectedSs);
 	});
 
 	const [selectedSs, setSelectedSs] = useState("default");
@@ -127,98 +148,68 @@ const ChecklistSearchResult = (props) => {
 		}
 	};
 
-	const [postTV, setPostTV] = useState({});
-	const [postMovie, setPostMovie] = useState({});
-	const addList = (media) => {
-		if (media.season === undefined) {
-			setPostMovie({
+	useEffect(() => {
+		setSelectedPv("");
+		setSelectedSs("default");
+	}, []);
+
+	const setSetMovie = (media) => {
+		axios
+			.post("https://over-the-ott.herokuapp.com/checklist/search/movie/", {
 				tmdb_id: media.tmdb_id,
 				title: media.title,
 				poster: media.poster,
 				provider: selectedPv,
 				runtime: media.runtime,
+			})
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.log("영화 리스트에 추가 실패", error);
 			});
-			console.log("postMovie", postMovie);
-			axios
-				.post(
-					"https://over-the-ott.herokuapp.com/checklist/search/movie/",
-					postMovie
-				)
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch((error) => {
-					console.log("영화 리스트에 추가 실패", error);
-				});
-			setPostMovie({
-				tmdb_id: 0,
-				title: "",
-				poster: "",
-				provider: "",
-				runtime: 0,
-			});
-		} else {
-			setPostTV({
-				tmdb_id: media.tmdb_id,
+	};
+	const setSetTV = (media) => {
+		let currentSs = media.season[Number(selectedSs.slice(3)) - 1];
+		let currentEP = currentSs.episodes;
+		axios
+			.post("https://over-the-ott.herokuapp.com/checklist/search/tv/", {
 				title: media.title,
+				tmdb_id: media.tmdb_id,
 				poster: media.poster,
-				episode_run_time: media.episode_run_time,
 				season: Number(selectedSs.slice(3)),
-				total_episode: 0,
+				total_episode: currentEP,
 				provider: selectedPv,
+				episode_run_time: media.episode_run_time,
+			})
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.log("TV 리스트에 추가 실패", error);
 			});
-			console.log("postTV", postTV);
-			axios
-				.post("https://over-the-ott.herokuapp.com/checklist/search/tv/", postTV)
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch((error) => {
-					console.log("TV 리스트에 추가 실패", error);
-				});
-			setPostTV({
-				tmdb_id: 0,
-				title: "",
-				poster: "",
-				episode_run_time: 0,
-				season: 0,
-				total_episode: 0,
-				provider: "",
-			});
+	};
+	const addList = (media) => {
+		if (media.season === undefined) {
+			setSetMovie(media);
+		} else {
+			setSetTV(media);
 		}
 	};
 
 	return (
 		<>
-			{props.isStart ? (
-				<MediaContainer>
-					<Poster
-						src={"https://image.tmdb.org/t/p/w500" + props.media.poster}
-					/>
-					<div>
-						<MediaTitle>{props.media.title}</MediaTitle>
-						{ottCircle(props.media.provider)}
-						{dropdown(props.media.season)}
-						<ListBtn onClick={() => addList(props.media)}>
-							<ListBtnText>나의 리스트에 담기</ListBtnText>
-						</ListBtn>
-					</div>
-				</MediaContainer>
-			) : (
-				<MediaContainer>
-					<Poster
-						src={"https://image.tmdb.org/t/p/w500" + props.media.poster}
-					/>
-					<div>
-						<MediaTitle>{props.media.title}</MediaTitle>
-						{ottCircle(props.media.provider)}
-						{dropdown(props.media.season)}
-						<ListBtn onClick={() => addList(props.media)}>
-							<ListBtnText>나의 리스트에 담기</ListBtnText>
-						</ListBtn>
-					</div>
-				</MediaContainer>
-			)}
+			<MediaContainer>
+				<Poster src={"https://image.tmdb.org/t/p/w500" + props.media.poster} />
+				<div>
+					<MediaTitle>{props.media.title}</MediaTitle>
+					{dropdown(props.media.season)}
+					{ottCircle(props.media.provider)}
+					<ListBtn onClick={() => addList(props.media)}>
+						<ListBtnText>나의 리스트에 담기</ListBtnText>
+					</ListBtn>
+				</div>
+			</MediaContainer>
 		</>
 	);
 };
@@ -249,12 +240,14 @@ const MediaTitle = styled.div`
 `;
 
 const CircleWrapper = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: space-around;
 	width: 12vw;
 	height: 2vw;
-	margin: 0 0 2vw 0.5vw;
+	margin: 1.5vw 0 2vw 0.5vw;
 	svg {
+		position: relative;
 		width: 2.4vw;
 		height: 2.4vw;
 		filter: drop-shadow(0px 0.2vw 0.5vw rgba(0, 0, 0, 0.25));
@@ -282,7 +275,7 @@ const GrayCircle = styled.div`
 `;
 
 const Select = styled.select`
-	margin: 2.5vw 0 0 1vw;
+	margin: 0.5vw 0 0 1vw;
 	width: 11vw;
 	height: 2.5vw;
 	display: flex;

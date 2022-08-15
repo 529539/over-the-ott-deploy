@@ -124,24 +124,10 @@ const ChecklistSearch = () => {
 									<SearchedText>추천 인기 작품</SearchedText>
 									<MediasWrapper>
 										{HotTVs.map((media) => {
-											return (
-												<ChecklistSearchResult
-													media={media}
-													isTV={isTV}
-													isMovie={isMovie}
-													isStart={isStart}
-												/>
-											);
+											return <ChecklistSearchResult media={media} />;
 										})}
 										{HotMovies.map((media) => {
-											return (
-												<ChecklistSearchResult
-													media={media}
-													isTV={isTV}
-													isMovie={isMovie}
-													isStart={isStart}
-												/>
-											);
+											return <ChecklistSearchResult media={media} />;
 										})}
 									</MediasWrapper>
 									<LogoContainer>
@@ -156,13 +142,7 @@ const ChecklistSearch = () => {
 									) : (
 										<MediasWrapper>
 											{TVs.map((media) => {
-												return (
-													<ChecklistSearchResult
-														media={media}
-														isTV={isTV}
-														isMovie={isMovie}
-													/>
-												);
+												return <ChecklistSearchResult media={media} />;
 											})}
 											{(TVs.length + 3) % 3 === 2 ? (
 												<MediaContainer></MediaContainer>
@@ -186,13 +166,7 @@ const ChecklistSearch = () => {
 									) : (
 										<MediasWrapper>
 											{movies.map((media) => {
-												return (
-													<ChecklistSearchResult
-														media={media}
-														isTV={isTV}
-														isMovie={isMovie}
-													/>
-												);
+												return <ChecklistSearchResult media={media} />;
 											})}
 											{(movies.length + 3) % 3 === 2 ? (
 												<MediaContainer></MediaContainer>
