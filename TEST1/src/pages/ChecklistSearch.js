@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Header from "../components/Header";
+import { ReactComponent as HeaderLogo } from "../static/HeaderLogo.svg";
 import { FiChevronLeft } from "react-icons/fi";
 import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
 import { ReactComponent as NetflixLogo } from "../static/OTTcircle/Netflix.svg";
@@ -17,18 +18,24 @@ const ChecklistSearch = () => {
 		window.scrollTo(0, 0);
 		setIsStart(true);
 	}, []);
-	useEffect(() => {
-		console.log("종류 : ", selected, ", 검색어 : ", input);
-	});
 
 	const [selected, setSelected] = useState("default");
 	const [input, setInput] = useState("");
+	const [printedInput, setPrintedInput] = useState("");
 	const [isStart, setIsStart] = useState(true);
+	const [isTV, setIsTV] = useState(false);
+	const [isMovie, setIsMovie] = useState(false);
+
+	useEffect(() => {
+		console.log("종류:" + selected + ", 검색어:" + input);
+		console.log("isTV", isTV);
+		console.log("isMovie", isMovie);
+	}, [input]);
 
 	const [TVs, setTVs] = useState([]);
 	const [movies, setMovies] = useState([]);
 
-	const getTVs = async () => {
+	const getHotTVs = async () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/tv/")
 			.then((response) => {
@@ -39,7 +46,7 @@ const ChecklistSearch = () => {
 				console.log("인기 TV 불러오기 실패", error.message);
 			});
 	};
-	const getMovies = async () => {
+	const getHotMovies = async () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/movie/")
 			.then((response) => {
@@ -52,16 +59,39 @@ const ChecklistSearch = () => {
 	};
 
 	let startArray = TVs.concat(movies);
-	const shuffle = () => {
-		startArray = startArray.sort(() => Math.random() - 0.5);
-		console.log(startArray);
+	useEffect(() => {
+		getHotTVs();
+		getHotMovies();
+	}, []);
+
+	const getTVs = async (keyword) => {
+		const response = await axios
+			.get(
+				`https://over-the-ott.herokuapp.com/checklist/search/tv/?keyword=${keyword}`
+			)
+			.then((response) => {
+				//console.log("TV 검색 결과", response.data);
+				setTVs(response.data.data);
+				setPrintedInput(keyword);
+			})
+			.catch((error) => {
+				console.log("TV 검색 결과 불러오기 실패", error.message);
+			});
 	};
 
-	useEffect(() => {
-		getTVs();
-		getMovies();
-		shuffle();
-	}, [isStart]);
+	const getMovies = async (keyword) => {
+		const response = await axios
+			.get(
+				`https://over-the-ott.herokuapp.com/checklist/search/movie/?keyword=${keyword}`
+			)
+			.then((response) => {
+				setMovies(response.data.data);
+				setPrintedInput(keyword);
+			})
+			.catch((error) => {
+				console.log("영화 검색 결과 불러오기 실패", error.message);
+			});
+	};
 
 	class OTTCircle extends React.Component {
 		state = { isClicked: false };
@@ -133,8 +163,6 @@ const ChecklistSearch = () => {
 
 	const ottCircle = (provider) => {
 		let num = 3 - provider.length;
-		console.log(Array(num));
-
 		return (
 			<CircleWrapper>
 				{provider.map((ott) => {
@@ -191,6 +219,10 @@ const ChecklistSearch = () => {
 								setSelected={setSelected}
 								setInput={setInput}
 								setIsStart={setIsStart}
+								setIsTV={setIsTV}
+								setIsMovie={setIsMovie}
+								getTVs={getTVs}
+								getMovies={getMovies}
 							/>
 						</HeaderWrapper>
 						<MainWrapper>
@@ -218,6 +250,95 @@ const ChecklistSearch = () => {
 											);
 										})}
 									</MediasWrapper>
+								</div>
+							) : isTV ? (
+								<div>
+									<SearchedText>TV "{printedInput}" 검색 결과</SearchedText>
+									{TVs.length === 0 ? (
+										<NoneWrapper>
+											<div>
+												<NoneText1>Ooops!</NoneText1>
+												<NoneText2>일치하는 검색 결과가 없습니다.</NoneText2>
+												<NoneLogoContainer>
+													<HeaderLogo />
+												</NoneLogoContainer>
+											</div>
+										</NoneWrapper>
+									) : (
+										<MediasWrapper>
+											{TVs.map((media) => {
+												return (
+													<MediaContainer>
+														<Poster
+															src={
+																"https://image.tmdb.org/t/p/w500" + media.poster
+															}
+														/>
+														<div>
+															<MediaTitle>{media.title}</MediaTitle>
+															{ottCircle(media.provider)}
+															{dropdown(media.season)}
+															<ListBtn onClick={addList}>
+																<ListBtnText>나의 리스트에 담기</ListBtnText>
+															</ListBtn>
+														</div>
+													</MediaContainer>
+												);
+											})}
+											{(TVs.length + 3) % 3 === 2 ? (
+												<MediaContainer></MediaContainer>
+											) : (TVs.length + 3) % 3 === 1 ? (
+												<>
+													<MediaContainer></MediaContainer>
+													<MediaContainer></MediaContainer>
+												</>
+											) : null}
+										</MediasWrapper>
+									)}
+								</div>
+							) : isMovie ? (
+								<div>
+									<SearchedText>영화 "{printedInput}" 검색 결과</SearchedText>
+									{movies.length === 0 ? (
+										<NoneWrapper>
+											<div>
+												<NoneText1>Ooops!</NoneText1>
+												<NoneText2>일치하는 검색 결과가 없습니다.</NoneText2>
+												<NoneLogoContainer>
+													<HeaderLogo />
+												</NoneLogoContainer>
+											</div>
+										</NoneWrapper>
+									) : (
+										<MediasWrapper>
+											{movies.map((media) => {
+												return (
+													<MediaContainer>
+														<Poster
+															src={
+																"https://image.tmdb.org/t/p/w500" + media.poster
+															}
+														/>
+														<div>
+															<MediaTitle>{media.title}</MediaTitle>
+															{ottCircle(media.provider)}
+															<ListBtn onClick={addList}>
+																<ListBtnText>나의 리스트에 담기</ListBtnText>
+															</ListBtn>
+														</div>
+													</MediaContainer>
+												);
+											})}
+											{(movies.length + 3) % 3 === 2 ? (
+												<MediaContainer></MediaContainer>
+											) : (movies.length + 3) % 3 === 1 ? (
+												<>
+													<MediaContainer></MediaContainer>
+													<MediaContainer></MediaContainer>
+												</>
+											) : null}
+										</MediasWrapper>
+									)}
 								</div>
 							) : null}
 						</MainWrapper>
@@ -393,4 +514,35 @@ const ListBtnText = styled.div`
 	line-height: 6vh;
 	text-align: center;
 	color: #fff;
+`;
+
+const NoneWrapper = styled.div`
+	width: 85vw;
+	height: auto;
+	display: flex;
+	justify-content: center;
+`;
+
+const NoneText1 = styled.div`
+	margin-top: 20vh;
+	font-weight: 300;
+	font-size: 1.3vw;
+	text-align: center;
+	color: #d38189;
+`;
+
+const NoneText2 = styled.div`
+	margin-top: 1vh;
+	font-weight: 600;
+	font-size: 1.4vw;
+	text-align: center;
+	color: #343434;
+`;
+
+const NoneLogoContainer = styled.div`
+	width: 85vw;
+	height: 5vh;
+	margin-top: 30vh;
+	display: flex;
+	justify-content: center;
 `;
