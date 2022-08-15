@@ -172,6 +172,16 @@ const ChecklistSearchResult = (props) => {
 	const setSetTV = (media) => {
 		let currentSs = media.season[Number(selectedSs.slice(3)) - 1];
 		let currentEP = currentSs.episodes;
+		if (currentEP === null) currentEP = 0;
+		console.log({
+			title: media.title,
+			tmdb_id: media.tmdb_id,
+			poster: media.poster,
+			season: Number(selectedSs.slice(3)),
+			total_episode: currentEP,
+			provider: selectedPv,
+			episode_run_time: media.episode_run_time,
+		});
 		axios
 			.post("https://over-the-ott.herokuapp.com/checklist/search/tv/", {
 				title: media.title,
@@ -200,7 +210,10 @@ const ChecklistSearchResult = (props) => {
 	return (
 		<>
 			<MediaContainer>
-				<Poster src={"https://image.tmdb.org/t/p/w500" + props.media.poster} />
+				<Poster
+					src={"https://image.tmdb.org/t/p/w500" + props.media.poster}
+					alt="poster"
+				/>
 				<div>
 					<MediaTitle>{props.media.title}</MediaTitle>
 					{dropdown(props.media.season)}
