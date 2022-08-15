@@ -6,12 +6,7 @@ import Header from "../components/Header";
 import { ReactComponent as HeaderLogo } from "../static/HeaderLogo.svg";
 import { FiChevronLeft } from "react-icons/fi";
 import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
-import { ReactComponent as NetflixLogo } from "../static/OTTcircle/Netflix.svg";
-import { ReactComponent as WatchaLogo } from "../static/OTTcircle/Watcha.svg";
-import { ReactComponent as DisneyPlusLogo } from "../static/OTTcircle/DisneyPlus.svg";
-import { ReactComponent as WavveLogo } from "../static/OTTcircle/Wavve.svg";
-import { ReactComponent as AppleTVLogo } from "../static/OTTcircle/AppleTV.svg";
-import { ReactComponent as PrimeVideoLogo } from "../static/OTTcircle/PrimeVideo.svg";
+import ChecklistSearchResult from "../components/checklist/ChecklistSearchResult";
 
 const ChecklistSearch = () => {
 	useEffect(() => {
@@ -32,15 +27,13 @@ const ChecklistSearch = () => {
 		console.log("isMovie", isMovie);
 	}, [input]);
 
-	const [TVs, setTVs] = useState([]);
-	const [movies, setMovies] = useState([]);
-
+	const [HotTVs, setHotTVs] = useState([]);
+	const [HotMovies, setHotMovies] = useState([]);
 	const getHotTVs = async () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/tv/")
 			.then((response) => {
-				console.log("인기 TV", response.data);
-				setTVs(response.data.data);
+				setHotTVs(response.data.data);
 			})
 			.catch((error) => {
 				console.log("인기 TV 불러오기 실패", error.message);
@@ -50,27 +43,25 @@ const ChecklistSearch = () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/movie/")
 			.then((response) => {
-				console.log("인기 영화", response.data);
-				setMovies(response.data.data);
+				setHotMovies(response.data.data);
 			})
 			.catch((error) => {
 				console.log("인기 영화 불러오기 실패", error.message);
 			});
 	};
-
-	let startArray = TVs.concat(movies);
 	useEffect(() => {
 		getHotTVs();
 		getHotMovies();
 	}, []);
 
+	const [TVs, setTVs] = useState([]);
+	const [movies, setMovies] = useState([]);
 	const getTVs = async (keyword) => {
 		const response = await axios
 			.get(
 				`https://over-the-ott.herokuapp.com/checklist/search/tv/?keyword=${keyword}`
 			)
 			.then((response) => {
-				//console.log("TV 검색 결과", response.data);
 				setTVs(response.data.data);
 				setPrintedInput(keyword);
 			})
@@ -78,7 +69,6 @@ const ChecklistSearch = () => {
 				console.log("TV 검색 결과 불러오기 실패", error.message);
 			});
 	};
-
 	const getMovies = async (keyword) => {
 		const response = await axios
 			.get(
@@ -93,113 +83,16 @@ const ChecklistSearch = () => {
 			});
 	};
 
-	class OTTCircle extends React.Component {
-		state = { isClicked: false };
-
-		onClick = () => {
-			this.setState({ isClicked: !this.state.isClicked });
-		};
-
-		render() {
-			const { isClicked } = this.state;
-			const { name } = this.props;
-			if (name === "Netflix")
-				return (
-					<>
-						<NetflixLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else if (name === "Watcha")
-				return (
-					<>
-						<WatchaLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else if (name === "wavve")
-				return (
-					<>
-						<WavveLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else if (name === "Disney Plus")
-				return (
-					<>
-						<DisneyPlusLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else if (name === "Apple TV Plus")
-				return (
-					<>
-						<AppleTVLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else if (name === "Amazon Prime Video")
-				return (
-					<>
-						<PrimeVideoLogo
-							className={isClicked ? "selected" : "not-selected"}
-							onClick={this.onClick}
-						/>
-					</>
-				);
-			else console.error("Error: invalid OTT");
-		}
-	}
-
-	const ottCircle = (provider) => {
-		let num = 3 - provider.length;
+	const notFinded = () => {
 		return (
-			<CircleWrapper>
-				{provider.map((ott) => {
-					return <OTTCircle name={ott} />;
-				})}
-				{Array(num)
-					.fill(0)
-					.map((num) => {
-						return <GrayCircle />;
-					})}
-			</CircleWrapper>
+			<NoneWrapper>
+				<div>
+					<NoneText1>Ooops!</NoneText1>
+					<NoneText2>일치하는 검색 결과가 없습니다.</NoneText2>
+				</div>
+			</NoneWrapper>
 		);
 	};
-
-	const dropdown = (season) => {
-		if (season === undefined) {
-			return null;
-		} else {
-			return (
-				<Select defaultValue={"default"}>
-					<option
-						className="default"
-						style={{ color: "#B8B8B8" }}
-						value={"default"}
-						disabled
-					>
-						시리즈 선택하기
-					</option>
-					{season.map((ss) => {
-						return <option>시리즈 {ss.season}</option>;
-					})}
-				</Select>
-			);
-		}
-	};
-
-	const addList = () => {};
 
 	return (
 		<>
@@ -230,59 +123,45 @@ const ChecklistSearch = () => {
 								<div>
 									<SearchedText>추천 인기 작품</SearchedText>
 									<MediasWrapper>
-										{startArray.map((media) => {
+										{HotTVs.map((media) => {
 											return (
-												<MediaContainer>
-													<Poster
-														src={
-															"https://image.tmdb.org/t/p/w500" + media.poster
-														}
-													/>
-													<div>
-														<MediaTitle>{media.title}</MediaTitle>
-														{ottCircle(media.provider)}
-														{dropdown(media.season)}
-														<ListBtn onClick={addList}>
-															<ListBtnText>나의 리스트에 담기</ListBtnText>
-														</ListBtn>
-													</div>
-												</MediaContainer>
+												<ChecklistSearchResult
+													media={media}
+													isTV={isTV}
+													isMovie={isMovie}
+													isStart={isStart}
+												/>
+											);
+										})}
+										{HotMovies.map((media) => {
+											return (
+												<ChecklistSearchResult
+													media={media}
+													isTV={isTV}
+													isMovie={isMovie}
+													isStart={isStart}
+												/>
 											);
 										})}
 									</MediasWrapper>
+									<LogoContainer>
+										<HeaderLogo />
+									</LogoContainer>
 								</div>
 							) : isTV ? (
-								<div>
+								<div style={{ minHeight: "75vh", height: "auto" }}>
 									<SearchedText>TV "{printedInput}" 검색 결과</SearchedText>
 									{TVs.length === 0 ? (
-										<NoneWrapper>
-											<div>
-												<NoneText1>Ooops!</NoneText1>
-												<NoneText2>일치하는 검색 결과가 없습니다.</NoneText2>
-												<NoneLogoContainer>
-													<HeaderLogo />
-												</NoneLogoContainer>
-											</div>
-										</NoneWrapper>
+										<>{notFinded}</>
 									) : (
 										<MediasWrapper>
 											{TVs.map((media) => {
 												return (
-													<MediaContainer>
-														<Poster
-															src={
-																"https://image.tmdb.org/t/p/w500" + media.poster
-															}
-														/>
-														<div>
-															<MediaTitle>{media.title}</MediaTitle>
-															{ottCircle(media.provider)}
-															{dropdown(media.season)}
-															<ListBtn onClick={addList}>
-																<ListBtnText>나의 리스트에 담기</ListBtnText>
-															</ListBtn>
-														</div>
-													</MediaContainer>
+													<ChecklistSearchResult
+														media={media}
+														isTV={isTV}
+														isMovie={isMovie}
+													/>
 												);
 											})}
 											{(TVs.length + 3) % 3 === 2 ? (
@@ -295,38 +174,24 @@ const ChecklistSearch = () => {
 											) : null}
 										</MediasWrapper>
 									)}
+									<LogoContainer>
+										<HeaderLogo />
+									</LogoContainer>
 								</div>
 							) : isMovie ? (
-								<div>
+								<div style={{ minHeight: "80vh", height: "auto" }}>
 									<SearchedText>영화 "{printedInput}" 검색 결과</SearchedText>
 									{movies.length === 0 ? (
-										<NoneWrapper>
-											<div>
-												<NoneText1>Ooops!</NoneText1>
-												<NoneText2>일치하는 검색 결과가 없습니다.</NoneText2>
-												<NoneLogoContainer>
-													<HeaderLogo />
-												</NoneLogoContainer>
-											</div>
-										</NoneWrapper>
+										<>{notFinded}</>
 									) : (
 										<MediasWrapper>
 											{movies.map((media) => {
 												return (
-													<MediaContainer>
-														<Poster
-															src={
-																"https://image.tmdb.org/t/p/w500" + media.poster
-															}
-														/>
-														<div>
-															<MediaTitle>{media.title}</MediaTitle>
-															{ottCircle(media.provider)}
-															<ListBtn onClick={addList}>
-																<ListBtnText>나의 리스트에 담기</ListBtnText>
-															</ListBtn>
-														</div>
-													</MediaContainer>
+													<ChecklistSearchResult
+														media={media}
+														isTV={isTV}
+														isMovie={isMovie}
+													/>
 												);
 											})}
 											{(movies.length + 3) % 3 === 2 ? (
@@ -339,6 +204,9 @@ const ChecklistSearch = () => {
 											) : null}
 										</MediasWrapper>
 									)}
+									<LogoContainer>
+										<HeaderLogo />
+									</LogoContainer>
 								</div>
 							) : null}
 						</MainWrapper>
@@ -353,7 +221,7 @@ export default ChecklistSearch;
 
 const Wrapper = styled.div`
 	width: 100vw;
-	height: 100vh;
+	height: auto;
 	margin: 0;
 	top: 0;
 	position: absolute;
@@ -361,7 +229,7 @@ const Wrapper = styled.div`
 
 const NotHeaderArea = styled.div`
 	width: 100vw;
-	height: calc(100vh - 5em);
+	height: auto;
 	top: 5em;
 	padding: 0;
 	position: relative;
@@ -432,90 +300,6 @@ const MediaContainer = styled.div`
 	margin-bottom: 15vh;
 `;
 
-const Poster = styled.img`
-	width: 10vw;
-	height: 15vw;
-	margin: 0.5vw;
-	filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.4));
-`;
-
-const MediaTitle = styled.div`
-	margin: 1vh 0 3vh 1vw;
-	width: 15vw;
-	height: auto;
-	font-weight: 800;
-	font-size: 1.2vw;
-	color: #343434;
-`;
-
-const CircleWrapper = styled.div`
-	display: flex;
-	justify-content: space-around;
-	width: 12vw;
-	height: 5vh;
-	margin: 0 0 3vh 0.5vw;
-	svg {
-		width: 2.4vw;
-		height: 2.4vw;
-		filter: drop-shadow(0px 0.2vw 0.5vw rgba(0, 0, 0, 0.25));
-		cursor: pointer;
-		opacity: 0.7;
-		border: 2px solid transparent;
-		border-radius: 50%;
-		&:hover {
-			opacity: 1;
-		}
-	}
-	.selected {
-		border: 2px solid #fff;
-		outline: 3px solid #d38189;
-		opacity: 1;
-	}
-`;
-
-const GrayCircle = styled.div`
-	width: 2.4vw;
-	height: 2.4vw;
-	margin: 2px;
-	border-radius: 50%;
-	background-color: #f7f7f7;
-`;
-
-const Select = styled.select`
-	margin: 5vh 0 0 1vw;
-	width: 11vw;
-	height: 5vh;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	font-size: 1vw;
-	font-weight: 500;
-	border: none;
-	box-shadow: 0px 0.1vw 0.3vw rgba(0, 0, 0, 0.3);
-	border-radius: 0.5vw;
-	&:focus {
-		outline: none;
-	}
-`;
-
-const ListBtn = styled.div`
-	margin: 3vh 0 0 1vw;
-	width: 11vw;
-	height: 6vh;
-	background: #d38189;
-	box-shadow: 0px 1px 5px rgba(97, 97, 97, 0.2);
-	border-radius: 0.5vw;
-	cursor: pointer;
-`;
-
-const ListBtnText = styled.div`
-	font-weight: 600;
-	font-size: 1vw;
-	line-height: 6vh;
-	text-align: center;
-	color: #fff;
-`;
-
 const NoneWrapper = styled.div`
 	width: 85vw;
 	height: auto;
@@ -537,12 +321,15 @@ const NoneText2 = styled.div`
 	font-size: 1.4vw;
 	text-align: center;
 	color: #343434;
+	margin-bottom: 30vh;
 `;
 
-const NoneLogoContainer = styled.div`
+const LogoContainer = styled.div`
+	position: absolute;
+	bottom: 3vh;
+	padding-top: 2vh;
 	width: 85vw;
-	height: 5vh;
-	margin-top: 30vh;
+	height: auto;
 	display: flex;
 	justify-content: center;
 `;
