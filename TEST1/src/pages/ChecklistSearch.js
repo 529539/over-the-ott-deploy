@@ -51,98 +51,94 @@ const ChecklistSearch = () => {
 			});
 	};
 
+	let startArray = TVs.concat(movies);
+	const shuffle = () => {
+		startArray = startArray.sort(() => Math.random() - 0.5);
+		console.log(startArray);
+	};
+
 	useEffect(() => {
 		getTVs();
 		getMovies();
+		shuffle();
 	}, [isStart]);
 
-	let startArray = TVs.concat(movies);
-	startArray = startArray.sort(() => Math.random() - 0.5);
-	console.log(startArray);
+	class OTTCircle extends React.Component {
+		state = { isClicked: false };
 
-	const ottImage = (name) => {
-		if (name === "Netflix")
-			return (
-				<>
-					<NetflixLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else if (name === "Watcha")
-			return (
-				<>
-					<WatchaLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else if (name === "wavve")
-			return (
-				<>
-					<WavveLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else if (name === "Disney Plus")
-			return (
-				<>
-					<DisneyPlusLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else if (name === "Apple TV Plus")
-			return (
-				<>
-					<AppleTVLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else if (name === "Amazon Prime Video")
-			return (
-				<>
-					<PrimeVideoLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-							cursor: "pointer",
-						}}
-						size="1vw"
-					/>
-				</>
-			);
-		else console.error("Error: invalid OTT");
-	};
+		onClick = () => {
+			this.setState({ isClicked: !this.state.isClicked });
+		};
+
+		render() {
+			const { isClicked } = this.state;
+			const { name } = this.props;
+			if (name === "Netflix")
+				return (
+					<>
+						<NetflixLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else if (name === "Watcha")
+				return (
+					<>
+						<WatchaLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else if (name === "wavve")
+				return (
+					<>
+						<WavveLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else if (name === "Disney Plus")
+				return (
+					<>
+						<DisneyPlusLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else if (name === "Apple TV Plus")
+				return (
+					<>
+						<AppleTVLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else if (name === "Amazon Prime Video")
+				return (
+					<>
+						<PrimeVideoLogo
+							className={isClicked ? "selected" : "not-selected"}
+							onClick={this.onClick}
+						/>
+					</>
+				);
+			else console.error("Error: invalid OTT");
+		}
+	}
 
 	const ottCircle = (provider) => {
 		let num = 3 - provider.length;
 		console.log(Array(num));
+
 		return (
 			<CircleWrapper>
 				{provider.map((ott) => {
-					return <>{ottImage(ott)}</>;
+					return <OTTCircle name={ott} />;
 				})}
 				{Array(num)
 					.fill(0)
@@ -337,11 +333,29 @@ const CircleWrapper = styled.div`
 	width: 12vw;
 	height: 5vh;
 	margin: 0 0 3vh 0.5vw;
+	svg {
+		width: 2.4vw;
+		height: 2.4vw;
+		filter: drop-shadow(0px 0.2vw 0.5vw rgba(0, 0, 0, 0.25));
+		cursor: pointer;
+		opacity: 0.7;
+		border: 2px solid transparent;
+		border-radius: 50%;
+		&:hover {
+			opacity: 1;
+		}
+	}
+	.selected {
+		border: 2px solid #fff;
+		outline: 3px solid #d38189;
+		opacity: 1;
+	}
 `;
 
 const GrayCircle = styled.div`
-	width: 2.5vw;
-	height: 2.5vw;
+	width: 2.4vw;
+	height: 2.4vw;
+	margin: 2px;
 	border-radius: 50%;
 	background-color: #f7f7f7;
 `;
