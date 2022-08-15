@@ -49,10 +49,9 @@ const SignupBox = () => {
 						alert(res.data.message);
 						navigate('/signup/setting');
 					} else {
-						alert('이미 가입한 이메일입니다.');
+						setWarning('이미 가입한 이메일입니다.');
+						setModal(true);
 					}
-					// let warning = false;
-					// res.data.error.email ? (warning = true) : (warning = false);
 				});
 		} else {
 			if (!validID) {

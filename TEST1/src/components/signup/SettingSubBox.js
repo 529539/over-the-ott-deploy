@@ -1,48 +1,94 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SettingForm from './SettingForm';
 
 const SettingSubBox = props => {
+	const navigate = useNavigate();
 	// form에 들어갈 text 및 상태 관리
 	const [title1, setTitle1] = useState('');
 	const [title2, setTitle2] = useState('');
 	const [btnActive, setBtnActive] = useState(false);
 
+	//문자열 끊을 때 사용하는 정규 표현식
+	var regex = /[^0-9]/g;
+
 	//유저의 구독 정보 저장
-	const [otts, setOtts] = useState([]);
+	var otts = [];
 
 	//이전 페이지에서 저장한 ott 불러오기
 	var ottArray = [];
 	ottArray = props.ottActive.filter(ott => ott.active);
 
-	//DB에 있는 ott 정보를 저장
-	const [infos, setInfos] = useState([]);
-
 	useEffect(() => {
 		setTitle1('OTT Information');
 		setTitle2('구독 중인 OTT 정보 입력하기');
-		getOttsInfos();
-		dropdownM();
 	}, []);
 
-	//DB에서 구독 정보를 받아와서 저장하는 함수
-	const getOttsInfos = async () => {
-		const response = await axios
-			.get('https://over-the-ott.herokuapp.com/account/ott/')
-			.then(res => {
-				setInfos(res.data.data);
-			})
-			.catch(error => {
-				console.log('구독권 정보 불러오기 실패', error.message);
-			});
+	//구독 정보 저장 변수
+	var name = '';
+	var member = '';
+	var date = 0;
+	var share = 0;
+	var length = 0;
+
+	//유저가 입력한 구독 정보를 저장
+	var SaveInfo = () => {
+		return (otts = [
+			...otts,
+			{
+				ott_name: name,
+				membership: member,
+				pay_date: date,
+				share: share,
+			},
+		]);
 	};
+
+	const SendInfo = () => {
+		var result = SaveInfo();
+		var otts = [];
+		otts = removeDuplicates(result, 'ott_name');
+		console.log(otts);
+		if (otts.length === ottArray.length) {
+			console.log(otts);
+			axios
+				.post('https://over-the-ott.herokuapp.com/account/addott/', otts)
+				.then(res => {
+					console.log(res.data);
+					navigate('/signup/setting/subscribe');
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+	};
+	// OTT 정보 입력시 중복 제거 함수
+	function removeDuplicates(originalArray, prop) {
+		var newArray = [];
+		var lookupObject = {};
+
+		for (var i in originalArray) {
+			lookupObject[originalArray[i][prop]] = originalArray[i];
+		}
+
+		for (i in lookupObject) {
+			newArray.push(lookupObject[i]);
+		}
+		return newArray;
+	}
 	//날짜 선택 드롭다운
-	const dropdownD = () => {
-		var date = 0;
+	const dropdownD = ott_name => {
+		var day = 0;
 		return (
-			<SelectD defaultValue={'default'}>
+			<SelectD
+				id={ott_name}
+				defaultValue={'default'}
+				onChange={e => {
+					date = Number(e.target.value.replace(regex, ''));
+				}}
+			>
 				<option
 					className='default'
 					style={{ fontWeight: '600' }}
@@ -54,7 +100,7 @@ const SettingSubBox = props => {
 
 				{Array(30)
 					.fill(0)
-					.map((date, index) => {
+					.map((day, index) => {
 						return <option>{index + 1}일</option>;
 					})}
 			</SelectD>
@@ -92,7 +138,13 @@ const SettingSubBox = props => {
 			}
 		};
 		return (
-			<SelectM defaultValue={'default'}>
+			<SelectM
+				id={ott_name}
+				defaultValue={'default'}
+				onChange={e => {
+					member = e.target.value;
+				}}
+			>
 				<option
 					className='default'
 					style={{ fontWeight: '600' }}
@@ -106,7 +158,7 @@ const SettingSubBox = props => {
 		);
 	};
 	//쉐어인원 선택 드롭다운
-	const dropdownS = () => {
+	const dropdownS = ott_name => {
 		const printS = () => {
 			return (
 				<>
@@ -118,29 +170,26 @@ const SettingSubBox = props => {
 			);
 		};
 		return (
-			<SelectS defaultValue={'default'}>
+			<SelectS
+				id={ott_name}
+				defaultValue={'default'}
+				onChange={e => {
+					share = Number(e.target.value.replace(regex, ''));
+					SaveInfo();
+					btnActive(true);
+				}}
+			>
 				<option
 					className='default'
 					style={{ fontWeight: '600' }}
 					value={'default'}
 					disabled
 				>
-					1인
+					선택
 				</option>
 				{printS()}
 			</SelectS>
 		);
-	};
-	//유저가 입력한 구독 정보를 저장하는 함수
-	const SaveOtts = e => {
-		ottArray.map(ott => {
-			setOtts(...otts, {
-				ott_nmae: ott.name,
-				membership: '',
-				pay_date: '',
-				share: 1,
-			});
-		});
 	};
 
 	return (
@@ -171,16 +220,27 @@ const SettingSubBox = props => {
 				</ContainerTitle>
 				<SubContainer>
 					{ottArray.map(ott => (
-						<div className={ott.name}>
+						<div
+							id={ott.name}
+							className={ott.name}
+							onChange={e => {
+								name = e.target.id;
+							}}
+						>
 							<img src={ott.img} />
-							{dropdownD()}
+							{dropdownD(ott.name)}
 							{dropdownM(ott.name)}
-							{dropdownS()}
+							{dropdownS(ott.name)}
 						</div>
 					))}
 				</SubContainer>
 			</Container>
-			<GoNextBtn className={btnActive ? ' active' : ''}>확인</GoNextBtn>
+			<GoNextBtn
+				style={{ backgroundColor: btnActive ? '#d38189' : '#DCDCDC' }}
+				onClick={SendInfo}
+			>
+				확인
+			</GoNextBtn>
 		</Wrapper>
 	);
 };
