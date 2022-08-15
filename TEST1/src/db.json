@@ -1,182 +1,76 @@
 {
-	"user": [
-		{
-			"id": 1,
-			"email": "chaewon@naver.com",
-			"password": "12345678*"
-		},
-		{
-			"id": 2,
-			"email": "seojin@naver.com",
-			"password": "12345678*"
-		},
-		{
-			"id": 3,
-			"email": "eunjin@naver.com",
-			"password": "12345678*"
-		},
-		{
-			"id": 4,
-			"email": "doyeon@naver.com",
-			"password": "12345678*"
-		},
-		{
-			"id": 5,
-			"email": "hyeonyoung@naver.com",
-			"pw": "12345678*"
-		},
-		{
-			"email": "jungwon@naver.com",
-			"password": "12345678*",
-			"id": 6
-		},
-		{
-			"email": "jiwoo@naver.com",
-			"password": "12345678*",
-			"id": 7
-		},
-		{
-			"email": "juyoung@naver.com",
-			"password": "12345678*",
-			"id": 8
-		},
-		{
-			"email": "CHAEWON@naver.com",
-			"password": "12345678*",
-			"id": 9
-		},
-		{
-			"email": "juyeon@naver.com",
-			"password": "12345678*",
-			"id": 10
-		},
-		{
-			"email": "asfasfd@naver.com",
-			"password": "12345678**",
-			"id": 12
-		},
-		{
-			"email": "adsfsd@naver.com",
-			"password": "12345678*",
-			"id": 13
-		},
-		{
-			"email": "jiwon@naver.com",
-			"password": "12345678*",
-			"id": 14
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 15
-		},
-		{
-			"email": "casdasdf@naver.com",
-			"password": "12345678*",
-			"id": 16
-		},
-		{
-			"email": "asfs@naver.com",
-			"password": "12345678*",
-			"id": 17
-		},
-		{
-			"email": "conjs1@naver.com",
-			"password": "1231242234&",
-			"id": 18
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 19
-		},
-		{
-			"email": "casdf@naver.com",
-			"password": "21132321&",
-			"id": 20
-		},
-		{
-			"email": "chawe@naver.com",
-			"password": "12345678*",
-			"id": 21
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 22
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 23
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 24
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 25
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 26
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 27
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 28
-		},
-		{
-			"email": "chaewon@naver.com",
-			"password": "12345678*",
-			"id": 29
-		}
-	],
 	"ottArray": [
 		{
 			"id": 1,
 			"name": "Netflix",
 			"price": 1,
-			"img": "/OTTcircle/Netflix.svg"
+			"img": "/OTTcircle/Netflix.svg",
+			"color": "#D90B1C"
 		},
 		{
 			"id": 2,
 			"name": "Watcha",
 			"price": 2,
-			"img": "/OTTcircle/Watcha.svg"
+			"img": "/OTTcircle/Watcha.svg",
+			"color": "FF0558"
 		},
 		{
 			"id": 3,
 			"name": "Wavve",
 			"price": 3,
-			"img": "/OTTcircle/Wavve.svg"
+			"img": "/OTTcircle/Wavve.svg",
+			"color": "1F4EF5"
 		},
 		{
 			"id": 4,
 			"name": "Disney Plus",
 			"price": 4,
-			"img": "/OTTcircle/DisneyPlus.svg"
+			"img": "/OTTcircle/DisneyPlus.svg",
+			"color": "192F72"
 		},
 		{
 			"id": 5,
 			"name": "Apple TV",
 			"price": 5,
-			"img": "/OTTcircle/AppleTV.svg"
+			"img": "/OTTcircle/AppleTV.svg",
+			"color": "77848C"
 		},
 		{
 			"id": 6,
 			"name": "Prime Video",
 			"price": 6,
-			"img": "/OTTcircle/PrimeVideo.svg"
+			"img": "/OTTcircle/PrimeVideo.svg",
+			"color": "10BBE0"
+		}
+	],
+	"data": [
+		{
+			"ott_name": "Netflix",
+			"year": 2022,
+			"month": 8,
+			"total_runtime": 150,
+			"won_per_min": 10.0
+		},
+		{
+			"ott_name": "Watcha",
+			"year": 2022,
+			"month": 8,
+			"total_runtime": 120,
+			"won_per_min": 12.5
+		},
+		{
+			"ott_name": "Wavve",
+			"year": 2022,
+			"month": 8,
+			"total_runtime": 100,
+			"won_per_min": 14.5
+		},
+		{
+			"ott_name": "Disney Plus",
+			"year": 2022,
+			"month": 8,
+			"total_runtime": 180,
+			"won_per_min": 8.0
 		}
 	]
 }
