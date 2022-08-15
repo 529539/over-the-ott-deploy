@@ -91,7 +91,6 @@ const SettingBox = () => {
 					console.log(res.data.message);
 					setNewName('');
 					setSubBox(true);
-					// navigate('/signup/setting/subscribe');
 				})
 				.catch(error => {
 					console.log(error.response);
@@ -102,7 +101,6 @@ const SettingBox = () => {
 	return (
 		<Wrapper>
 			<SettingForm title1={title1} title2={title2} btnText={btnText} />
-
 			<InputWrapper>
 				<InputUserName>
 					<p>사용자 이름을 입력해 주세요</p>
@@ -131,7 +129,9 @@ const SettingBox = () => {
 			<GoNextBtn className={btnActive ? ' active' : ''} onClick={SubmitInfo}>
 				다음
 			</GoNextBtn>
-			{SubBox ? <SettingSubBox ottActive={ottActive} /> : null}
+			{SubBox ? (
+				<SettingSubBox ottActive={ottActive} setSubBox={setSubBox} />
+			) : null}
 		</Wrapper>
 	);
 };
