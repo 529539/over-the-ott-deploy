@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 
@@ -13,6 +13,14 @@ const ChecklistSearchInput = (props) => {
 		}
 		if (props.selected !== "default" && props.input !== "") {
 			props.setIsStart(false);
+			if (props.selected === "TV") {
+				props.setIsTV(true);
+				props.getTVs(props.input);
+			} else props.setIsTV(false);
+			if (props.selected === "영화") {
+				props.setIsMovie(true);
+				props.getMovies(props.input);
+			} else props.setIsMovie(false);
 		}
 	};
 

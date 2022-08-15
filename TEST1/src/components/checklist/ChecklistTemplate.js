@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FiUpload } from "react-icons/fi";
 
-function ChecklistTemplate({ children }) {
+function ChecklistTemplate({ children, text, color, setIsShare }) {
 	let user = {
 		username: "아기사자",
 	};
@@ -10,13 +10,15 @@ function ChecklistTemplate({ children }) {
 	return (
 		<ChecklistTemplateBlock>
 			<HeaderWrapper>
-				<Title>{user.username} 님의 정주행 리스트</Title>
-				<IconWrapper>
+				<Title style={{ color: color }}>
+					{user.username} 님의 {text} 리스트
+				</Title>
+				<IconWrapper onClick={() => setIsShare(true)}>
 					<FiUpload size="1.4vw" color="#808080" />
 				</IconWrapper>
 			</HeaderWrapper>
 			<Line />
-			{children}
+			<Content className="scrollbar">{children}</Content>
 		</ChecklistTemplateBlock>
 	);
 }
@@ -28,8 +30,29 @@ const ChecklistTemplateBlock = styled.div`
 	height: 65vh;
 	background-color: rgba(255, 255, 255, 0.9);
 	box-shadow: 0px 0.2vw 1.5vw rgba(105, 105, 105, 0.2);
-	border-radius: 1.5vw;
+	border-radius: 1vw;
 	margin: 2vh 2vw 0 2vw;
+	.scrollbar {
+		height: 47vh;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		margin-right: 2.5vw;
+	}
+	.scrollbar::-webkit-scrollbar {
+		position: absolute;
+		width: 0.5vw;
+	}
+	.scrollbar::-webkit-scrollbar-track {
+		background-color: #e6e6e8;
+		border-radius: 0.5vw;
+		box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+	}
+	.scrollbar::-webkit-scrollbar-thumb {
+		background-color: #bdbdbf;
+		height: auto;
+
+		border-radius: 0.5vw;
+	}
 `;
 
 const HeaderWrapper = styled.div`
@@ -44,7 +67,6 @@ const Title = styled.div`
 	font-weight: 600;
 	font-size: 1.35vw;
 	line-height: 8vh;
-	color: #d38189;
 `;
 
 const IconWrapper = styled.div`
@@ -59,4 +81,12 @@ const Line = styled.div`
 	border: 1px solid #d7d7d7;
 	width: 25vw;
 	margin: 0 auto;
+`;
+
+const Content = styled.div`
+	width: 25vw;
+	height: 46vh;
+	margin: 0 auto;
+	margin-top: 2.5vh;
+	overflow: auto;
 `;
