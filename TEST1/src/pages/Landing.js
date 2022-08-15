@@ -5,6 +5,7 @@ import { ReactComponent as LargeLogo } from "../static/landingLogo.svg";
 import { ReactComponent as SmallLogo } from "../static/HeaderLogo.svg";
 import { ReactComponent as FooterLogo } from "../static/loginLogo.svg";
 import Background from "../components/Background";
+import { ReactComponent as TutorialBackground } from "../static/TutorialBackground.svg";
 
 const Landing = () => {
 	useEffect(() => {
@@ -138,6 +139,81 @@ const Landing = () => {
 							</div>
 						</div>
 					</DetailWrapper>
+					<BackCircle1 />
+					<BackCircle2 />
+					<PointWrapper>
+						<div>
+							<TitleText1>효율적인 OTT 서비스 구독과 해지를 위한</TitleText1>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									marginTop: "0.5vh",
+								}}
+							>
+								<TitleText2 style={{ color: "#D38189" }}>
+									OVER THE OTT
+								</TitleText2>
+								<TitleText2>만의 차별 포인트!</TitleText2>
+							</div>
+							<div style={{ display: "flex", justifyContent: "center" }}>
+								<PointBox>
+									<div>
+										<Number style={{ left: "7vw" }}>01</Number>
+										<PointTitleContainer>
+											<PointTitle>이용 로그에 초점을 두다</PointTitle>
+										</PointTitleContainer>
+										<PointBorderContainer>
+											<PointBorder />
+										</PointBorderContainer>
+										<PointText>
+											OVER THE OTT는 <br />
+											<br />
+											OTT 작품 추전, 작품 정보 등을 제공하는 <br />타 OTT 보조
+											서비스와는 달리
+										</PointText>
+										<div style={{ display: "flex", justifyContent: "center" }}>
+											<PointText style={{ fontWeight: "700" }}>
+												사용자의 이용 로그 기록에 초점
+											</PointText>
+											<PointText>을 두고 있습니다.</PointText>
+										</div>
+									</div>
+								</PointBox>
+								<PointBox>
+									<div>
+										<Number style={{ left: "4.5vw" }}>02</Number>
+										<PointTitleContainer>
+											<PointTitle>이용 로그를 통한 똑똑한 소비</PointTitle>
+										</PointTitleContainer>
+										<PointBorderContainer>
+											<PointBorder />
+										</PointBorderContainer>
+										<PointText>
+											잘 쓰지 않지만 이용 정도가 와닿지 않아 <br />
+											무의식적으로 연장해 온 구독 서비스가 있진 않으셨나요?
+											<br />
+											<br />
+										</PointText>
+										<div style={{ display: "flex", justifyContent: "center" }}>
+											<PointText>OVER THE OTT는</PointText>
+											<PointText
+												style={{ marginLeft: "0.5vw", fontWeight: "700" }}
+											>
+												시각적, 직관적 정보와 수치
+											</PointText>
+											<PointText>를 통해</PointText>
+										</div>
+
+										<PointText>
+											사용자가 '해지할 결심'을 하게 해주는 서비스로 <br />
+											OTT 서비스 이용에서 똑똑한 소비를 할 수 있게 도와줍니다.
+										</PointText>
+									</div>
+								</PointBox>
+							</div>
+						</div>
+					</PointWrapper>
 					<LogoContainer>
 						<SmallLogo />
 					</LogoContainer>
@@ -167,6 +243,7 @@ const Landing = () => {
 							<BottomText>Over the OTT. All Rights Reserved.</BottomText>
 						</div>
 					</FooterWrapper>
+					<TutorialBackground />
 				</TutorialWrapper>
 			</LandingWrapper>
 		</>
@@ -238,10 +315,9 @@ const SignupBtn = styled.button`
 
 const TutorialWrapper = styled.div`
 	width: 100vw;
-	height: 350vh;
+	height: auto;
 	position: absolute;
 	top: 100vh;
-	background-color: #f5f5f5;
 `;
 
 const TitleTextWrapper = styled.div`
@@ -344,6 +420,92 @@ const Border = styled.div`
 	margin: 1vh 0 1vh 10.1vw;
 `;
 
+const BackCircle1 = styled.div`
+	position: absolute;
+	width: 18vw;
+	height: 18vw;
+	left: 78vw;
+	top: 217vh;
+	border: 1px solid #d38189;
+	border-radius: 50%;
+`;
+
+const BackCircle2 = styled.div`
+	position: absolute;
+	width: 5vw;
+	height: 5vw;
+	left: 91vw;
+	top: 242vh;
+	border: 1px solid #d38189;
+	border-radius: 50%;
+`;
+
+const PointWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	top: 252vh;
+`;
+
+const PointBox = styled.div`
+	position: relative;
+	margin: 12vh 2vw 0 2vw;
+	background: #ffffff;
+	box-shadow: 0px 0.2vw 1vw rgba(71, 71, 71, 0.25);
+	border-radius: 0.5vw;
+	width: 40vw;
+	height: 60vh;
+	display: flex;
+	justify-content: center;
+`;
+
+const Number = styled.div`
+	position: absolute;
+	font-weight: 600;
+	font-size: 5.2vw;
+	color: #feebed;
+	top: 5vh;
+`;
+
+const PointTitleContainer = styled.div`
+	width: 40vw;
+	height: 5vh;
+	display: flex;
+	justify-content: center;
+`;
+
+const PointTitle = styled.div`
+	position: absolute;
+	z-index: 5;
+	font-weight: 600;
+	font-size: 1.8vw;
+	color: #333333;
+	top: 12vh;
+`;
+
+const PointBorderContainer = styled.div`
+	margin-top: 16vh;
+	width: 40vw;
+	height: 3vh;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 3vh;
+`;
+
+const PointBorder = styled.div`
+	width: 9vw;
+	height: 0px;
+	border-bottom: 1.5px solid #d7d7d7;
+`;
+
+const PointText = styled.div`
+	font-weight: 400;
+	font-size: 1.2vw;
+	line-height: 1.9vw;
+	color: #333333;
+	text-align: center;
+`;
+
 const LogoContainer = styled.div`
 	width: 100vw;
 	display: flex;
@@ -354,7 +516,7 @@ const LogoContainer = styled.div`
 
 const FooterWrapper = styled.div`
 	width: 100vw;
-	height: 30vh;
+	height: 40vh;
 	position: absolute;
 	bottom: 0;
 	z-index: 10;
@@ -369,7 +531,7 @@ const FooterWrapper = styled.div`
 
 const TextWrapper = styled.div`
 	width: 95vw;
-	height: 22vh;
+	height: 25vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -396,7 +558,7 @@ const Light = styled.div`
 
 const LineWrapper = styled.div`
 	width: 95vw;
-	height: 3vh;
+	height: 7vh;
 	display: flex;
 	justify-content: center;
 	.line {
