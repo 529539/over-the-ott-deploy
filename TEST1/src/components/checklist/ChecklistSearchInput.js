@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
-import { InputProvider } from "./InputContext";
 
 const ChecklistSearchInput = (props) => {
-	const [selected, setSelected] = useState("default");
-	const [input, setInput] = useState("");
-	const navigate = useNavigate();
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (props.selected === "default") {
@@ -18,7 +12,7 @@ const ChecklistSearchInput = (props) => {
 			alert("제목을 입력해주세요");
 		}
 		if (props.selected !== "default" && props.input !== "") {
-			//navigate("/checklist/search");
+			props.setIsStart(false);
 		}
 	};
 
@@ -30,11 +24,11 @@ const ChecklistSearchInput = (props) => {
 					<SelectWrapper>
 						<select
 							style={{
-								color: selected === "default" ? "#C3C7C7" : "#343434",
+								color: props.selected === "default" ? "#C3C7C7" : "#343434",
 							}}
 							defaultValue={"default"}
-							onChange={(e) => setSelected(e.target.value)}
-							value={selected}
+							onChange={(e) => props.setSelected(e.target.value)}
+							value={props.selected}
 						>
 							<option
 								className="default"
@@ -52,8 +46,8 @@ const ChecklistSearchInput = (props) => {
 					<form onSubmit={onSubmit} style={{ display: "flex" }}>
 						<Input
 							placeholder="제목으로 검색"
-							value={input}
-							onChange={(e) => setInput(e.target.value)}
+							value={props.input}
+							onChange={(e) => props.setInput(e.target.value)}
 						/>
 						<IconWrapperBtn type="submit">
 							<FiSearch size="1.7vw" />

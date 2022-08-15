@@ -26,6 +26,7 @@ export default ChecklistTemplate;
 const ChecklistTemplateBlock = styled.div`
 	width: 30vw;
 	height: 65vh;
+	background-color: rgba(255, 255, 255, 0.9);
 	box-shadow: 0px 0.2vw 1.5vw rgba(105, 105, 105, 0.2);
 	border-radius: 1.5vw;
 	margin: 2vh 2vw 0 2vw;
