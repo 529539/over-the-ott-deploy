@@ -36,7 +36,7 @@ const Calendar = () => {
 				<CalendarBackground />
 				<CalendarWrapper>
 					<div style={{ display: 'flex' }}>
-						<CalendarTable />
+						<CalendarTable data={DB} ottCSS={ottCSS} />
 						<CalendarSub data={DB} ottCSS={ottCSS} />
 					</div>
 				</CalendarWrapper>

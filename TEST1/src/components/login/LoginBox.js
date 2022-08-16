@@ -29,6 +29,7 @@ const LoginBox = () => {
 				withCredentials: true,
 			})
 			.then(res => {
+				alert('로그인 성공');
 				navigate('/checklist');
 			})
 			.catch(error => {

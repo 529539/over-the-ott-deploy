@@ -2,6 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { PieChart } from 'react-minimal-pie-chart';
+import { ReactComponent as Netflix } from '../../static/OTTcircle/Netflix.svg';
+import { ReactComponent as Watcha } from '../../static/OTTcircle/Watcha.svg';
+import { ReactComponent as Wavve } from '../../static/OTTcircle/Wavve.svg';
+import { ReactComponent as DisneyPlus } from '../../static/OTTcircle/DisneyPlus.svg';
+import { ReactComponent as AppleTV } from '../../static/OTTcircle/AppleTV.svg';
+import { ReactComponent as PrimeVideo } from '../../static/OTTcircle/PrimeVideo.svg';
 
 const PieCharts = props => {
 	//정보 불러와서 저장
@@ -30,19 +36,20 @@ const PieCharts = props => {
 	function img(ott_name) {
 		switch (ott_name) {
 			case 'Netflix':
-				return ottCSS[0].img;
+				return <Netflix />;
 			case 'Watcha':
-				return ottCSS[1].img;
+				return <Watcha />;
 			case 'Wavve':
-				return ottCSS[2].img;
+				return <Wavve />;
 			case 'Disney Plus':
-				return ottCSS[3].img;
+				return <DisneyPlus />;
 			case 'Apple TV':
-				return ottCSS[4].img;
+				return <AppleTV />;
 			default:
-				return ottCSS[5].img;
+				return <PrimeVideo />;
 		}
 	}
+
 	function percent(runtime) {
 		var sum = 0;
 		for (var i = 0; i < ottData.length; i++) {
@@ -62,6 +69,7 @@ const PieCharts = props => {
 				title: ottData[i].ott_name,
 				value: percent(ottData[i].total_runtime),
 				color: color(ottData[i].ott_name),
+				img: img(ottData[i].ott_name),
 			};
 			pieData = [...pieData, data];
 		}
@@ -75,30 +83,34 @@ const PieCharts = props => {
 					className='pie'
 					data={makeData(pieData)}
 					label={({ dataEntry }) =>
+						//dataEntry.img
 						dataEntry.title + ' ' + dataEntry.value.toFixed(2) + '%'
 					}
-					labelStyle={{ fill: '#ffffff', fontSize: '5px' }}
-					labelPosition={110}
+					//children={({ dataEntry }) => dataEntry.img}
+					labelStyle={{ fill: '#ffffff', fontSize: '6px' }}
+					labelPosition={90}
 					lineWidth={30}
 				/>
-				;
 			</PieWrapper>
 		</>
 	);
 };
 const PieWrapper = styled.div`
-	width: 36.61vw;
-	height: 37.29vh;
+	width: 36.45vw; //36.61vw;;
+	height: 46.29vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	.pie {
-		opacity: 80%;
+		width: 30.16vw; //36.61vw;;
+		height: 38.07vh;
+		opacity: 70%;
 		animation: rotate 1s;
 		@keyframes rotate {
 			0% {
-				opacity: 0;
 				transform: rotate(-70deg);
 			}
 			to {
-				opacity: 1;
 				transform: translateZ(0);
 			}
 		}
