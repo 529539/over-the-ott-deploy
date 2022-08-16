@@ -120,10 +120,10 @@ const ChecklistList = (props) => {
 	};
 
 	const [detailType, setDetailType] = useState("");
-	const [detail, setDetail] = useState({});
+	const [detailID, setDetailID] = useState("");
 	const openModal = (media) => {
 		props.setIsOpen(true);
-		setDetail(media);
+		setDetailID(media.id);
 		if (media.type === "tv") setDetailType("tv");
 		if (media.type === "movie") setDetailType("movie");
 	};
@@ -172,8 +172,7 @@ const ChecklistList = (props) => {
 								_handleModal={_handleModal}
 								isOpen={props.isOpen}
 								type={detailType}
-								detail={detail}
-								setDetail={setDetail}
+								detailID={detailID}
 							/>
 						) : null}
 					</>
