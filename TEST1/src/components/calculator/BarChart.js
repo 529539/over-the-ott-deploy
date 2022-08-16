@@ -68,7 +68,7 @@ const BarChart = props => {
 			<BarWrapper>
 				{ottData.map(data => (
 					<OttBar className={data.ott_name}>
-						<RunTime>{data.total_runtime}원/분</RunTime>
+						<Won>{data.won_per_min.toFixed(0)}원/분</Won>
 						<div className='contents'>
 							<img src={img(data.ott_name)} />
 						</div>
@@ -107,10 +107,10 @@ const OttBar = styled.div`
 		height: 5.77vh;
 	}
 `;
-const RunTime = styled.div`
+const Won = styled.div`
 	z-index: 20;
 	position: absolute;
-	width: 3.97vw;
+	width: 4.17vw;
 	height: 2.21vh;
 	margin: 0 0 1vh 3.58vw;
 	font-weight: 400;

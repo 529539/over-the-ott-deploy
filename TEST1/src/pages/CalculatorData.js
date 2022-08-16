@@ -28,9 +28,10 @@ const CalculatorData = () => {
 	//통계 낼 정보를 가져오는 함수
 	const getData = async () => {
 		await axios
-			.get('http://localhost:8888/data') //.get('https://over-the-ott.herokuapp.com/calculator/runtime/')
+			//.get('http://localhost:8888/data')
+			.get('https://over-the-ott.herokuapp.com/calculator/runtime/')
 			.then(res => {
-				setDB(res.data);
+				setDB(res.data.data); //local 버전 setDB(res.data);
 			})
 			.catch(error => {
 				console.log(error);
@@ -161,7 +162,7 @@ const Line = styled.div`
 `;
 
 const Button = styled.div`
-	z-index: 10;
+	z-index: 20;
 	position: absolute;
 	width: 18vw;
 	height: 7.8vh;
@@ -171,6 +172,7 @@ const Button = styled.div`
 	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.25);
 	border-radius: 10vw;
 	display: flex;
+	cursor: pointer;
 	svg {
 		width: 2vw;
 		height: auto;
@@ -180,6 +182,7 @@ const Button = styled.div`
 `;
 
 const ButtonText = styled.div`
+	cursor: pointer;
 	font-weight: 600;
 	font-size: 1.4vw;
 	line-height: 7.8vh;
