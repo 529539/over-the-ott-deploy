@@ -73,10 +73,33 @@ const CalendarTable = props => {
 		var validIcon = false;
 		for (var i = 0; i < subArray.length; i++) {
 			let next_pay = subArray[i].next_pay.replace(/-/g, '');
-			next_pay = Number(next_pay);
 			if (date === next_pay) validIcon = true;
 		}
 		return validIcon;
+	}
+	//날짜를 입력받으면 d-day 목록에 날짜와 일치하는 경우 해당 ott 이름 (번호)를 반환하는 함수
+	function payOtt(date) {
+		var validOtt = 0;
+		for (var i = 0; i < subArray.length; i++) {
+			let next_pay = subArray[i].next_pay.replace(/-/g, '');
+			if (date === next_pay) {
+				validOtt = subArray[i].ott;
+			}
+		}
+		return validOtt;
+	}
+	//아이콘 색상 및 스타일을 정하는 함수
+	function iconStyle(date) {
+		var style = {};
+		var iconColor = ' ';
+		iconColor = color(payOtt(date));
+		style = {
+			borderBottom: '20px solid' + iconColor,
+			borderTop: '20px solid transparent',
+			borderLeft: '20px solid transparent',
+			borderRight: '20px solid' + iconColor,
+		};
+		return style;
 	}
 
 	//캘린더 숫자 출력 함수
@@ -109,6 +132,12 @@ const CalendarTable = props => {
 											<DateCircle>
 												<Date className='today date'>{days.format('D')}</Date>
 											</DateCircle>
+											{payDay(days.format('YYYYMMDD')) ? (
+												<img
+													src={img(payOtt(days.format('YYYYMMDD')))}
+													width='30px'
+												/>
+											) : null}
 										</Td>
 									);
 								} else if (days.format('MM') !== today.format('MM')) {
@@ -117,6 +146,15 @@ const CalendarTable = props => {
 									return (
 										<Td key={index}>
 											<Date>{days.format('D')}</Date>
+											{payDay(days.format('YYYYMMDD')) ? (
+												<Icons>
+													<img
+														src={img(payOtt(days.format('YYYYMMDD')))}
+														width='30px'
+													/>
+													<div style={iconStyle(days.format('YYYYMMDD'))}></div>
+												</Icons>
+											) : null}
 										</Td>
 									);
 								}
@@ -358,4 +396,29 @@ const Date = styled.span`
 	margin: 1vw;
 	font-weight: 400;
 	font-size: 1vw;
+`;
+const Icons = styled.div`
+	width: 2.81vw;
+	height: 11.66vh;
+	position: fixed;
+	margin-left: 5.5vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	img {
+		position: absolute;
+		z-index: 2;
+		margin: 0 0 0.3vh 0.3vw;
+		filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
+	}
+	div {
+		position: absolute;
+		z-index: 1;
+		width: 0;
+		height: 0;
+		border-bottom: 20px solid;
+		border-top: 20px solid transparent;
+		border-left: 20px solid transparent;
+		border-right: 20px solid;
+	}
 `;
