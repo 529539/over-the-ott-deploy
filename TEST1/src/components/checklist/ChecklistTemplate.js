@@ -50,7 +50,6 @@ const ChecklistTemplateBlock = styled.div`
 	.scrollbar::-webkit-scrollbar-thumb {
 		background-color: #bdbdbf;
 		height: auto;
-
 		border-radius: 0.5vw;
 	}
 `;
