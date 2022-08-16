@@ -47,45 +47,6 @@ const ChecklistListModal = ({
 		getDetails();
 	});
 
-	const printEp = () => {
-		return (
-			<>
-				{thisEp &&
-					thisEp.map((ep) => {
-						return (
-							<>
-								<EpContainer>
-									<EpText>{ep.episode_num}화</EpText>
-									<CheckCircleContainer>
-										<CheckCircle>
-											<HiCheck />
-										</CheckCircle>
-									</CheckCircleContainer>
-								</EpContainer>
-								<EpBorder />
-							</>
-						);
-					})}
-			</>
-		);
-	};
-
-	const printEpM = () => {
-		return (
-			<>
-				<EpContainer>
-					<EpText>단편</EpText>
-					<CheckCircleContainer>
-						<CheckCircle>
-							<HiCheck />
-						</CheckCircle>
-					</CheckCircleContainer>
-				</EpContainer>
-				<EpBorder />
-			</>
-		);
-	};
-
 	const ottImage = (name) => {
 		if (name === "Netflix")
 			return (
@@ -156,6 +117,80 @@ const ChecklistListModal = ({
 		else console.error("Error: invalid OTT");
 	};
 
+	class Comp extends React.Component {
+		state = { isChecked: false };
+
+		onClick = () => {
+			this.setState({ isChecked: !this.state.isChecked });
+		};
+
+		render() {
+			const { isChecked } = this.state;
+			return (
+				<CheckCircle onClick={this.onClick}>
+					<HiCheck style={{ display: isChecked ? "block" : "none" }} />
+				</CheckCircle>
+			);
+		}
+	}
+
+	const printEp = () => {
+		return (
+			<>
+				{thisEp &&
+					thisEp.map((ep) => {
+						return (
+							<>
+								<EpContainer>
+									<EpText>{ep.episode_num}화</EpText>
+									<CheckCircleContainer>
+										<Comp />
+									</CheckCircleContainer>
+								</EpContainer>
+								<EpBorder />
+							</>
+						);
+					})}
+			</>
+		);
+	};
+
+	const [isMChecked, setIsMChecked] = useState(false);
+	const handleMCheck = () => {
+		setIsMChecked(true);
+		console.log(isMChecked);
+	};
+
+	useEffect(() => {
+		setIsMChecked(false);
+	}, []);
+
+	const printEpM = (id) => {
+		if (isMChecked === true) {
+			axios
+				.post(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
+				.then((response) => {
+					console.log(response.data);
+				})
+				.catch((error) => {
+					console.log("영화 완료 리스트에 추가 실패", error);
+				});
+		}
+		return (
+			<>
+				<EpContainer>
+					<EpText>단편</EpText>
+					<CheckCircleContainer>
+						<CheckCircle onClick={() => handleMCheck()}>
+							<HiCheck style={{ display: isMChecked ? "block" : "none" }} />
+						</CheckCircle>
+					</CheckCircleContainer>
+				</EpContainer>
+				<EpBorder />
+			</>
+		);
+	};
+
 	return (
 		<Container>
 			<Background onClick={_handleModal} />
@@ -168,23 +203,39 @@ const ChecklistListModal = ({
 					<Border />
 				</BorderWrapper>
 				<Contents>
-					<Poster
-						src={"https://image.tmdb.org/t/p/w500" + thisDetail.poster}
-						alt="poster"
-					/>
-					<div>
-						<TitleWrapper>
-							{ottImage(thisDetail.provider)}
-							<MediaTitle>
-								{thisDetail.title}
-								{type === "tv" ? ` (시리즈 ${thisDetail.season})` : null}
-							</MediaTitle>
-						</TitleWrapper>
-						{type === "tv" ? (
-							<EpWrapper className="scrollbar">{printEp()}</EpWrapper>
-						) : null}
-						{type === "movie" ? <EpWrapperM>{printEpM()}</EpWrapperM> : null}
-					</div>
+					{thisDetail.poster && (
+						<>
+							<Poster
+								src={"https://image.tmdb.org/t/p/w500" + thisDetail.poster}
+								alt="poster"
+							/>
+							<div>
+								{thisDetail.season &&
+									(type === "tv" ? (
+										<>
+											<TitleWrapper>
+												{ottImage(thisDetail.provider)}
+												<MediaTitle>
+													{thisDetail.title} (시리즈 {thisDetail.season})
+												</MediaTitle>
+											</TitleWrapper>
+											{thisEp && (
+												<EpWrapper className="scrollbar">{printEp()}</EpWrapper>
+											)}
+										</>
+									) : null)}
+								{type === "movie" ? (
+									<>
+										<TitleWrapper>
+											{ottImage(thisDetail.provider)}
+											<MediaTitle>{thisDetail.title}</MediaTitle>
+										</TitleWrapper>
+										<EpWrapperM>{printEpM(thisDetail.id)}</EpWrapperM>
+									</>
+								) : null}
+							</div>
+						</>
+					)}
 				</Contents>
 			</ModalBlock>
 		</Container>
@@ -234,7 +285,7 @@ const ModalBlock = styled.div`
 	@keyframes modal-show {
 		from {
 			opacity: 0;
-			margin-top: -20px;
+			margin-top: -10px;
 		}
 		to {
 			opacity: 1;
@@ -376,6 +427,7 @@ const CheckCircleContainer = styled.div`
 		width: 1.1vw;
 		height: 1.1vw;
 		color: #c4c4c4;
+		display: none;
 	}
 `;
 
