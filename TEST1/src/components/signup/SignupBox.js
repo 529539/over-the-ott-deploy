@@ -37,15 +37,17 @@ const SignupBox = () => {
 		}
 	};
 	//회원가입 후 정보 전달하는 함수
-	const SignupSubmit = e => {
+	const SignupSubmit = (e, async) => {
 		if (validID && validPW) {
 			axios
-				.post('https://over-the-ott.herokuapp.com/account/signup/', {
+				.post('/account/signup/', {
 					email: newID,
 					password: newPW,
 				})
 				.then(res => {
+					console.log(res.data);
 					if (res.data.message === '회원가입 성공') {
+						sessionStorage.id = res.data.data.id;
 						alert(res.data.message);
 						navigate('/signup/setting');
 					} else {

@@ -9,6 +9,7 @@ import SettingSubBox from './SettingSubBox';
 
 const SettingBox = () => {
 	const navigate = useNavigate();
+
 	//Box text 렌더링
 	useEffect(() => {
 		setTitle1('Create an account');
@@ -84,11 +85,12 @@ const SettingBox = () => {
 	const SubmitInfo = () => {
 		if (btnActive) {
 			axios
-				.patch('https://over-the-ott.herokuapp.com/account/signup/', {
+				.patch(`/account/signup/`, {
 					username: newName,
 				})
 				.then(res => {
-					console.log(res.data.message);
+					console.log(res.data);
+					sessionStorage.username = res.data.data.username;
 					setNewName('');
 					setSubBox(true);
 				})

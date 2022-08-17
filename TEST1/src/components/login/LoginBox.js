@@ -9,7 +9,7 @@ import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 import LoginModal from './LoginModal';
 
 const LoginBox = () => {
-	axios.defaults.withCredentials = true;
+	//axios.defaults.withCredentials = true;
 	const [newID, setNewID] = useState('');
 	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
@@ -23,12 +23,14 @@ const LoginBox = () => {
 
 	const InfoSubmit = e => {
 		axios
-			.post('https://over-the-ott.herokuapp.com/account/login/', {
+			.post('/account/login/', {
 				email: newID,
 				password: newPW,
 				withCredentials: true,
 			})
 			.then(res => {
+				console.log(res.data);
+				sessionStorage.user = res.data.data.email;
 				alert('로그인 성공');
 				navigate('/checklist');
 			})

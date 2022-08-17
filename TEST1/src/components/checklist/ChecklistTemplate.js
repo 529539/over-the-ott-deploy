@@ -1,10 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { FiUpload } from "react-icons/fi";
+import React from 'react';
+import styled from 'styled-components';
+import { FiUpload } from 'react-icons/fi';
 
 function ChecklistTemplate({ children, text, color, setIsShare }) {
 	let user = {
-		username: "아기사자",
+		username: '아기사자',
+		//username: sessionStorage.getItem('username'),
 	};
 
 	return (
@@ -14,11 +15,11 @@ function ChecklistTemplate({ children, text, color, setIsShare }) {
 					{user.username} 님의 {text} 리스트
 				</Title>
 				<IconWrapper onClick={() => setIsShare(true)}>
-					<FiUpload size="1.4vw" color="#808080" />
+					<FiUpload size='1.4vw' color='#808080' />
 				</IconWrapper>
 			</HeaderWrapper>
 			<Line />
-			<Content className="scrollbar">{children}</Content>
+			<Content className='scrollbar'>{children}</Content>
 		</ChecklistTemplateBlock>
 	);
 }
