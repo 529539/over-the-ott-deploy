@@ -35,6 +35,7 @@ const ChecklistList = (props) => {
 	};
 
 	useEffect(() => {
+		window.location.reload();
 		getTVs();
 		getMovies();
 	}, []);

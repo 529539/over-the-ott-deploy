@@ -1,8 +1,8 @@
-import { React, useState } from 'react';
-import styled from 'styled-components';
-import db from '../db.json';
+import { React, useState } from "react";
+import styled from "styled-components";
+import db from "../db.json";
 
-const NotificationModal = props => {
+const NotificationModal = (props) => {
 	var alertArray = props.subArray;
 
 	//ott 이름에 맞는 아이콘 불러오는 함수
@@ -30,7 +30,7 @@ const NotificationModal = props => {
 	}
 	const AlertList = () => {
 		return alertArray.map(
-			list =>
+			(list) =>
 				list.days_till_pay <= 7 && (
 					<AlertWrapper>
 						<img src={img(list.ott)} />
@@ -53,7 +53,7 @@ const NotificationModal = props => {
 						{props.alert === true ? (
 							<AlertList />
 						) : (
-							<p>7일이내 구독갱신이 없습니다.</p>
+							<p>7일 이내에 구독 갱신이 없습니다.</p>
 						)}
 					</Contents>
 				</ModalBlock>
