@@ -26,11 +26,12 @@ const ChecklistSaveModal = (props) => {
 						[{printPv(props.selectedPv)}] {props.selectedTitle}
 						{printSs(props.selectedSs)}
 					</div>
-					<div>체크리스트에 추가되었습니다</div>
+					<div>정주행 리스트에 추가되었습니다</div>
+					<Circle />
 					<BtnWrapper>
 						<div>
 							<DeleteModalBtn onClick={() => props._closeModal()}>
-								검색결과로 돌아가기
+								검색 결과로 돌아가기
 							</DeleteModalBtn>
 							<Link to="/checklist" style={{ textDecoration: "none" }}>
 								<DeleteModalBtn>체크리스트로 돌아가기</DeleteModalBtn>
@@ -88,13 +89,23 @@ const MessageWrapper = styled.div`
 	div:nth-child(1) {
 		font-weight: 400;
 		font-size: 1vw;
-		margin: 17.5vh 0 0 0;
+		margin: 17vh 0 0 0;
 	}
 	div:nth-child(2) {
 		font-weight: 600;
 		font-size: 1.3vw;
 		margin: 0.5vh 0 0 0;
 	}
+`;
+const Circle = styled.div`
+	position: absolute;
+	z-index: -1;
+	top: 20vh;
+	left: 5vw;
+	background: rgba(216, 145, 151, 0.5);
+	width: 1.3vw;
+	height: 1.3vw;
+	border-radius: 50%;
 `;
 const BtnWrapper = styled.div`
 	display: flex;
@@ -104,7 +115,7 @@ const BtnWrapper = styled.div`
 	height: auto;
 	position: absolute;
 	z-index: 30;
-	top: 9vh;
+	top: 9.5vh;
 `;
 const DeleteModalBtn = styled.button`
 	cursor: pointer;
