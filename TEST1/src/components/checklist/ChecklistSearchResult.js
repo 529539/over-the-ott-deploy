@@ -9,8 +9,6 @@ import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.sv
 import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
 
 const ChecklistSearchResult = (props) => {
-	const [selectedPv, setSelectedPv] = useState("");
-
 	class OTTCircle extends React.Component {
 		state = { isClicked: false };
 
@@ -27,7 +25,7 @@ const ChecklistSearchResult = (props) => {
 						<NetflixLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -39,7 +37,7 @@ const ChecklistSearchResult = (props) => {
 						<WatchaLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -51,7 +49,7 @@ const ChecklistSearchResult = (props) => {
 						<WavveLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -63,7 +61,7 @@ const ChecklistSearchResult = (props) => {
 						<DisneyPlusLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -75,7 +73,7 @@ const ChecklistSearchResult = (props) => {
 						<AppleTVLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -87,7 +85,7 @@ const ChecklistSearchResult = (props) => {
 						<PrimeVideoLogo
 							className={isClicked ? "selected" : "not-selected"}
 							onClick={() => {
-								setSelectedPv(name);
+								props.setSelectedPv(name);
 								this.onClick();
 							}}
 						/>
@@ -118,11 +116,11 @@ const ChecklistSearchResult = (props) => {
 	};
 
 	useEffect(() => {
-		console.log(selectedPv);
-		console.log(selectedSs);
+		console.log(props.selectedPv);
+		console.log(props.selectedSs);
+		console.log(props.selectedTitle);
 	});
 
-	const [selectedSs, setSelectedSs] = useState("default");
 	const dropdown = (season) => {
 		if (season === undefined) {
 			return null;
@@ -130,7 +128,7 @@ const ChecklistSearchResult = (props) => {
 			return (
 				<Select
 					defaultValue={"default"}
-					onChange={(e) => setSelectedSs(e.target.value)}
+					onChange={(e) => props.setSelectedSs(e.target.value)}
 				>
 					<option
 						className="default"
@@ -149,8 +147,9 @@ const ChecklistSearchResult = (props) => {
 	};
 
 	useEffect(() => {
-		setSelectedPv("");
-		setSelectedSs("default");
+		props.setSelectedPv("");
+		props.setSelectedSs("default");
+		props.setSelectedTitle("");
 	}, []);
 
 	const setSetMovie = (media) => {
@@ -159,7 +158,7 @@ const ChecklistSearchResult = (props) => {
 				tmdb_id: media.tmdb_id,
 				title: media.title,
 				poster: media.poster,
-				provider: selectedPv,
+				provider: props.selectedPv,
 				runtime: media.runtime,
 			})
 			.then((response) => {
@@ -170,16 +169,16 @@ const ChecklistSearchResult = (props) => {
 			});
 	};
 	const setSetTV = (media) => {
-		let currentSs = media.season[Number(selectedSs.slice(3)) - 1];
+		let currentSs = media.season[Number(props.selectedSs.slice(3)) - 1];
 		let currentEP = currentSs.episodes;
 		if (currentEP === null) currentEP = 0;
 		console.log({
 			title: media.title,
 			tmdb_id: media.tmdb_id,
 			poster: media.poster,
-			season: Number(selectedSs.slice(3)),
+			season: Number(props.selectedSs.slice(3)),
 			total_episode: currentEP,
-			provider: selectedPv,
+			provider: props.selectedPv,
 			episode_run_time: media.episode_run_time,
 		});
 		axios
@@ -187,9 +186,9 @@ const ChecklistSearchResult = (props) => {
 				title: media.title,
 				tmdb_id: media.tmdb_id,
 				poster: media.poster,
-				season: Number(selectedSs.slice(3)),
+				season: Number(props.selectedSs.slice(3)),
 				total_episode: currentEP,
-				provider: selectedPv,
+				provider: props.selectedPv,
 				episode_run_time: media.episode_run_time,
 			})
 			.then((response) => {
@@ -200,6 +199,10 @@ const ChecklistSearchResult = (props) => {
 			});
 	};
 	const addList = (media) => {
+		props.setSelectedTitle(media.title);
+		console.log(props.selectedTitle);
+
+		props.setIsOpen(true);
 		if (media.season === undefined) {
 			setSetMovie(media);
 		} else {
