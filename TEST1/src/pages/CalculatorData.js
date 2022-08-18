@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import moment from 'moment';
-import styled from 'styled-components';
-import Header from '../components/Header';
-import Background from '../components/Background';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { ReactComponent as CalculatorIcon } from '../static/CalculatorIcon.svg';
-import BarChart from '../components/calculator/BarChart.js';
-import PieChart from '../components/calculator/PieCharts.js';
-import style from '../db.json';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
+import styled from "styled-components";
+import Header from "../components/Header";
+import Background from "../components/Background";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ReactComponent as CalculatorIcon } from "../static/CalculatorIcon.svg";
+import BarChart from "../components/calculator/BarChart.js";
+import PieChart from "../components/calculator/PieCharts.js";
+import style from "../db.json";
 
 const CalculatorData = () => {
 	const [getMoment, setMoment] = useState(moment());
@@ -28,12 +28,11 @@ const CalculatorData = () => {
 	//통계 낼 정보를 가져오는 함수
 	const getData = async () => {
 		await axios
-			//.get('http://localhost:8888/data')
-			.get('https://over-the-ott.herokuapp.com/calculator/runtime/')
-			.then(res => {
-				setDB(res.data.data); //local 버전 setDB(res.data);
+			.get("/calculator/runtime/")
+			.then((res) => {
+				setDB(res.data.data);
 			})
-			.catch(error => {
+			.catch((error) => {
 				console.log(error);
 			});
 	};
@@ -44,10 +43,10 @@ const CalculatorData = () => {
 			<Background />
 			<Wrapper>
 				<NotHeaderArea>
-					<div className='inner'>
+					<div className="inner">
 						<Container>
-							<div style={{ padding: '5vh 4vw 5vh 4vw' }}>
-								<div style={{ display: 'flex', justifyContent: 'center' }}>
+							<div style={{ padding: "5vh 4vw 5vh 4vw" }}>
+								<div style={{ display: "flex", justifyContent: "center" }}>
 									<InnerContainer>
 										<Title>OTT 별 분당 사용 요금</Title>
 										<Line />
@@ -59,39 +58,39 @@ const CalculatorData = () => {
 										<PieChart data={DB} ottCSS={ottCSS} />
 									</InnerContainer>
 								</div>
-								<Link to='/calculator' style={{ textDecoration: 'none' }}>
+								<Link to="/calculator" style={{ textDecoration: "none" }}>
 									<Button>
 										<CalculatorIcon />
 										<ButtonText>계산기로 돌아가기</ButtonText>
 									</Button>
 								</Link>
 								<div
-									style={{ position: 'absolute', bottom: '5vh', width: '70vw' }}
+									style={{ position: "absolute", bottom: "5vh", width: "70vw" }}
 								>
 									<div
 										style={{
-											position: 'relative',
-											display: 'flex',
-											justifyContent: 'center',
+											position: "relative",
+											display: "flex",
+											justifyContent: "center",
 										}}
 									>
 										<ControlBar>
-											<Year>{today.format('YYYY')}</Year>
+											<Year>{today.format("YYYY")}</Year>
 											<MonthWrapper>
 												<MonthButtonWrapper
 													onClick={() => {
-														setMoment(getMoment.clone().subtract(1, 'month'));
+														setMoment(getMoment.clone().subtract(1, "month"));
 													}}
 												>
-													<FiChevronLeft size='30' />
+													<FiChevronLeft size="30" />
 												</MonthButtonWrapper>
-												<Month>{today.format('M월')}</Month>
+												<Month>{today.format("M월")}</Month>
 												<MonthButtonWrapper
 													onClick={() => {
-														setMoment(getMoment.clone().add(1, 'month'));
+														setMoment(getMoment.clone().add(1, "month"));
 													}}
 												>
-													<FiChevronRight size='30' />
+													<FiChevronRight size="30" />
 												</MonthButtonWrapper>
 											</MonthWrapper>
 										</ControlBar>
