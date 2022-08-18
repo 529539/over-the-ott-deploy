@@ -40,7 +40,7 @@ const ChecklistSearch = () => {
 	const [HotMovies, setHotMovies] = useState([]);
 	const getHotTVs = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/search/tv/")
+			.get("/checklist/search/tv/")
 			.then((response) => {
 				console.log(response.data);
 				setHotTVs(response.data.data);
@@ -51,7 +51,7 @@ const ChecklistSearch = () => {
 	};
 	const getHotMovies = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/search/movie/")
+			.get("/checklist/search/movie/")
 			.then((response) => {
 				console.log(response.data);
 				setHotMovies(response.data.data);
@@ -69,9 +69,7 @@ const ChecklistSearch = () => {
 	const [movies, setMovies] = useState([]);
 	const getTVs = async (keyword) => {
 		const response = await axios
-			.get(
-				`https://over-the-ott.herokuapp.com/checklist/search/tv/?keyword=${keyword}`
-			)
+			.get(`/checklist/search/tv/?keyword=${keyword}`)
 			.then((response) => {
 				//console.log(response.data);
 				setTVs(response.data.data);
@@ -83,9 +81,7 @@ const ChecklistSearch = () => {
 	};
 	const getMovies = async (keyword) => {
 		const response = await axios
-			.get(
-				`https://over-the-ott.herokuapp.com/checklist/search/movie/?keyword=${keyword}`
-			)
+			.get(`/checklist/search/movie/?keyword=${keyword}`)
 			.then((response) => {
 				//console.log(response.data);
 				setMovies(response.data.data);
