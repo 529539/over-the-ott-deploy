@@ -7,12 +7,21 @@ import { ReactComponent as HeaderLogo } from "../static/HeaderLogo.svg";
 import { FiChevronLeft } from "react-icons/fi";
 import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
 import ChecklistSearchResult from "../components/checklist/ChecklistSearchResult";
+import ChecklistSaveModal from "../components/checklist/ChecklistSaveModal";
 
 const ChecklistSearch = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		setIsStart(true);
 	}, []);
+
+	const [isOpen, setIsOpen] = useState(false);
+	const _closeModal = () => {
+		setIsOpen(false);
+	};
+	const [selectedPv, setSelectedPv] = useState("");
+	const [selectedSs, setSelectedSs] = useState("default");
+	const [selectedTitle, setSelectedTitle] = useState("");
 
 	const [selected, setSelected] = useState("default");
 	const [input, setInput] = useState("");
@@ -33,6 +42,7 @@ const ChecklistSearch = () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/tv/")
 			.then((response) => {
+				console.log(response.data);
 				setHotTVs(response.data.data);
 			})
 			.catch((error) => {
@@ -43,6 +53,7 @@ const ChecklistSearch = () => {
 		const response = await axios
 			.get("https://over-the-ott.herokuapp.com/checklist/search/movie/")
 			.then((response) => {
+				console.log(response.data);
 				setHotMovies(response.data.data);
 			})
 			.catch((error) => {
@@ -62,6 +73,7 @@ const ChecklistSearch = () => {
 				`https://over-the-ott.herokuapp.com/checklist/search/tv/?keyword=${keyword}`
 			)
 			.then((response) => {
+				//console.log(response.data);
 				setTVs(response.data.data);
 				setPrintedInput(keyword);
 			})
@@ -75,6 +87,7 @@ const ChecklistSearch = () => {
 				`https://over-the-ott.herokuapp.com/checklist/search/movie/?keyword=${keyword}`
 			)
 			.then((response) => {
+				//console.log(response.data);
 				setMovies(response.data.data);
 				setPrintedInput(keyword);
 			})
@@ -124,10 +137,32 @@ const ChecklistSearch = () => {
 									<SearchedText>추천 인기 작품</SearchedText>
 									<MediasWrapper>
 										{HotTVs.map((media) => {
-											return <ChecklistSearchResult media={media} />;
+											return (
+												<ChecklistSearchResult
+													media={media}
+													setIsOpen={setIsOpen}
+													selectedPv={selectedPv}
+													setSelectedPv={setSelectedPv}
+													selectedSs={selectedSs}
+													setSelectedSs={setSelectedSs}
+													selectedTitle={selectedTitle}
+													setSelectedTitle={setSelectedTitle}
+												/>
+											);
 										})}
 										{HotMovies.map((media) => {
-											return <ChecklistSearchResult media={media} />;
+											return (
+												<ChecklistSearchResult
+													media={media}
+													setIsOpen={setIsOpen}
+													selectedPv={selectedPv}
+													setSelectedPv={setSelectedPv}
+													selectedSs={selectedSs}
+													setSelectedSs={setSelectedSs}
+													selectedTitle={selectedTitle}
+													setSelectedTitle={setSelectedTitle}
+												/>
+											);
 										})}
 									</MediasWrapper>
 									<LogoContainer>
@@ -142,7 +177,18 @@ const ChecklistSearch = () => {
 									) : (
 										<MediasWrapper>
 											{TVs.map((media) => {
-												return <ChecklistSearchResult media={media} />;
+												return (
+													<ChecklistSearchResult
+														media={media}
+														setIsOpen={setIsOpen}
+														selectedPv={selectedPv}
+														setSelectedPv={setSelectedPv}
+														selectedSs={selectedSs}
+														setSelectedSs={setSelectedSs}
+														selectedTitle={selectedTitle}
+														setSelectedTitle={setSelectedTitle}
+													/>
+												);
 											})}
 											{(TVs.length + 3) % 3 === 2 ? (
 												<MediaContainer></MediaContainer>
@@ -166,7 +212,18 @@ const ChecklistSearch = () => {
 									) : (
 										<MediasWrapper>
 											{movies.map((media) => {
-												return <ChecklistSearchResult media={media} />;
+												return (
+													<ChecklistSearchResult
+														media={media}
+														setIsOpen={setIsOpen}
+														selectedPv={selectedPv}
+														setSelectedPv={setSelectedPv}
+														selectedSs={selectedSs}
+														setSelectedSs={setSelectedSs}
+														selectedTitle={selectedTitle}
+														setSelectedTitle={setSelectedTitle}
+													/>
+												);
 											})}
 											{(movies.length + 3) % 3 === 2 ? (
 												<MediaContainer></MediaContainer>
@@ -187,6 +244,15 @@ const ChecklistSearch = () => {
 					</div>
 				</NotHeaderArea>
 			</Wrapper>
+			{isOpen ? (
+				<ChecklistSaveModal
+					isOpen={isOpen}
+					selectedPv={selectedPv}
+					selectedSs={selectedSs}
+					selectedTitle={selectedTitle}
+					_closeModal={_closeModal}
+				/>
+			) : null}
 		</>
 	);
 };

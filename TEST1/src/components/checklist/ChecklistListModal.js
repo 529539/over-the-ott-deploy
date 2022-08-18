@@ -70,7 +70,7 @@ const ChecklistListModal = ({
 					/>
 				</>
 			);
-		else if (name === "Wavve")
+		else if (name === "wavve")
 			return (
 				<>
 					<WavveLogo
@@ -92,7 +92,7 @@ const ChecklistListModal = ({
 					/>
 				</>
 			);
-		else if (name === "Apple TV")
+		else if (name === "Apple TV Plus")
 			return (
 				<>
 					<AppleTVLogo
@@ -103,7 +103,7 @@ const ChecklistListModal = ({
 					/>
 				</>
 			);
-		else if (name === "Prime Video")
+		else if (name === "Amazon Prime Video")
 			return (
 				<>
 					<PrimeVideoLogo
