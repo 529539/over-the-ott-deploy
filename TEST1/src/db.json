@@ -42,49 +42,5 @@
 			"img": "/OTTcircle/PrimeVideo.svg",
 			"color": "10BBE0"
 		}
-	],
-	"data": [
-		{
-			"ott_name": "Netflix",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 150,
-			"won_per_min": 10.0
-		},
-		{
-			"ott_name": "Watcha",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 120,
-			"won_per_min": 12.5
-		},
-		{
-			"ott_name": "Wavve",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 100,
-			"won_per_min": 14.5
-		},
-		{
-			"ott_name": "Disney Plus",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 180,
-			"won_per_min": 8.0
-		},
-		{
-			"ott_name": "Apple TV",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 80,
-			"won_per_min": 16.0
-		},
-		{
-			"ott_name": "Prime Video",
-			"year": 2022,
-			"month": 8,
-			"total_runtime": 150,
-			"won_per_min": 9.5
-		}
 	]
 }

@@ -1,14 +1,31 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const NotificationModal = ({ _handleModal, children, ...rest }) => {
+const NotificationModal = props => {
 	return (
 		<Container>
-			<Background onClick={_handleModal} />
+			<Background onClick={props._handleModal} />
 			<ModalWrapper>
 				<ModalTri />
-				<ModalBlock {...rest}>
-					<Contents>{children}</Contents>
+				<ModalBlock>
+					<Contents>
+						{props.setAlert ? (
+							props.alertList.map(list => {
+								console.log(props.alertList);
+								<AlertWrapper>
+									<div>
+										{/* <img src={list.img} /> */}
+										<div className='textWrapper'>
+											<p>구독 갱신까지</p>
+											<p>${list.dDay}</p>
+										</div>
+									</div>
+								</AlertWrapper>;
+							})
+						) : (
+							<p>7일이내 구독 갱신이 없습니다.</p>
+						)}
+					</Contents>
 				</ModalBlock>
 			</ModalWrapper>
 		</Container>
@@ -81,3 +98,4 @@ const Contents = styled.div`
 	flex-direction: column;
 	align-items: center;
 `;
+const AlertWrapper = styled.div``;
