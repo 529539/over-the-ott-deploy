@@ -1,15 +1,14 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { PieChart } from 'react-minimal-pie-chart';
-import { ReactComponent as Netflix } from '../../static/OTTcircle/Netflix.svg';
-import { ReactComponent as Watcha } from '../../static/OTTcircle/Watcha.svg';
-import { ReactComponent as Wavve } from '../../static/OTTcircle/Wavve.svg';
-import { ReactComponent as DisneyPlus } from '../../static/OTTcircle/DisneyPlus.svg';
-import { ReactComponent as AppleTV } from '../../static/OTTcircle/AppleTV.svg';
-import { ReactComponent as PrimeVideo } from '../../static/OTTcircle/PrimeVideo.svg';
+import React from "react";
+import styled from "styled-components";
+import { PieChart } from "react-minimal-pie-chart";
+import { ReactComponent as Netflix } from "../../static/OTTcircle/Netflix.svg";
+import { ReactComponent as Watcha } from "../../static/OTTcircle/Watcha.svg";
+import { ReactComponent as Wavve } from "../../static/OTTcircle/Wavve.svg";
+import { ReactComponent as DisneyPlus } from "../../static/OTTcircle/DisneyPlus.svg";
+import { ReactComponent as AppleTV } from "../../static/OTTcircle/AppleTV.svg";
+import { ReactComponent as PrimeVideo } from "../../static/OTTcircle/PrimeVideo.svg";
 
-const PieCharts = props => {
+const PieCharts = (props) => {
 	//정보 불러와서 저장
 	var ottData = [];
 	ottData = props.data;
@@ -19,31 +18,31 @@ const PieCharts = props => {
 
 	function color(ott_name) {
 		switch (ott_name) {
-			case 'Netflix':
-				return '#D90B1C';
-			case 'Watcha':
-				return '#FF0558';
-			case 'Wavve':
-				return '#1F4EF5';
-			case 'Disney Plus':
-				return '#192F72';
-			case 'Apple TV':
-				return '#77848C';
+			case "Netflix":
+				return "#D90B1C";
+			case "Watcha":
+				return "#FF0558";
+			case "Wavve":
+				return "#1F4EF5";
+			case "Disney Plus":
+				return "#192F72";
+			case "Apple TV":
+				return "#77848C";
 			default:
-				return '#10BBE0';
+				return "#10BBE0";
 		}
 	}
 	function img(ott_name) {
 		switch (ott_name) {
-			case 'Netflix':
+			case "Netflix":
 				return <Netflix />;
-			case 'Watcha':
+			case "Watcha":
 				return <Watcha />;
-			case 'Wavve':
+			case "Wavve":
 				return <Wavve />;
-			case 'Disney Plus':
+			case "Disney Plus":
 				return <DisneyPlus />;
-			case 'Apple TV':
+			case "Apple TV":
 				return <AppleTV />;
 			default:
 				return <PrimeVideo />;
@@ -80,14 +79,14 @@ const PieCharts = props => {
 		<>
 			<PieWrapper>
 				<PieChart
-					className='pie'
+					className="pie"
 					data={makeData(pieData)}
 					label={({ dataEntry }) =>
 						//dataEntry.img
-						dataEntry.title + ' ' + dataEntry.value.toFixed(2) + '%'
+						dataEntry.title + " " + dataEntry.value.toFixed(2) + "%"
 					}
 					//children={({ dataEntry }) => dataEntry.img}
-					labelStyle={{ fill: '#ffffff', fontSize: '6px' }}
+					labelStyle={{ fill: "#ffffff", fontSize: "6px" }}
 					labelPosition={90}
 					lineWidth={30}
 				/>

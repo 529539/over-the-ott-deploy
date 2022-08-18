@@ -28,7 +28,7 @@ const ChecklistListModal = ({
 	};
 	const getDetails = async () => {
 		const response = await axios
-			.get(`https://over-the-ott.herokuapp.com/checklist/${type}/${id}/`)
+			.get(`/checklist/${type}/${id}/`)
 			.then((response) => {
 				//console.log(response.data);
 				//console.log(response.data.data);
@@ -45,94 +45,71 @@ const ChecklistListModal = ({
 
 	useEffect(() => {
 		getDetails();
-	});
+	}, [thisDetail]);
 
 	const ottImage = (name) => {
 		if (name === "Netflix")
 			return (
 				<>
-					<NetflixLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<NetflixLogo size="1vw" />
 				</>
 			);
 		else if (name === "Watcha")
 			return (
 				<>
-					<WatchaLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<WatchaLogo size="1vw" />
 				</>
 			);
 		else if (name === "wavve")
 			return (
 				<>
-					<WavveLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<WavveLogo size="1vw" />
 				</>
 			);
 		else if (name === "Disney Plus")
 			return (
 				<>
-					<DisneyPlusLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<DisneyPlusLogo size="1vw" />
 				</>
 			);
 		else if (name === "Apple TV Plus")
 			return (
 				<>
-					<AppleTVLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<AppleTVLogo size="1vw" />
 				</>
 			);
 		else if (name === "Amazon Prime Video")
 			return (
 				<>
-					<PrimeVideoLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<PrimeVideoLogo size="1vw" />
 				</>
 			);
 		else console.error("Error: invalid OTT");
 	};
 
-	class Comp extends React.Component {
-		state = { isChecked: false };
+	const checkTV = (epid) => {
+		axios
+			.post(`/checklist/tv/${id}/`, {
+				episode_id: epid,
+			})
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.log("TV 회차별 체크 추가 실패", error);
+			});
+	};
 
-		onClick = () => {
-			this.setState({ isChecked: !this.state.isChecked });
-		};
-
-		render() {
-			const { isChecked } = this.state;
-			return (
-				<CheckCircle onClick={this.onClick}>
-					<HiCheck style={{ display: isChecked ? "block" : "none" }} />
-				</CheckCircle>
-			);
-		}
-	}
+	const checkTVAll = () => {
+		axios
+			.put(`/checklist/tv/${id}/`)
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.log("TV 회차 전체 체크 추가 실패", error);
+			});
+	};
 
 	const printEp = () => {
 		return (
@@ -144,7 +121,11 @@ const ChecklistListModal = ({
 								<EpContainer>
 									<EpText>{ep.episode_num}화</EpText>
 									<CheckCircleContainer>
-										<Comp />
+										<CheckCircle onClick={() => checkTV(ep.id)}>
+											<HiCheck
+												style={{ display: ep.is_finished ? "block" : "none" }}
+											/>
+										</CheckCircle>
 									</CheckCircleContainer>
 								</EpContainer>
 								<EpBorder />
@@ -155,34 +136,27 @@ const ChecklistListModal = ({
 		);
 	};
 
-	const [isMChecked, setIsMChecked] = useState(false);
-	const handleMCheck = () => {
-		setIsMChecked(true);
-		console.log(isMChecked);
+	const checkMv = () => {
+		axios
+			.post(`/checklist/movie/${id}/`)
+			.then((response) => {
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.log("영화 완료 리스트에 추가 실패", error);
+			});
 	};
 
-	useEffect(() => {
-		setIsMChecked(false);
-	}, []);
-
-	const printEpM = (id) => {
-		if (isMChecked === true) {
-			axios
-				.post(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch((error) => {
-					console.log("영화 완료 리스트에 추가 실패", error);
-				});
-		}
+	const printEpM = () => {
 		return (
 			<>
 				<EpContainer>
 					<EpText>단편</EpText>
 					<CheckCircleContainer>
-						<CheckCircle onClick={() => handleMCheck()}>
-							<HiCheck style={{ display: isMChecked ? "block" : "none" }} />
+						<CheckCircle onClick={() => checkMv()}>
+							<HiCheck
+								style={{ display: thisDetail.is_finished ? "block" : "none" }}
+							/>
 						</CheckCircle>
 					</CheckCircleContainer>
 				</EpContainer>
@@ -220,7 +194,17 @@ const ChecklistListModal = ({
 												</MediaTitle>
 											</TitleWrapper>
 											{thisEp && (
-												<EpWrapper className="scrollbar">{printEp()}</EpWrapper>
+												<>
+													<SelectAll onClick={() => checkTVAll()}>
+														전체 선택
+													</SelectAll>
+													<EpWrapper
+														className="scrollbar"
+														style={{ marginTop: "1vh" }}
+													>
+														{printEp()}
+													</EpWrapper>
+												</>
 											)}
 										</>
 									) : null)}
@@ -376,6 +360,19 @@ const MediaTitle = styled.div`
 	margin-left: 0.7vw;
 	margin-top: 0.3vh;
 	color: #343434;
+`;
+
+const SelectAll = styled.div`
+	font-size: 0.8vw;
+	margin: 1.5vh 0 0 13.5vw;
+	color: #d38189;
+	&:hover {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	&:active {
+		color: gray;
+	}
 `;
 
 const EpWrapper = styled.div`
