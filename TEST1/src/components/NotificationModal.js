@@ -1,7 +1,50 @@
-import React from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
+import db from '../db.json';
 
 const NotificationModal = props => {
+	const [alert, setAlert] = useState(false);
+
+	var alertArray = props.subArray;
+
+	//ott 이름에 맞는 아이콘 불러오는 함수
+	function img(ott) {
+		switch (ott) {
+			case 1:
+			case 2:
+			case 3:
+				return db.ottArray[0].img;
+			case 4:
+			case 5:
+				return db.ottArray[1].img;
+			case 6:
+			case 7:
+			case 8:
+				return db.ottArray[2].img;
+			case 9:
+			case 10:
+				return db.ottArray[3].img;
+			case 11:
+				return db.ottArray[4].img;
+			default:
+				return db.ottArray[5].img;
+		}
+	}
+	const AlertList = () => {
+		return alertArray.map(
+			list =>
+				list.days_till_pay <= 7 && (
+					<AlertWrapper>
+						<img src={img(list.ott)} />
+						<TextWrapper>
+							<p>구독 갱신까지</p>
+							<p>{list.days_till_pay}일</p>
+							<p>남았습니다</p>
+						</TextWrapper>
+					</AlertWrapper>
+				)
+		);
+	};
 	return (
 		<Container>
 			<Background onClick={props._handleModal} />
@@ -9,22 +52,7 @@ const NotificationModal = props => {
 				<ModalTri />
 				<ModalBlock>
 					<Contents>
-						{props.setAlert ? (
-							props.alertList.map(list => {
-								console.log(props.alertList);
-								<AlertWrapper>
-									<div>
-										{/* <img src={list.img} /> */}
-										<div className='textWrapper'>
-											<p>구독 갱신까지</p>
-											<p>${list.dDay}</p>
-										</div>
-									</div>
-								</AlertWrapper>;
-							})
-						) : (
-							<p>7일이내 구독 갱신이 없습니다.</p>
-						)}
+						<AlertList />
 					</Contents>
 				</ModalBlock>
 			</ModalWrapper>
@@ -94,8 +122,29 @@ const ModalBlock = styled.div`
 `;
 
 const Contents = styled.div`
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	img {
+		width: 1.25vw;
+	}
 `;
-const AlertWrapper = styled.div``;
+const AlertWrapper = styled.div`
+	width: 100%;
+	display: flex;
+`;
+const TextWrapper = styled.div`
+	width: 14.92vw;
+	display: flex;
+	font-weight: 400;
+	font-size: 0.93vw;
+	justify-content: space-between;
+	text-align: center;
+	color: #000000;
+	margin-left: 0.72vw;
+	p:nth-child(2) {
+		color: #d38189;
+		font-weight: 700;
+	}
+`;

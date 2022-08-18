@@ -2,48 +2,27 @@ import { React, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as HeaderLogo } from '../static/HeaderLogo.svg';
 import { NavLink, Link } from 'react-router-dom';
-import axios from 'axios';
 import { ReactComponent as Notification } from '../static/Notification.svg';
 import { BsFillPersonFill } from 'react-icons/bs';
 import NotificationModal from './NotificationModal.js';
+import axios from 'axios';
 import db from '../db.json';
 
 const Header = () => {
 	const [isModal, setIsModal] = useState(false);
-	const [alert, setAlert] = useState(false);
-
-	//모달창에 넣을 정보 관리
-	var subArray = [];
-	var alertList = [];
+	const [subArray, setSubArray] = useState([]);
 
 	//모달 관리
 	const _handleModal = () => {
-		getSubInfo();
 		setIsModal(!isModal);
+		getSubInfo();
 	};
 
-	//모달에 넣을 정보 가져오는 함수
+	//모달에 넣을 구독 정보 가져오는 함수
 	function getSubInfo() {
-		axios
-			.get('/calculator/days-till')
-			.then(res => {
-				subArray = res.data.data;
-			})
-			.then(() => {
-				var subInfo = {};
-				for (var i = 0; i < subArray.length; i++) {
-					if (subArray[i].days_till_pay <= 7) {
-						setAlert(true);
-						subInfo = {
-							ott: subArray[i].ott,
-							img: img(subArray[i].ott),
-							dDay: subArray[i].days_till_pay,
-						};
-					}
-					alertList = [...alertList, subInfo];
-				}
-			});
-		return alertList;
+		axios.get('/calculator/days-till').then(res => {
+			setSubArray(res.data.data);
+		});
 	}
 	//ott 이름에 맞는 아이콘 불러오는 함수
 	function img(ott) {
@@ -115,11 +94,7 @@ const Header = () => {
 				</div>
 			</Container>
 			{isModal && (
-				<NotificationModal
-					_handleModal={_handleModal}
-					alertList={alertList}
-					setAlert={setAlert}
-				/>
+				<NotificationModal _handleModal={_handleModal} subArray={subArray} />
 			)}
 		</>
 	);
