@@ -1,9 +1,10 @@
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import db from '../db.json';
+import { useEffect } from 'react';
 
 const NotificationModal = props => {
-	var alertArray = props.subArray;
+	const alertArray = props.subArray.filter(sub => sub.days_till_pay <= 7);
 
 	//ott 이름에 맞는 아이콘 불러오는 함수
 	function img(ott) {
@@ -29,19 +30,20 @@ const NotificationModal = props => {
 		}
 	}
 	const AlertList = () => {
-		return alertArray.map(
-			list =>
-				list.days_till_pay <= 7 && (
-					<AlertWrapper>
-						<img src={img(list.ott)} />
-						<TextWrapper>
-							<p>구독 갱신까지</p>
-							<p>{list.days_till_pay}일</p>
-							<p>남았습니다</p>
-						</TextWrapper>
-					</AlertWrapper>
-				)
-		);
+		if (alertArray.length) {
+			return alertArray.map(list => (
+				<AlertWrapper>
+					<img src={img(list.ott)} />
+					<TextWrapper>
+						<p>구독 갱신까지</p>
+						<p>{list.days_till_pay}일</p>
+						<p>남았습니다</p>
+					</TextWrapper>
+				</AlertWrapper>
+			));
+		} else {
+			return <p>7일이내 구독갱신이 없습니다.</p>;
+		}
 	};
 	return (
 		<Container>
@@ -50,11 +52,7 @@ const NotificationModal = props => {
 				<ModalTri />
 				<ModalBlock>
 					<Contents>
-						{props.alert === true ? (
-							<AlertList />
-						) : (
-							<p>7일이내 구독갱신이 없습니다.</p>
-						)}
+						<AlertList />
 					</Contents>
 				</ModalBlock>
 			</ModalWrapper>

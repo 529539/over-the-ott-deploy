@@ -11,24 +11,19 @@ import { useEffect } from 'react';
 const Header = () => {
 	const [isModal, setIsModal] = useState(false);
 	const [subArray, setSubArray] = useState([]);
-	//alert 내용 관리
-	const [alert, setAlert] = useState(false);
 
 	//모달 관리
 	const _handleModal = () => {
 		setIsModal(!isModal);
+		getSubInfo();
 	};
 
 	//모달에 넣을 구독 정보 가져오는 함수
 	function getSubInfo() {
 		axios.get('/calculator/days-till').then(res => {
 			setSubArray(res.data.data);
-			setAlert(true);
 		});
 	}
-	useEffect(() => {
-		getSubInfo();
-	}, []);
 
 	return (
 		<>
@@ -76,11 +71,7 @@ const Header = () => {
 				</div>
 			</Container>
 			{isModal && (
-				<NotificationModal
-					_handleModal={_handleModal}
-					subArray={subArray}
-					alert={alert}
-				/>
+				<NotificationModal _handleModal={_handleModal} subArray={subArray} />
 			)}
 		</>
 	);
