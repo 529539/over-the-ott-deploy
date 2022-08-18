@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { ReactComponent as LargeLogo } from "../static/landingLogo.svg";
-import { ReactComponent as SmallLogo } from "../static/HeaderLogo.svg";
-import { ReactComponent as FooterLogo } from "../static/loginLogo.svg";
-import Background from "../components/Background";
-import { ReactComponent as TutorialBackground } from "../static/TutorialBackground.svg";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { ReactComponent as LargeLogo } from '../static/landingLogo.svg';
+import { ReactComponent as SmallLogo } from '../static/HeaderLogo.svg';
+import { ReactComponent as FooterLogo } from '../static/loginLogo.svg';
+import Background from '../components/Background';
+import { ReactComponent as TutorialBackground } from '../static/TutorialBackground.svg';
 
 const Landing = () => {
 	useEffect(() => {
@@ -17,12 +17,12 @@ const Landing = () => {
 			<LandingWrapper>
 				<Background />
 				<ContentWrapper>
-					<LargeLogo className="logo" />
+					<LargeLogo className='logo' />
 					<ButtonWrapper>
-						<Link to="/login">
+						<Link to='/login'>
 							<LoginBtn>로그인</LoginBtn>
 						</Link>
-						<Link to="/signup">
+						<Link to='/signup'>
 							<SignupBtn>회원가입</SignupBtn>
 						</Link>
 					</ButtonWrapper>
@@ -30,9 +30,9 @@ const Landing = () => {
 				<TutorialWrapper>
 					<TitleTextWrapper>
 						<TitleText1>똑똑한 소비를 위한 해지할 결심!</TitleText1>
-						<div style={{ display: "flex", justifyContent: "center" }}>
+						<div style={{ display: 'flex', justifyContent: 'center' }}>
 							<TitleText2>지금 바로</TitleText2>
-							<TitleText2 style={{ marginLeft: "1vw", color: "#D38189" }}>
+							<TitleText2 style={{ marginLeft: '1vw', color: '#D38189' }}>
 								OVER THE OTT
 							</TitleText2>
 							<TitleText2>에서 시작해 보세요!</TitleText2>
@@ -40,12 +40,12 @@ const Landing = () => {
 					</TitleTextWrapper>
 					<ColorWrapper>
 						<ColorContainer>
-							<ColorDiv style={{ backgroundColor: "#D90B1C" }} />
-							<ColorDiv style={{ backgroundColor: "#FF0558" }} />
-							<ColorDiv style={{ backgroundColor: "#1F4EF5" }} />
-							<ColorDiv style={{ backgroundColor: "#192F72" }} />
-							<ColorDiv style={{ backgroundColor: "#77848C" }} />
-							<ColorDiv style={{ backgroundColor: "#10BBE0" }} />
+							<ColorDiv style={{ backgroundColor: '#D90B1C' }} />
+							<ColorDiv style={{ backgroundColor: '#FF0558' }} />
+							<ColorDiv style={{ backgroundColor: '#1F4EF5' }} />
+							<ColorDiv style={{ backgroundColor: '#192F72' }} />
+							<ColorDiv style={{ backgroundColor: '#77848C' }} />
+							<ColorDiv style={{ backgroundColor: '#10BBE0' }} />
 						</ColorContainer>
 					</ColorWrapper>
 					<DetailWrapper>
@@ -53,11 +53,11 @@ const Landing = () => {
 							<DetailBox>
 								<DetailText>체크리스트</DetailText>
 								<DetailTextLight>에서 빠른 검색으로 나만의</DetailTextLight>
-								<DetailTextBold style={{ marginLeft: "0.5vw" }}>
+								<DetailTextBold style={{ marginLeft: '0.5vw' }}>
 									정주행 리스트
 								</DetailTextBold>
 								<DetailTextLight>와</DetailTextLight>
-								<DetailTextBold style={{ marginLeft: "0.5vw" }}>
+								<DetailTextBold style={{ marginLeft: '0.5vw' }}>
 									완주 리스트
 								</DetailTextBold>
 								<DetailTextLight>를 채워보세요.</DetailTextLight>
@@ -86,11 +86,11 @@ const Landing = () => {
 							<DetailBox>
 								<DetailText>계산기</DetailText>
 								<DetailTextLight>에서 구독 중인 OTT의</DetailTextLight>
-								<DetailTextBold style={{ marginLeft: "0.5vw" }}>
+								<DetailTextBold style={{ marginLeft: '0.5vw' }}>
 									분당 사용 요금
 								</DetailTextBold>
 								<DetailTextLight>과</DetailTextLight>
-								<DetailTextBold style={{ marginLeft: "0.5vw" }}>
+								<DetailTextBold style={{ marginLeft: '0.5vw' }}>
 									이용 시간
 								</DetailTextBold>
 								<DetailTextLight>을 비교해 보세요.</DetailTextLight>
@@ -115,7 +115,7 @@ const Landing = () => {
 							<DetailBox>
 								<DetailText>캘린더</DetailText>
 								<DetailTextLight>에서</DetailTextLight>
-								<DetailTextBold style={{ marginLeft: "0.5vw" }}>
+								<DetailTextBold style={{ marginLeft: '0.5vw' }}>
 									구독 갱신 날짜
 								</DetailTextBold>
 								<DetailTextLight>
@@ -146,20 +146,20 @@ const Landing = () => {
 							<TitleText1>효율적인 OTT 서비스 구독과 해지를 위한</TitleText1>
 							<div
 								style={{
-									display: "flex",
-									justifyContent: "center",
-									marginTop: "0.5vh",
+									display: 'flex',
+									justifyContent: 'center',
+									marginTop: '0.5vh',
 								}}
 							>
-								<TitleText2 style={{ color: "#D38189" }}>
+								<TitleText2 style={{ color: '#D38189' }}>
 									OVER THE OTT
 								</TitleText2>
 								<TitleText2>만의 차별 포인트!</TitleText2>
 							</div>
-							<div style={{ display: "flex", justifyContent: "center" }}>
+							<div style={{ display: 'flex', justifyContent: 'center' }}>
 								<PointBox>
 									<div>
-										<Number style={{ left: "7vw" }}>01</Number>
+										<Number style={{ left: '7vw' }}>01</Number>
 										<PointTitleContainer>
 											<PointTitle>이용 로그에 초점을 두다</PointTitle>
 										</PointTitleContainer>
@@ -172,8 +172,8 @@ const Landing = () => {
 											OTT 작품 추전, 작품 정보 등을 제공하는 <br />타 OTT 보조
 											서비스와는 달리
 										</PointText>
-										<div style={{ display: "flex", justifyContent: "center" }}>
-											<PointText style={{ fontWeight: "700" }}>
+										<div style={{ display: 'flex', justifyContent: 'center' }}>
+											<PointText style={{ fontWeight: '700' }}>
 												사용자의 이용 로그 기록에 초점
 											</PointText>
 											<PointText>을 두고 있습니다.</PointText>
@@ -182,7 +182,7 @@ const Landing = () => {
 								</PointBox>
 								<PointBox>
 									<div>
-										<Number style={{ left: "4.5vw" }}>02</Number>
+										<Number style={{ left: '4.5vw' }}>02</Number>
 										<PointTitleContainer>
 											<PointTitle>이용 로그를 통한 똑똑한 소비</PointTitle>
 										</PointTitleContainer>
@@ -195,10 +195,10 @@ const Landing = () => {
 											<br />
 											<br />
 										</PointText>
-										<div style={{ display: "flex", justifyContent: "center" }}>
+										<div style={{ display: 'flex', justifyContent: 'center' }}>
 											<PointText>OVER THE OTT는</PointText>
 											<PointText
-												style={{ marginLeft: "0.5vw", fontWeight: "700" }}
+												style={{ marginLeft: '0.5vw', fontWeight: '700' }}
 											>
 												시각적, 직관적 정보와 수치
 											</PointText>
@@ -218,7 +218,7 @@ const Landing = () => {
 						<SmallLogo />
 					</LogoContainer>
 					<FooterWrapper>
-						<div className="inner">
+						<div className='inner'>
 							<TextWrapper>
 								<FooterLogo />
 								<TextParagraph>
@@ -238,12 +238,12 @@ const Landing = () => {
 								</TextParagraph>
 							</TextWrapper>
 							<LineWrapper>
-								<div className="line"></div>
+								<div className='line'></div>
 							</LineWrapper>
 							<BottomText>Over the OTT. All Rights Reserved.</BottomText>
 						</div>
 					</FooterWrapper>
-					<TutorialBackground />
+					<TutorialBackground style={{ width: '100vw' }} />
 				</TutorialWrapper>
 			</LandingWrapper>
 		</>
@@ -344,6 +344,7 @@ const ColorWrapper = styled.div`
 	width: 100vw;
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 `;
 
 const ColorContainer = styled.div`
