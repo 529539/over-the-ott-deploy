@@ -1,39 +1,36 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { ReactComponent as NetflixLogo } from "../../static/OTTcircle/Netflix.svg";
-import { ReactComponent as WatchaLogo } from "../../static/OTTcircle/Watcha.svg";
-import { ReactComponent as DisneyPlusLogo } from "../../static/OTTcircle/DisneyPlus.svg";
-import { ReactComponent as WavveLogo } from "../../static/OTTcircle/Wavve.svg";
-import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.svg";
-import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
-import { RiCloseCircleLine } from "react-icons/ri";
-import ChecklistListModal from "./ChecklistListModal";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import { ReactComponent as NetflixLogo } from '../../static/OTTcircle/Netflix.svg';
+import { ReactComponent as WatchaLogo } from '../../static/OTTcircle/Watcha.svg';
+import { ReactComponent as DisneyPlusLogo } from '../../static/OTTcircle/DisneyPlus.svg';
+import { ReactComponent as WavveLogo } from '../../static/OTTcircle/Wavve.svg';
+import { ReactComponent as AppleTVLogo } from '../../static/OTTcircle/AppleTV.svg';
+import { ReactComponent as PrimeVideoLogo } from '../../static/OTTcircle/PrimeVideo.svg';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import ChecklistListModal from './ChecklistListModal';
 
-const ChecklistList = (props) => {
+const ChecklistList = props => {
 	const [ingTVs, setIngTVs] = useState([]);
 	const [ingMovies, setIngMovies] = useState([]);
-
 	const getTVs = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/tv/")
-			.then((response) => {
-				//console.log(response.data);
+			.get('https://over-the-ott.herokuapp.com/checklist/tv/')
+			.then(response => {
 				setIngTVs(response.data.data.watching);
 			})
-			.catch((error) => {
-				console.log("TV 리스트 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('TV 리스트 불러오기 실패', error.message);
 			});
 	};
 	const getMovies = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/movie/")
-			.then((response) => {
-				//console.log(response.data);
+			.get('https://over-the-ott.herokuapp.com/checklist/movie/')
+			.then(response => {
 				setIngMovies(response.data.data.watching);
 			})
-			.catch((error) => {
-				console.log("영화 리스트 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('영화 리스트 불러오기 실패', error.message);
 			});
 	};
 
@@ -45,125 +42,125 @@ const ChecklistList = (props) => {
 	let watchingArray = ingTVs.concat(ingMovies);
 	//console.log(watchingArray);
 
-	const ottImage = (name) => {
-		if (name === "Netflix")
+	const ottImage = name => {
+		if (name === 'Netflix')
 			return (
 				<>
 					<NetflixLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Watcha")
+		else if (name === 'Watcha')
 			return (
 				<>
 					<WatchaLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Wavve")
+		else if (name === 'Wavve')
 			return (
 				<>
 					<WavveLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Disney Plus")
+		else if (name === 'Disney Plus')
 			return (
 				<>
 					<DisneyPlusLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Apple TV")
+		else if (name === 'Apple TV')
 			return (
 				<>
 					<AppleTVLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Prime Video")
+		else if (name === 'Prime Video')
 			return (
 				<>
 					<PrimeVideoLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else console.error("Error: invalid OTT");
+		else console.error('Error: invalid OTT');
 	};
 
 	const _handleModal = () => {
 		props.setIsOpen(!props.isOpen);
 	};
 
-	const [detailType, setDetailType] = useState("");
-	const [detailID, setDetailID] = useState("");
-	const openModal = (media) => {
+	const [detailType, setDetailType] = useState('');
+	const [detailID, setDetailID] = useState('');
+	const openModal = media => {
 		props.setIsOpen(true);
 		setDetailID(media.id);
-		if (media.type === "tv") setDetailType("tv");
-		if (media.type === "movie") setDetailType("movie");
+		if (media.type === 'tv') setDetailType('tv');
+		if (media.type === 'movie') setDetailType('movie');
 	};
 
 	const onDelete = (type, id) => {
-		if (type === "tv") {
+		if (type === 'tv') {
 			axios
 				.delete(`https://over-the-ott.herokuapp.com/checklist/tv/${id}`)
-				.then((response) => {
+				.then(response => {
 					getTVs(response.data);
 				})
-				.catch((error) => {
-					console.log("삭제 실패", error);
+				.catch(error => {
+					console.log('삭제 실패', error);
 				});
 		}
-		if (type === "movie") {
+		if (type === 'movie') {
 			axios
 				.delete(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
-				.then((response) => {
+				.then(response => {
 					getMovies(response.data);
 				})
-				.catch((error) => {
-					console.log("삭제 실패", error);
+				.catch(error => {
+					console.log('삭제 실패', error);
 				});
 		}
 	};
 
 	return (
 		<>
-			{watchingArray.map((media) => {
+			{watchingArray.map(media => {
 				return (
 					<>
 						<LineWrapper>
 							{ottImage(media.provider)}
 							<Title onClick={() => openModal(media)}>
-								{media.title}{" "}
-								{media.type === "tv" ? `(시리즈 ${media.season})` : null}
+								{media.title}{' '}
+								{media.type === 'tv' ? `(시리즈 ${media.season})` : null}
 							</Title>
 							<RiCloseCircleLine
-								className="delete"
+								className='delete'
 								onClick={() => onDelete(media.type, media.id)}
 							/>
 						</LineWrapper>

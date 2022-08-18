@@ -37,15 +37,17 @@ const SignupBox = () => {
 		}
 	};
 	//회원가입 후 정보 전달하는 함수
-	const SignupSubmit = e => {
+	const SignupSubmit = (e, async) => {
 		if (validID && validPW) {
 			axios
-				.post('https://over-the-ott.herokuapp.com/account/signup/', {
+				.post('/account/signup/', {
 					email: newID,
 					password: newPW,
 				})
 				.then(res => {
 					if (res.data.message === '회원가입 성공') {
+						setLogin();
+						sessionStorage.setItem('email', res.data.data.email); //유저 이메일 저장
 						alert(res.data.message);
 						navigate('/signup/setting');
 					} else {
@@ -63,6 +65,19 @@ const SignupBox = () => {
 		}
 		setNewID('');
 		setNewPW('');
+	};
+
+	const setLogin = e => {
+		axios
+			.post('/account/login/', {
+				email: newID,
+				password: newPW,
+			})
+			.then(res => {
+				console.log(res.data.message);
+				sessionStorage.setItem('user', res.data.data.user); //로그인한 유저 이메일 저장
+				sessionStorage.setItem('token', res.data.data.access_token); // 토큰 저장
+			});
 	};
 
 	return (
@@ -96,7 +111,9 @@ const SignupBox = () => {
 						onKeyDown={enterInput}
 					/>
 					<SignupBtn
-						onClick={SignupSubmit}
+						onClick={() => {
+							SignupSubmit();
+						}}
 						className={BtnActive ? ' active' : ''}
 					>
 						계정 만들기

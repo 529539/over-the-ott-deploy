@@ -9,7 +9,7 @@ import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
 import LoginModal from './LoginModal';
 
 const LoginBox = () => {
-	axios.defaults.withCredentials = true;
+	//axios.defaults.withCredentials = true;
 	const [newID, setNewID] = useState('');
 	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
@@ -23,16 +23,19 @@ const LoginBox = () => {
 
 	const InfoSubmit = e => {
 		axios
-			.post('https://over-the-ott.herokuapp.com/account/login/', {
+			.post('/account/login/', {
 				email: newID,
 				password: newPW,
-				withCredentials: true,
 			})
 			.then(res => {
+				sessionStorage.setItem('email', res.data.data.user); //로그인한 유저 이메일 저장
+				sessionStorage.setItem('token', res.data.data.access_token); // 토큰 저장
+				getUsername();
 				alert('로그인 성공');
 				navigate('/checklist');
 			})
 			.catch(error => {
+				console.log(error);
 				setModal(true);
 			})
 			.then(() => {
@@ -40,6 +43,21 @@ const LoginBox = () => {
 				setNewPW('');
 			});
 	};
+	//유저 이름 받아오기 (임시코드, 로그인시에 response로 받아올 경우에 삭제 예정)
+	const getUsername = () => {
+		axios.get('/account/signup/').then(res => {
+			var userList = res.data.data;
+			var name = '';
+			for (var i = 0; i < userList.length; i++) {
+				userList[i].email == sessionStorage.getItem('email')
+					? (name = userList[i].username)
+					: console.log('');
+			}
+			//유저 이름 받아와서 저장
+			sessionStorage.setItem('username', name);
+		});
+	};
+
 	return (
 		<Wrapper>
 			{modal ? <LoginModal setModal={setModal} /> : null}

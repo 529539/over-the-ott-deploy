@@ -15,12 +15,14 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 const MyPage = () => {
 	const nav = useNavigate();
 	const logoutHandler = () => {
-		axios
-			.get('https://over-the-ott.herokuapp.com/account/logout/')
-			.then(response => {
-				console.log(response.data);
-				nav('/');
-			});
+		axios.get('/account/logout/').then(response => {
+			console.log(response.data);
+			//로그아웃 시 유저 토큰, 이름, 이메일 초기화
+			sessionStorage.setItem('token', '');
+			sessionStorage.setItem('username', '');
+			sessionStorage.setItem('email', '');
+			nav('/');
+		});
 	};
 
 	const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +32,6 @@ const MyPage = () => {
 	const btnClick = () => {
 		setIsEditing(!isEditing);
 	};
-	console.log(isEditing);
 
 	useEffect(() => {
 		setIsEditing(false);
@@ -40,7 +41,7 @@ const MyPage = () => {
 
 	const getOtts = async () => {
 		const response = await axios
-			.get('https://over-the-ott.herokuapp.com/account/addott/')
+			.get('/account/addott/')
 			.then(response => {
 				let result = response.data.data.sort((a, b) => {
 					return a.ott.id - b.ott.id;
@@ -51,7 +52,6 @@ const MyPage = () => {
 				console.log('구독 정보 불러오기 실패', error.message);
 			});
 	};
-	console.log(otts);
 
 	let disableOtts = [];
 	if (otts.map(row => row.ott.ott).includes('Netflix') === false) {
@@ -132,7 +132,6 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	console.log(disableOtts);
 
 	const ottImage = name => {
 		if (name === 'Netflix')
@@ -233,7 +232,7 @@ const MyPage = () => {
 	const turnOn = (name, id) => {
 		console.log('+' + name);
 		axios
-			.post('https://over-the-ott.herokuapp.com/account/addott/', [
+			.post('/account/addott/', [
 				{
 					ott_name: name,
 					membership: '일반',
@@ -251,7 +250,7 @@ const MyPage = () => {
 	const turnOff = (name, id) => {
 		console.log('-' + name);
 		axios
-			.delete(`https://over-the-ott.herokuapp.com/account/addott/${id}`)
+			.delete(`/account/addott/${id}`)
 			.then(response => {
 				getOtts(response.data);
 			})
@@ -262,7 +261,7 @@ const MyPage = () => {
 
 	const getOttsInfos = async () => {
 		const response = await axios
-			.get('https://over-the-ott.herokuapp.com/account/ott/')
+			.get('/account/ott/')
 			.then(response => {
 				setOttsInfos(response.data.data);
 			})
@@ -270,7 +269,6 @@ const MyPage = () => {
 				console.log('구독권 정보 불러오기 실패', error.message);
 			});
 	};
-	console.log(ottsInfos);
 
 	const dropdownD = (date, name) => {
 		return (
@@ -443,7 +441,7 @@ const MyPage = () => {
 														marginRight: isEditing ? '0' : '0.5vw',
 													}}
 												>
-													{ott.pay_amount}원
+													{Math.round(ott.pay_amount)}원
 												</Bold>
 												<BlackLight>{isEditing ? null : '결제'}</BlackLight>
 												<DevideLine />

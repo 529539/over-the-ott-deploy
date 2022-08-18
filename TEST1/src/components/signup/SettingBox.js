@@ -9,6 +9,7 @@ import SettingSubBox from './SettingSubBox';
 
 const SettingBox = () => {
 	const navigate = useNavigate();
+
 	//Box text 렌더링
 	useEffect(() => {
 		setTitle1('Create an account');
@@ -82,13 +83,16 @@ const SettingBox = () => {
 	}, [ottActive]);
 
 	const SubmitInfo = () => {
+		const token = sessionStorage.getItem('token');
+		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		if (btnActive) {
 			axios
-				.patch('https://over-the-ott.herokuapp.com/account/signup/', {
+				.patch(`/account/signup/`, {
 					username: newName,
 				})
 				.then(res => {
-					console.log(res.data.message);
+					//회원가입 후 유저의 닉네임 저장
+					sessionStorage.setItem('username', res.data.data.username);
 					setNewName('');
 					setSubBox(true);
 				})
