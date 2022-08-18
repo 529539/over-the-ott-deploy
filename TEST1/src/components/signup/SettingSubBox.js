@@ -50,17 +50,15 @@ const SettingSubBox = props => {
 		var result = SaveInfo();
 		var otts = [];
 		otts = removeDuplicates(result, 'ott_name');
-		console.log(otts);
+
 		if (otts.length === ottArray.length) {
-			console.log(otts);
 			axios
 				.post('https://over-the-ott.herokuapp.com/account/addott/', otts)
 				.then(res => {
-					console.log(res.data);
 					navigate('/signup/setting/subscribe');
 				})
 				.catch(error => {
-					console.log(error);
+					console.log(error.data);
 				});
 		}
 	};
@@ -176,7 +174,9 @@ const SettingSubBox = props => {
 				onChange={e => {
 					share = Number(e.target.value.replace(regex, ''));
 					SaveInfo();
-					btnActive(true);
+					//마지막 OTT share option을 선택한 경우 버튼 색상 변경
+					// let len = otts.length;
+					// len == ottArray.length ? setBtnActive(true) : console.log('');
 				}}
 			>
 				<option
@@ -215,7 +215,7 @@ const SettingSubBox = props => {
 							</section>
 						</div>
 					) : (
-						console.log('1개만 구독')
+						console.log('')
 					)}
 				</ContainerTitle>
 				<SubContainer>

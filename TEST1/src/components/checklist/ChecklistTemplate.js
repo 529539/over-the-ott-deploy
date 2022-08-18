@@ -4,8 +4,8 @@ import { FiUpload } from 'react-icons/fi';
 
 function ChecklistTemplate({ children, text, color, setIsShare }) {
 	let user = {
-		username: '아기사자',
-		//username: sessionStorage.getItem('username'),
+		//username: '아기사자',
+		username: sessionStorage.getItem('username'),
 	};
 
 	return (

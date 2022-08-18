@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../components/Header";
-import Background from "../components/Background";
-import ChecklistTemplate from "../components/checklist/ChecklistTemplate";
-import ChecklistList from "../components/checklist/ChecklistList";
-import ChecklistDoneList from "../components/checklist/ChecklistDoneList";
-import ChecklistShareModal from "../components/checklist/ChecklistShareModal";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Header from '../components/Header';
+import Background from '../components/Background';
+import ChecklistTemplate from '../components/checklist/ChecklistTemplate';
+import ChecklistList from '../components/checklist/ChecklistList';
+import ChecklistDoneList from '../components/checklist/ChecklistDoneList';
+import ChecklistShareModal from '../components/checklist/ChecklistShareModal';
 
 const Checklist = () => {
 	const [isShare, setIsShare] = useState(false);
@@ -25,28 +25,28 @@ const Checklist = () => {
 					<div>
 						<div
 							style={{
-								display: "flex",
-								justifyContent: "center",
-								marginTop: "7vh",
+								display: 'flex',
+								justifyContent: 'center',
+								marginTop: '7vh',
 							}}
 						>
 							<ChecklistTemplate
-								text={"정주행"}
-								color={"#D38189"}
+								text={'정주행'}
+								color={'#D38189'}
 								setIsShare={setIsShare}
 							>
 								<ChecklistList isOpen={isOpen} setIsOpen={setIsOpen} />
 							</ChecklistTemplate>
 							<ChecklistTemplate
-								text={"완주"}
-								color={"#8899CB"}
+								text={'완주'}
+								color={'#8899CB'}
 								setIsShare={setIsShare}
 							>
 								<ChecklistDoneList />
 							</ChecklistTemplate>
 						</div>
 						<BtnWrapper>
-							<Link to="/checklist/search" style={{ textDecoration: "none" }}>
+							<Link to='/checklist/search' style={{ textDecoration: 'none' }}>
 								<Btn>
 									<BtnText>작품 검색 및 추가하러 가기</BtnText>
 								</Btn>

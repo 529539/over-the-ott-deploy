@@ -26,15 +26,16 @@ const LoginBox = () => {
 			.post('/account/login/', {
 				email: newID,
 				password: newPW,
-				withCredentials: true,
 			})
 			.then(res => {
-				console.log(res.data);
-				sessionStorage.user = res.data.data.email;
+				sessionStorage.setItem('email', res.data.data.user); //로그인한 유저 이메일 저장
+				sessionStorage.setItem('token', res.data.data.access_token); // 토큰 저장
+				getUsername();
 				alert('로그인 성공');
 				navigate('/checklist');
 			})
 			.catch(error => {
+				console.log(error);
 				setModal(true);
 			})
 			.then(() => {
@@ -42,6 +43,21 @@ const LoginBox = () => {
 				setNewPW('');
 			});
 	};
+	//유저 이름 받아오기 (임시코드, 로그인시에 response로 받아올 경우에 삭제 예정)
+	const getUsername = () => {
+		axios.get('/account/signup/').then(res => {
+			var userList = res.data.data;
+			var name = '';
+			for (var i = 0; i < userList.length; i++) {
+				userList[i].email == sessionStorage.getItem('email')
+					? (name = userList[i].username)
+					: console.log('');
+			}
+			//유저 이름 받아와서 저장
+			sessionStorage.setItem('username', name);
+		});
+	};
+
 	return (
 		<Wrapper>
 			{modal ? <LoginModal setModal={setModal} /> : null}
