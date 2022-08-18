@@ -34,6 +34,7 @@ const MyPage = () => {
 	};
 
 	useEffect(() => {
+		window.location.reload();
 		setIsEditing(false);
 		getOtts();
 		getOttsInfos();
