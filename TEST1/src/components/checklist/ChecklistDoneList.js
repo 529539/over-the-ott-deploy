@@ -42,7 +42,7 @@ const ChecklistDoneList = (props) => {
 	}, []);
 
 	let watchedArray = edTVs.concat(edMovies);
-	//console.log(watchedArray);
+	console.log(watchedArray);
 
 	const ottImage = (name) => {
 		if (name === "Netflix")
@@ -117,7 +117,7 @@ const ChecklistDoneList = (props) => {
 	const onDelete = (type, id) => {
 		if (type === "tv") {
 			axios
-				.delete(`https://over-the-ott.herokuapp.com/checklist/tv/${id}`)
+				.delete(`https://over-the-ott.herokuapp.com/checklist/tv/${id}/`)
 				.then((response) => {
 					getTVs(response.data);
 				})
@@ -127,7 +127,7 @@ const ChecklistDoneList = (props) => {
 		}
 		if (type === "movie") {
 			axios
-				.delete(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
+				.delete(`https://over-the-ott.herokuapp.com/checklist/movie/${id}/`)
 				.then((response) => {
 					getMovies(response.data);
 				})
@@ -192,8 +192,4 @@ const Title = styled.div`
 	font-weight: 500;
 	font-size: 1vw;
 	color: #c4c4c4;
-	cursor: pointer;
-	&:hover {
-		text-decoration: underline;
-	}
 `;

@@ -168,7 +168,7 @@ const ChecklistListModal = ({
 	const printEpM = (id) => {
 		if (isMChecked === true) {
 			axios
-				.post(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
+				.post(`https://over-the-ott.herokuapp.com/checklist/movie/${id}/`)
 				.then((response) => {
 					console.log(response.data);
 				})
