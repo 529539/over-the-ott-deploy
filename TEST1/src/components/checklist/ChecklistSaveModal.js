@@ -19,7 +19,7 @@ const ChecklistSaveModal = (props) => {
 	};
 
 	return (
-		<ModalWrapper>
+		<ModalWrapper onClick={() => props._closeModal()}>
 			<BoxWrapper>
 				<MessageWrapper>
 					<div>

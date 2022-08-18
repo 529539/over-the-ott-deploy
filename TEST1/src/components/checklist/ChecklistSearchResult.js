@@ -154,7 +154,7 @@ const ChecklistSearchResult = (props) => {
 
 	const setSetMovie = (media) => {
 		axios
-			.post("https://over-the-ott.herokuapp.com/checklist/search/movie/", {
+			.post("/checklist/search/movie/", {
 				tmdb_id: media.tmdb_id,
 				title: media.title,
 				poster: media.poster,
@@ -182,7 +182,7 @@ const ChecklistSearchResult = (props) => {
 			episode_run_time: media.episode_run_time,
 		});
 		axios
-			.post("https://over-the-ott.herokuapp.com/checklist/search/tv/", {
+			.post("/checklist/search/tv/", {
 				title: media.title,
 				tmdb_id: media.tmdb_id,
 				poster: media.poster,

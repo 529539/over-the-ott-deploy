@@ -15,7 +15,7 @@ const ChecklistList = (props) => {
 	const [ingMovies, setIngMovies] = useState([]);
 	const getTVs = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/tv/")
+			.get("/checklist/tv/")
 			.then((response) => {
 				setIngTVs(response.data.data.watching);
 			})
@@ -25,7 +25,7 @@ const ChecklistList = (props) => {
 	};
 	const getMovies = async () => {
 		const response = await axios
-			.get("https://over-the-ott.herokuapp.com/checklist/movie/")
+			.get("/checklist/movie/")
 			.then((response) => {
 				setIngMovies(response.data.data.watching);
 			})
@@ -46,67 +46,37 @@ const ChecklistList = (props) => {
 		if (name === "Netflix")
 			return (
 				<>
-					<NetflixLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<NetflixLogo size="1vw" className="ott" />
 				</>
 			);
 		else if (name === "Watcha")
 			return (
 				<>
-					<WatchaLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<WatchaLogo size="1vw" className="ott" />
 				</>
 			);
 		else if (name === "wavve")
 			return (
 				<>
-					<WavveLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<WavveLogo size="1vw" className="ott" />
 				</>
 			);
 		else if (name === "Disney Plus")
 			return (
 				<>
-					<DisneyPlusLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<DisneyPlusLogo size="1vw" className="ott" />
 				</>
 			);
 		else if (name === "Apple TV Plus")
 			return (
 				<>
-					<AppleTVLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<AppleTVLogo size="1vw" className="ott" />
 				</>
 			);
 		else if (name === "Amazon Prime Video")
 			return (
 				<>
-					<PrimeVideoLogo
-						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
-						}}
-						size="1vw"
-					/>
+					<PrimeVideoLogo size="1vw" className="ott" />
 				</>
 			);
 		else console.error("Error: invalid OTT");
@@ -114,6 +84,7 @@ const ChecklistList = (props) => {
 
 	const _handleModal = () => {
 		props.setIsOpen(!props.isOpen);
+		window.location.reload();
 	};
 
 	const [detailType, setDetailType] = useState("");
@@ -128,7 +99,7 @@ const ChecklistList = (props) => {
 	const onDelete = (type, id) => {
 		if (type === "tv") {
 			axios
-				.delete(`https://over-the-ott.herokuapp.com/checklist/tv/${id}`)
+				.delete(`/checklist/tv/${id}`)
 				.then((response) => {
 					getTVs(response.data);
 				})
@@ -138,7 +109,7 @@ const ChecklistList = (props) => {
 		}
 		if (type === "movie") {
 			axios
-				.delete(`https://over-the-ott.herokuapp.com/checklist/movie/${id}`)
+				.delete(`/checklist/movie/${id}`)
 				.then((response) => {
 					getMovies(response.data);
 				})
@@ -187,10 +158,9 @@ const LineWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	margin-bottom: 2.6vh;
-	svg {
+	.ott {
 		width: 1.7vw;
 		height: 1.7vw;
-		border-radius: 50%;
 	}
 	.delete {
 		width: 1.2vw;
