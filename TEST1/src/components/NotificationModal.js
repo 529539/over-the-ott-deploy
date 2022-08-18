@@ -50,7 +50,7 @@ const NotificationModal = (props) => {
 				<ModalTri />
 				<ModalBlock>
 					<Contents>
-						{props.alert === true ? (
+						{props.alert ? (
 							<AlertList />
 						) : (
 							<p>7일 이내에 구독 갱신이 없습니다.</p>
