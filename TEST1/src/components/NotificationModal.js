@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import db from '../db.json';
 
 const NotificationModal = props => {
-	const [alert, setAlert] = useState(false);
-
 	var alertArray = props.subArray;
 
 	//ott 이름에 맞는 아이콘 불러오는 함수
@@ -52,7 +50,11 @@ const NotificationModal = props => {
 				<ModalTri />
 				<ModalBlock>
 					<Contents>
-						<AlertList />
+						{props.alert === true ? (
+							<AlertList />
+						) : (
+							<p>7일이내 구독갱신이 없습니다.</p>
+						)}
 					</Contents>
 				</ModalBlock>
 			</ModalWrapper>

@@ -6,47 +6,29 @@ import { ReactComponent as Notification } from '../static/Notification.svg';
 import { BsFillPersonFill } from 'react-icons/bs';
 import NotificationModal from './NotificationModal.js';
 import axios from 'axios';
-import db from '../db.json';
+import { useEffect } from 'react';
 
 const Header = () => {
 	const [isModal, setIsModal] = useState(false);
 	const [subArray, setSubArray] = useState([]);
+	//alert 내용 관리
+	const [alert, setAlert] = useState(false);
 
 	//모달 관리
 	const _handleModal = () => {
 		setIsModal(!isModal);
-		getSubInfo();
 	};
 
 	//모달에 넣을 구독 정보 가져오는 함수
 	function getSubInfo() {
 		axios.get('/calculator/days-till').then(res => {
 			setSubArray(res.data.data);
+			setAlert(true);
 		});
 	}
-	//ott 이름에 맞는 아이콘 불러오는 함수
-	function img(ott) {
-		switch (ott) {
-			case 1:
-			case 2:
-			case 3:
-				return db.ottArray[0].img;
-			case 4:
-			case 5:
-				return db.ottArray[1].img;
-			case 6:
-			case 7:
-			case 8:
-				return db.ottArray[2].img;
-			case 9:
-			case 10:
-				return db.ottArray[3].img;
-			case 11:
-				return db.ottArray[4].img;
-			default:
-				return db.ottArray[5].img;
-		}
-	}
+	useEffect(() => {
+		getSubInfo();
+	}, []);
 
 	return (
 		<>
@@ -94,7 +76,11 @@ const Header = () => {
 				</div>
 			</Container>
 			{isModal && (
-				<NotificationModal _handleModal={_handleModal} subArray={subArray} />
+				<NotificationModal
+					_handleModal={_handleModal}
+					subArray={subArray}
+					alert={alert}
+				/>
 			)}
 		</>
 	);
