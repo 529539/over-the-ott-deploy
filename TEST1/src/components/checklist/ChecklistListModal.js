@@ -10,14 +10,7 @@ import { ReactComponent as WavveLogo } from "../../static/OTTcircle/Wavve.svg";
 import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.svg";
 import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
 
-const ChecklistListModal = ({
-	_handleModal,
-	isOpen,
-	type,
-	detailID,
-	...rest
-}) => {
-	let id = detailID;
+const ChecklistListModal = ({ _handleModal, isOpen, type, id, ...rest }) => {
 	const [thisDetail, setThisDetail] = useState({});
 	const [thisEp, setThisEp] = useState([]);
 	const setDetail = (response) => {

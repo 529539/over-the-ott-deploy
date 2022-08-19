@@ -80,7 +80,7 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Wavve") === false) {
+	if (otts.map((row) => row.ott.ott).includes("wavve") === false) {
 		disableOtts.push({
 			ott: {
 				id: 11,
@@ -106,7 +106,7 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Apple TV") === false) {
+	if (otts.map((row) => row.ott.ott).includes("Apple TV Plus") === false) {
 		disableOtts.push({
 			ott: {
 				id: 8,
@@ -119,7 +119,7 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Prime Video") === false) {
+	if (otts.map((row) => row.ott.ott).includes("Amazon Prime Video") === false) {
 		disableOtts.push({
 			ott: {
 				id: 9,
@@ -156,7 +156,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "Wavve")
+		else if (name === "wavve")
 			return (
 				<>
 					<WavveLogo
@@ -178,7 +178,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "Apple TV")
+		else if (name === "Apple TV Plus")
 			return (
 				<>
 					<AppleTVLogo
@@ -189,7 +189,7 @@ const MyPage = () => {
 					/>
 				</>
 			);
-		else if (name === "Prime Video")
+		else if (name === "Amazon Prime Video")
 			return (
 				<>
 					<PrimeVideoLogo
@@ -206,10 +206,10 @@ const MyPage = () => {
 	const color = (name) => {
 		if (name === "Netflix") return "#D90B1C";
 		else if (name === "Watcha") return "#FF0558";
-		else if (name === "Wavve") return "#1F4EF5";
+		else if (name === "wavve") return "#1F4EF5";
 		else if (name === "Disney Plus") return "#192F72";
-		else if (name === "Apple TV") return "#77848C";
-		else if (name === "Prime Video") return "#10BBE0";
+		else if (name === "Apple TV Plus") return "#77848C";
+		else if (name === "Amazon Prime Video") return "#10BBE0";
 		else console.error("Error: invalid OTT");
 	};
 
@@ -235,9 +235,6 @@ const MyPage = () => {
 			.post("/account/addott/", [
 				{
 					ott_name: name,
-					membership: "일반",
-					pay_date: 30,
-					share: 1,
 				},
 			])
 			.then((response) => {

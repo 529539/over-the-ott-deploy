@@ -8,10 +8,8 @@ const ChecklistSaveModal = (props) => {
 		window.scrollTo(0, 0);
 	}
 	const printPv = (sPv) => {
-		if (sPv == "Netflix" || sPv == "Watcha" || sPv == "Disney Plus") return sPv;
-		else if (sPv === "wavve") return "Wavve";
-		else if (sPv === "Apple TV Plus") return "Apple TV";
-		else if (sPv === "Amazon Prime Video") return "Prime Video";
+		if (sPv === "wavve") return "Wavve";
+		else return sPv;
 	};
 	const printSs = (sSs) => {
 		if (sSs === "default") return null;

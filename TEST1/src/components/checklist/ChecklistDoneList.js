@@ -8,6 +8,7 @@ import { ReactComponent as WavveLogo } from "../../static/OTTcircle/Wavve.svg";
 import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.svg";
 import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
 import { RiCloseCircleLine } from "react-icons/ri";
+import ChecklistListModal from "./ChecklistListModal";
 
 const ChecklistDoneList = (props) => {
 	const [edTVs, setEdTVs] = useState([]);
@@ -84,6 +85,20 @@ const ChecklistDoneList = (props) => {
 		else console.error("Error: invalid OTT");
 	};
 
+	const _handleModal = () => {
+		props.setIsOpen(!props.isOpen);
+		window.location.reload();
+	};
+
+	const [detailType, setDetailType] = useState("");
+	const [detailID, setDetailID] = useState("");
+	const openModal = (media) => {
+		props.setIsOpen(true);
+		setDetailID(media.id);
+		if (media.type === "tv") setDetailType("tv");
+		if (media.type === "movie") setDetailType("movie");
+	};
+
 	const onDelete = (type, id) => {
 		if (type === "tv") {
 			axios
@@ -114,7 +129,7 @@ const ChecklistDoneList = (props) => {
 					<>
 						<LineWrapper>
 							{ottImage(media.provider)}
-							<Title>
+							<Title onClick={() => openModal(media)}>
 								{media.title}{" "}
 								{media.type === "tv" ? `(시리즈 ${media.season})` : null}
 							</Title>
@@ -123,6 +138,14 @@ const ChecklistDoneList = (props) => {
 								onClick={() => onDelete(media.type, media.id)}
 							/>
 						</LineWrapper>
+						{props.isOpen ? (
+							<ChecklistListModal
+								_handleModal={_handleModal}
+								isOpen={props.isOpen}
+								type={detailType}
+								detailID={detailID}
+							/>
+						) : null}
 					</>
 				);
 			})}
@@ -162,4 +185,8 @@ const Title = styled.div`
 	font-weight: 500;
 	font-size: 1vw;
 	color: #c4c4c4;
+	cursor: pointer;
+	&:hover {
+		text-decoration: underline;
+	}
 `;
