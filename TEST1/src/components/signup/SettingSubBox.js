@@ -173,12 +173,12 @@ const SettingSubBox = props => {
 				defaultValue={'default'}
 				onChange={e => {
 					share = Number(e.target.value.replace(regex, ''));
-
 					SaveInfo();
-					let len = otts.map(row => row.share).length;
-					if (len == ottArray.length) {
-						setBtnActive(true);
-					}
+
+					// let len = otts.map(row => row.share).length;
+					// if (len == ottArray.length) {
+					// 	setBtnActive(true);
+					// }
 					//마지막 OTT share option을 선택한 경우 버튼 색상 변경
 					// let len = otts.length;
 					// len == ottArray.length ? setBtnActive(true) : console.log('');
@@ -241,7 +241,8 @@ const SettingSubBox = props => {
 				</SubContainer>
 			</Container>
 			<GoNextBtn
-				style={{ backgroundColor: btnActive ? '#d38189' : '#DCDCDC' }}
+				style={{ backgroundColor: '#DCDCDC' }}
+				//style={{ backgroundColor: btnActive ? '#d38189' : '#DCDCDC' }}
 				onClick={SendInfo}
 			>
 				확인
