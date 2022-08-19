@@ -90,10 +90,11 @@ const ChecklistList = (props) => {
 	const [detailType, setDetailType] = useState("");
 	const [detailID, setDetailID] = useState("");
 	const openModal = (media) => {
-		props.setIsOpen(true);
+		console.log(media.id, media.type);
 		setDetailID(media.id);
 		if (media.type === "tv") setDetailType("tv");
 		if (media.type === "movie") setDetailType("movie");
+		props.setIsOpen(true);
 	};
 
 	const onDelete = (type, id) => {
@@ -126,7 +127,11 @@ const ChecklistList = (props) => {
 					<>
 						<LineWrapper>
 							{ottImage(media.provider)}
-							<Title onClick={() => openModal(media)}>
+							<Title
+								onClick={() => {
+									openModal(media);
+								}}
+							>
 								{media.title}{" "}
 								{media.type === "tv" ? `(시리즈 ${media.season})` : null}
 							</Title>
@@ -139,8 +144,8 @@ const ChecklistList = (props) => {
 							<ChecklistListModal
 								_handleModal={_handleModal}
 								isOpen={props.isOpen}
-								type={detailType}
-								detailID={detailID}
+								type={media.type}
+								detailID={media.id}
 							/>
 						) : null}
 					</>

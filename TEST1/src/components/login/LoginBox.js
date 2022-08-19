@@ -1,46 +1,46 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styled from 'styled-components';
-import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
-import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
-import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
-import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
-import LoginModal from './LoginModal';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { ReactComponent as DeleteIcon } from "../../static/xIcon.svg";
+import { ReactComponent as GoogleIcon } from "../../static/googleIcon.svg";
+import { ReactComponent as NaverIcon } from "../../static/naverIcon.svg";
+import { ReactComponent as KakaoIcon } from "../../static/kakaoIcon.svg";
+import LoginModal from "./LoginModal";
 
 const LoginBox = () => {
 	//axios.defaults.withCredentials = true;
-	const [newID, setNewID] = useState('');
-	const [newPW, setNewPW] = useState('');
+	const [newID, setNewID] = useState("");
+	const [newPW, setNewPW] = useState("");
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 
-	const enterKey = e => {
+	const enterKey = (e) => {
 		if (e.keyCode === 13) {
 			InfoSubmit(e);
 		}
 	};
 
-	const InfoSubmit = e => {
+	const InfoSubmit = (e) => {
 		axios
-			.post('/account/login/', {
+			.post("/account/login/", {
 				email: newID,
 				password: newPW,
 			})
-			.then(res => {
-				sessionStorage.setItem('email', res.data.data.user); //로그인한 유저 이메일 저장
-				sessionStorage.setItem('username', res.data.data.username); //로그인한 유저 이름 저장
-				sessionStorage.setItem('token', res.data.data.access_token); // 토큰 저장
-				alert('로그인 성공');
-				navigate('/checklist');
+			.then((res) => {
+				sessionStorage.setItem("email", res.data.data.user); //로그인한 유저 이메일 저장
+				sessionStorage.setItem("username", res.data.data.username); //로그인한 유저 이름 저장
+				sessionStorage.setItem("token", res.data.data.access_token); // 토큰 저장
+				alert("로그인 성공");
+				navigate("/checklist");
 			})
-			.catch(error => {
+			.catch((error) => {
 				console.log(error);
 				setModal(true);
 			})
 			.then(() => {
-				setNewID('');
-				setNewPW('');
+				setNewID("");
+				setNewPW("");
 			});
 	};
 	return (
@@ -48,30 +48,30 @@ const LoginBox = () => {
 			{modal ? <LoginModal setModal={setModal} /> : null}
 			<BoxWrapper>
 				<LoginTop>
-					<Link to='/'>
-						<DeleteIcon className='deleteIcon' />
+					<Link to="/">
+						<DeleteIcon className="deleteIcon" />
 					</Link>
 					<p>Login</p>
 					<p>로그인 하기</p>
 				</LoginTop>
-				<div className='line1'></div>
+				<div className="line1"></div>
 				<LoginCenter>
 					<IdInput
 						value={newID}
-						placeholder='이메일'
-						onChange={e => setNewID(e.target.value)}
+						placeholder="이메일"
+						onChange={(e) => setNewID(e.target.value)}
 					/>
 					<PwInput
 						value={newPW}
-						type='password'
-						placeholder='비밀번호 (8자 이상, 특수문자 포함)'
-						onChange={e => setNewPW(e.target.value)}
+						type="password"
+						placeholder="비밀번호 (8자 이상, 특수문자 포함)"
+						onChange={(e) => setNewPW(e.target.value)}
 						onKeyUp={enterKey}
 					/>
 					<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
 
 					<FindLinks>
-						<Link to='/signup'>
+						<Link to="/signup">
 							<p>회원가입</p>
 						</Link>
 						<p>|</p>
@@ -79,20 +79,8 @@ const LoginBox = () => {
 						<p>|</p>
 						<p>비밀번호찾기</p>
 					</FindLinks>
+					<div className="line2"></div>
 				</LoginCenter>
-				<CenterEndLine>
-					<div />
-					<p>OR</p>
-					<div />
-				</CenterEndLine>
-				<LoginBottom>
-					<p>다음 계정으로 로그인하기</p>
-					<SNSIcons>
-						<GoogleIcon className='googleIcon' />
-						<NaverIcon className='naverIcon' />
-						<KakaoIcon className='kakaoIcon' />
-					</SNSIcons>
-				</LoginBottom>
 			</BoxWrapper>
 		</Wrapper>
 	);
@@ -119,6 +107,15 @@ const BoxWrapper = styled.div`
 		height: 0px;
 		background: #d7d7d7;
 		border: 0.5px solid #d7d7d7;
+		margin-top: 7vh;
+	}
+	.line2 {
+		width: 33.38vw;
+		height: 0px;
+		background: #d7d7d7;
+		border: 0.5px solid #d7d7d7;
+		top: 56vh;
+		position: absolute;
 	}
 `;
 const LoginTop = styled.div`
@@ -138,7 +135,7 @@ const LoginTop = styled.div`
 	p:nth-child(2) {
 		font-weight: 300;
 		font-size: 0.78vw;
-		margin: 0;
+		margin-top: 3vh;
 	}
 	p:nth-child(3) {
 		margin: 0;
@@ -148,14 +145,14 @@ const LoginTop = styled.div`
 `;
 const LoginCenter = styled.div`
 	width: 19.67vw;
-	height: 22.03vh; // 238px;
+	height: 20vh; // 238px;
 	margin-top: 4.8vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	input {
 		width: 19.05vw;
-		height: 4.72vh;
+		height: 10vh;
 		border: 0.8px solid #979797;
 		box-shadow: 0px 1px 8px rgba(156, 156, 156, 0.15);
 		border-radius: 8px;
@@ -175,7 +172,7 @@ const PwInput = styled.input`
 const LoginBtn = styled.button`
 	cursor: pointer;
 	width: 19.67vw;
-	height: 4.72vh;
+	height: 8vh;
 	margin-bottom: 2.77vh;
 	background: #d38189;
 	border-radius: 2.66vw;

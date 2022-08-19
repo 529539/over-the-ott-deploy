@@ -10,14 +10,7 @@ import { ReactComponent as WavveLogo } from "../../static/OTTcircle/Wavve.svg";
 import { ReactComponent as AppleTVLogo } from "../../static/OTTcircle/AppleTV.svg";
 import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVideo.svg";
 
-const ChecklistListModal = ({
-	_handleModal,
-	isOpen,
-	detailID,
-	type,
-	...rest
-}) => {
-	let id = detailID;
+const ChecklistListModal = ({ _handleModal, isOpen, type, ...rest }) => {
 	const [thisDetail, setThisDetail] = useState({});
 	const [thisEp, setThisEp] = useState([]);
 	const setDetail = (response) => {
@@ -26,6 +19,7 @@ const ChecklistListModal = ({
 		//console.log(thisDetail);
 		//console.log(thisDetail.episodes);
 	};
+	let id = 0;
 	const getDetails = async () => {
 		const response = await axios
 			.get(`/checklist/${type}/${id}/`)
@@ -40,12 +34,13 @@ const ChecklistListModal = ({
 	};
 
 	useEffect(() => {
-		//console.log("id", id, "type", type);
+		//console.log("id", id);
+		//console.log("type", type);
 	});
 
 	useEffect(() => {
 		getDetails();
-	}, [thisDetail]);
+	});
 
 	const ottImage = (name) => {
 		if (name === "Netflix")
