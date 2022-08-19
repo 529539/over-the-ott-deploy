@@ -91,9 +91,13 @@ const ChecklistList = (props) => {
 	const [detailID, setDetailID] = useState("");
 	const openModal = (media) => {
 		props.setIsOpen(true);
-		setDetailID(media.id);
-		if (media.type === "tv") setDetailType("tv");
-		if (media.type === "movie") setDetailType("movie");
+		const func = () => {
+			console.log(media.id, media.type);
+			setDetailID(() => media.id);
+			if (media.type === "tv") setDetailType(() => () => "tv");
+			if (media.type === "movie") setDetailType(() => () => "movie");
+		};
+		func();
 	};
 
 	const onDelete = (type, id) => {
@@ -140,7 +144,7 @@ const ChecklistList = (props) => {
 								_handleModal={_handleModal}
 								isOpen={props.isOpen}
 								type={detailType}
-								detailID={detailID}
+								id={detailID}
 							/>
 						) : null}
 					</>

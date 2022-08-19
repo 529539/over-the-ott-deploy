@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import moment from "moment";
 
-const CalendarSub = props => {
-	let today = moment().format('D');
-	let lastDayofMonth = Number(moment().endOf('month').format('DD'));
+const CalendarSub = (props) => {
+	let today = moment().format("D");
+	let lastDayofMonth = Number(moment().endOf("month").format("DD"));
 
 	//구독 디데이 정보 저장
 	let subArray = [];
@@ -48,21 +48,21 @@ const CalendarSub = props => {
 			case 1:
 			case 2:
 			case 3:
-				return '#D90B1C';
+				return "#D90B1C";
 			case 4:
 			case 5:
-				return '#FF0558';
+				return "#FF0558";
 			case 6:
 			case 7:
 			case 8:
-				return '#1F4EF5';
+				return "#1F4EF5";
 			case 9:
 			case 10:
-				return '#192F72';
+				return "#192F72";
 			case 11:
-				return '#77848C';
+				return "#77848C";
 			default:
-				return '#10BBE0';
+				return "#10BBE0";
 		}
 	}
 
@@ -72,18 +72,18 @@ const CalendarSub = props => {
 				<Wrapper>
 					<SubTitle>구독 중인 OTT별 남은 결제일</SubTitle>
 					<LineWrapper>
-						{sortedSubArray.map(subArray => {
+						{sortedSubArray.map((subArray) => {
 							return (
 								<>
 									<LineContainer>
 										<img src={img(subArray.ott)} />
 										<TextContainer>
 											<Text>다음 결제일이</Text>
-											<div style={{ width: '3.5vw', marginRight: '1vw' }}>
+											<div style={{ width: "3.5vw", marginRight: "1vw" }}>
 												<Text
 													style={{
-														float: 'right',
-														fontWeight: '600',
+														float: "right",
+														fontWeight: "600",
 														color: color(subArray.ott),
 													}}
 												>
@@ -131,6 +131,9 @@ const LineWrapper = styled.div`
 const LineContainer = styled.div`
 	display: flex;
 	margin-bottom: 2.5vh;
+	img {
+		filter: drop-shadow(0px 0.1vw 0.4vw rgba(0, 0, 0, 0.25));
+	}
 `;
 
 const TextContainer = styled.div`
@@ -143,83 +146,3 @@ const Text = styled.div`
 	font-weight: 400;
 	font-size: 1vw;
 `;
-
-/*const ddayCal = date => {
-		let dday = date - today;
-		let nextDday = dday + lastDayofMonth;
-		if (date >= today) return dday;
-		else return nextDday;
-	};
-	for (let i = 0; i < subArray.length; i++) {
-		subArray[i].dday = ddayCal(subArray[i].date);
-	}
-	let sortedSubArray = subArray.sort((a, b) => a.dday - b.dday);*/
-/*const ottImage = name => {
-		if (name === 'Netflix')
-			return (
-				<>
-					<NetflixLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else if (name === 'Watcha')
-			return (
-				<>
-					<WatchaLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else if (name === 'Wavve')
-			return (
-				<>
-					<WavveLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else if (name === 'DisneyPlus')
-			return (
-				<>
-					<DisneyPlusLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else if (name === 'AppleTV')
-			return (
-				<>
-					<AppleTVLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else if (name === 'PrimeVideo')
-			return (
-				<>
-					<PrimeVideoLogo
-						style={{
-							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
-						}}
-						size='1vw'
-					/>
-				</>
-			);
-		else console.error('Error: invalid OTT');
-	};*/

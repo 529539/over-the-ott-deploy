@@ -1,10 +1,10 @@
-import { React, useState } from 'react';
-import styled from 'styled-components';
-import db from '../db.json';
-import { useEffect } from 'react';
+import { React, useState } from "react";
+import styled from "styled-components";
+import db from "../db.json";
+import { useEffect } from "react";
 
-const NotificationModal = props => {
-	const alertArray = props.subArray.filter(sub => sub.days_till_pay <= 7);
+const NotificationModal = (props) => {
+	const alertArray = props.subArray.filter((sub) => sub.days_till_pay <= 7);
 
 	//ott 이름에 맞는 아이콘 불러오는 함수
 	function img(ott) {
@@ -31,7 +31,7 @@ const NotificationModal = props => {
 	}
 	const AlertList = () => {
 		if (alertArray.length) {
-			return alertArray.map(list => (
+			return alertArray.map((list) => (
 				<AlertWrapper>
 					<img src={img(list.ott)} />
 					<TextWrapper>
@@ -42,7 +42,7 @@ const NotificationModal = props => {
 				</AlertWrapper>
 			));
 		} else {
-			return <p>7일이내 구독갱신이 없습니다.</p>;
+			return <p>7일 이내 구독 갱신이 없습니다.</p>;
 		}
 	};
 	return (
