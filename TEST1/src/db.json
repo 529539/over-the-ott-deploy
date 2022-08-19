@@ -1,26 +1,46 @@
 {
-	"login": {
-		"user": [
-			{
-				"email": "chaewon@naver.com",
-				"pw": "12345678*"
-			},
-			{
-				"email": "seojin@naver.com",
-				"pw": "12345678*"
-			},
-			{
-				"email": "eunjin@naver.com",
-				"pw": "12345678*"
-			},
-			{
-				"email": "doyeon@naver.com",
-				"pw": "12345678*"
-			},
-			{
-				"email": "hyeonyoung@naver.com",
-				"pw": "12345678*"
-			}
-		]
-	}
+	"ottArray": [
+		{
+			"id": 1,
+			"name": "Netflix",
+			"price": 1,
+			"img": "/OTTcircle/Netflix.svg",
+			"color": "#D90B1C"
+		},
+		{
+			"id": 2,
+			"name": "Watcha",
+			"price": 2,
+			"img": "/OTTcircle/Watcha.svg",
+			"color": "FF0558"
+		},
+		{
+			"id": 3,
+			"name": "Wavve",
+			"price": 3,
+			"img": "/OTTcircle/Wavve.svg",
+			"color": "1F4EF5"
+		},
+		{
+			"id": 4,
+			"name": "Disney Plus",
+			"price": 4,
+			"img": "/OTTcircle/DisneyPlus.svg",
+			"color": "192F72"
+		},
+		{
+			"id": 5,
+			"name": "Apple TV",
+			"price": 5,
+			"img": "/OTTcircle/AppleTV.svg",
+			"color": "77848C"
+		},
+		{
+			"id": 6,
+			"name": "Prime Video",
+			"price": 6,
+			"img": "/OTTcircle/PrimeVideo.svg",
+			"color": "10BBE0"
+		}
+	]
 }

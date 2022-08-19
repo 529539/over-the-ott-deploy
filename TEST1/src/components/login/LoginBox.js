@@ -4,33 +4,39 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { ReactComponent as DeleteIcon } from '../../static/xIcon.svg';
 import { ReactComponent as GoogleIcon } from '../../static/googleIcon.svg';
-import NaverIcon from '../../static/naverIcon.png';
+import { ReactComponent as NaverIcon } from '../../static/naverIcon.svg';
 import { ReactComponent as KakaoIcon } from '../../static/kakaoIcon.svg';
+import LoginModal from './LoginModal';
 
 const LoginBox = () => {
+	//axios.defaults.withCredentials = true;
 	const [newID, setNewID] = useState('');
 	const [newPW, setNewPW] = useState('');
 	const navigate = useNavigate();
+	const [modal, setModal] = useState(false);
+
 	const enterKey = e => {
-		if (e.keyCode == 13) {
+		if (e.keyCode === 13) {
 			InfoSubmit(e);
 		}
 	};
+
 	const InfoSubmit = e => {
 		axios
-			.get('http://localhost:8888/login/')
+			.post('/account/login/', {
+				email: newID,
+				password: newPW,
+			})
 			.then(res => {
-				let users = res.data.user;
-				let success = 0;
-				for (let i = 0; i < users.length; i++) {
-					if (users[i].email == newID && users[i].pw == newPW) {
-						alert('로그인 성공');
-						//성공 시 페이지 이동 수정 필요
-						success = 1;
-						break;
-					}
-				}
-				success ? navigate('/checklist') : alert('로그인 실패');
+				sessionStorage.setItem('email', res.data.data.user); //로그인한 유저 이메일 저장
+				sessionStorage.setItem('username', res.data.data.username); //로그인한 유저 이름 저장
+				sessionStorage.setItem('token', res.data.data.access_token); // 토큰 저장
+				alert('로그인 성공');
+				navigate('/checklist');
+			})
+			.catch(error => {
+				console.log(error);
+				setModal(true);
 			})
 			.then(() => {
 				setNewID('');
@@ -38,57 +44,63 @@ const LoginBox = () => {
 			});
 	};
 	return (
-		<BoxWrapper>
-			<LoginTop>
-				<Link to='/'>
-					<DeleteIcon className='deleteIcon' />
-				</Link>
-				<p>Login</p>
-				<p>로그인 하기</p>
-			</LoginTop>
-			<div className='line1'></div>
-			<LoginCenter>
-				<IdInput
-					value={newID}
-					placeholder='이메일'
-					onChange={e => setNewID(e.target.value)}
-				/>
-				<PwInput
-					value={newPW}
-					type='password'
-					placeholder='비밀번호 (8자 이상, 특수문자 포함)'
-					onChange={e => setNewPW(e.target.value)}
-					onKeyUp={enterKey}
-				/>
-				<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
-
-				<FindLinks>
-					<Link to='/signup'>
-						<p>회원가입</p>
+		<Wrapper>
+			{modal ? <LoginModal setModal={setModal} /> : null}
+			<BoxWrapper>
+				<LoginTop>
+					<Link to='/'>
+						<DeleteIcon className='deleteIcon' />
 					</Link>
-					<p>|</p>
-					<p>아이디찾기</p>
-					<p>|</p>
-					<p>비밀번호찾기</p>
-				</FindLinks>
-			</LoginCenter>
-			<CenterEndLine>
-				<div />
-				<p>OR</p>
-				<div />
-			</CenterEndLine>
-			<LoginBottom>
-				<p>다음 계정으로 로그인하기</p>
-				<SNSIcons>
-					<GoogleIcon className='googleIcon' />
-					<img src={NaverIcon} className='naverIcon' />
-					<KakaoIcon className='kakaoIcon' />
-				</SNSIcons>
-			</LoginBottom>
-		</BoxWrapper>
+					<p>Login</p>
+					<p>로그인 하기</p>
+				</LoginTop>
+				<div className='line1'></div>
+				<LoginCenter>
+					<IdInput
+						value={newID}
+						placeholder='이메일'
+						onChange={e => setNewID(e.target.value)}
+					/>
+					<PwInput
+						value={newPW}
+						type='password'
+						placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+						onChange={e => setNewPW(e.target.value)}
+						onKeyUp={enterKey}
+					/>
+					<LoginBtn onClick={InfoSubmit}>확인</LoginBtn>
+
+					<FindLinks>
+						<Link to='/signup'>
+							<p>회원가입</p>
+						</Link>
+						<p>|</p>
+						<p>아이디찾기</p>
+						<p>|</p>
+						<p>비밀번호찾기</p>
+					</FindLinks>
+				</LoginCenter>
+				<CenterEndLine>
+					<div />
+					<p>OR</p>
+					<div />
+				</CenterEndLine>
+				<LoginBottom>
+					<p>다음 계정으로 로그인하기</p>
+					<SNSIcons>
+						<GoogleIcon className='googleIcon' />
+						<NaverIcon className='naverIcon' />
+						<KakaoIcon className='kakaoIcon' />
+					</SNSIcons>
+				</LoginBottom>
+			</BoxWrapper>
+		</Wrapper>
 	);
 };
-
+const Wrapper = styled.div`
+	width: 100vw;
+	height: 100vh;
+`;
 const BoxWrapper = styled.div`
 	width: 52.39vw;
 	height: 65.09vh;
@@ -161,6 +173,7 @@ const PwInput = styled.input`
 	margin-bottom: 2.59vh;
 `;
 const LoginBtn = styled.button`
+	cursor: pointer;
 	width: 19.67vw;
 	height: 4.72vh;
 	margin-bottom: 2.77vh;
@@ -202,13 +215,14 @@ const CenterEndLine = styled.div`
 	}
 `;
 const LoginBottom = styled.div`
-	width: 13.09vw;
+	width: 14.09vw;
 	height: 9.62vh;
+	margin-top: 1.8vh;
 	display: flex;
 	flex-direction: column;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 1.04vw;
+	font-size: 1.2vw;
 `;
 const SNSIcons = styled.div`
 	height: 4.72vh;
