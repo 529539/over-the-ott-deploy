@@ -50,7 +50,6 @@ const SettingSubBox = props => {
 		var result = SaveInfo();
 		var otts = [];
 		otts = removeDuplicates(result, 'ott_name');
-
 		if (otts.length === ottArray.length) {
 			axios
 				.post('/account/addott/', otts)
@@ -109,7 +108,7 @@ const SettingSubBox = props => {
 		const printM = () => {
 			switch (ott_name) {
 				case 'Netflix':
-				case 'Wavve':
+				case 'wavve':
 					return (
 						<>
 							<option>베이직</option>
@@ -124,7 +123,7 @@ const SettingSubBox = props => {
 							<option>프리미엄</option>
 						</>
 					);
-				case 'Apple TV':
+				case 'Apple TV Plus':
 					return <option>일반</option>;
 				default:
 					return (
@@ -174,14 +173,6 @@ const SettingSubBox = props => {
 				onChange={e => {
 					share = Number(e.target.value.replace(regex, ''));
 					SaveInfo();
-
-					// let len = otts.map(row => row.share).length;
-					// if (len == ottArray.length) {
-					// 	setBtnActive(true);
-					// }
-					//마지막 OTT share option을 선택한 경우 버튼 색상 변경
-					// let len = otts.length;
-					// len == ottArray.length ? setBtnActive(true) : console.log('');
 				}}
 			>
 				<option
