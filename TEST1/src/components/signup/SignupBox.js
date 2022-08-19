@@ -20,7 +20,9 @@ const SignupBox = () => {
 	// 유효성 검사용 정규표현식
 	const IDregExp =
 		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	const PWregExp = /^(?=.*\d)(?=.*[~!@#$%^&*()+|=])[\d~!@#$%^&*()+|=]{8,16}$/;
+	const PWregExp =
+		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+	//8~16자 문자, 특수문자, 숫자 포함
 
 	var validID = IDregExp.test(newID);
 	var validPW = PWregExp.test(newPW);
@@ -105,7 +107,7 @@ const SignupBox = () => {
 					/>
 					<PwInput
 						value={newPW}
-						placeholder='비밀번호 (8자 이상, 특수문자 포함)'
+						placeholder='비밀번호 (8~16자, 문자, 숫자, 특수문자 포함)'
 						onChange={e => setNewPW(e.target.value)}
 						onKeyUp={ChangeBtn}
 						onKeyDown={enterInput}
