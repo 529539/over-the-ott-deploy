@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import SettingForm from './SettingForm';
+import styled from "styled-components";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import SettingForm from "./SettingForm";
 
-const SettingSubBox = props => {
+const SettingSubBox = (props) => {
 	const navigate = useNavigate();
 	// form에 들어갈 text 및 상태 관리
-	const [title1, setTitle1] = useState('');
-	const [title2, setTitle2] = useState('');
+	const [title1, setTitle1] = useState("");
+	const [title2, setTitle2] = useState("");
 	const [btnActive, setBtnActive] = useState(false);
 
 	//문자열 끊을 때 사용하는 정규 표현식
@@ -19,16 +19,16 @@ const SettingSubBox = props => {
 
 	//이전 페이지에서 저장한 ott 불러오기
 	var ottArray = [];
-	ottArray = props.ottActive.filter(ott => ott.active);
+	ottArray = props.ottActive.filter((ott) => ott.active);
 
 	useEffect(() => {
-		setTitle1('OTT Information');
-		setTitle2('구독 중인 OTT 정보 입력하기');
+		setTitle1("OTT Information");
+		setTitle2("구독 중인 OTT 정보 입력하기");
 	}, []);
 
 	//구독 정보 저장 변수
-	var name = '';
-	var member = '';
+	var name = "";
+	var member = "";
 	var date = 0;
 	var share = 0;
 	var length = 0;
@@ -49,14 +49,14 @@ const SettingSubBox = props => {
 	const SendInfo = () => {
 		var result = SaveInfo();
 		var otts = [];
-		otts = removeDuplicates(result, 'ott_name');
+		otts = removeDuplicates(result, "ott_name");
 		if (otts.length === ottArray.length) {
 			axios
-				.post('/account/addott/', otts)
-				.then(res => {
-					navigate('/signup/setting/subscribe');
+				.post("/account/addott/", otts)
+				.then((res) => {
+					navigate("/signup/setting/subscribe");
 				})
-				.catch(error => {
+				.catch((error) => {
 					console.log(error);
 				});
 		}
@@ -76,20 +76,20 @@ const SettingSubBox = props => {
 		return newArray;
 	}
 	//날짜 선택 드롭다운
-	const dropdownD = ott_name => {
+	const dropdownD = (ott_name) => {
 		var day = 0;
 		return (
 			<SelectD
 				id={ott_name}
-				defaultValue={'default'}
-				onChange={e => {
-					date = Number(e.target.value.replace(regex, ''));
+				defaultValue={"default"}
+				onChange={(e) => {
+					date = Number(e.target.value.replace(regex, ""));
 				}}
 			>
 				<option
-					className='default'
-					style={{ fontWeight: '600' }}
-					value={'default'}
+					className="default"
+					style={{ fontWeight: "600" }}
+					value={"default"}
 					disabled
 				>
 					선택
@@ -104,11 +104,11 @@ const SettingSubBox = props => {
 		);
 	};
 	//멤버쉽 선택 드롭다운
-	const dropdownM = ott_name => {
+	const dropdownM = (ott_name) => {
 		const printM = () => {
 			switch (ott_name) {
-				case 'Netflix':
-				case 'wavve':
+				case "Netflix":
+				case "wavve":
 					return (
 						<>
 							<option>베이직</option>
@@ -116,16 +116,17 @@ const SettingSubBox = props => {
 							<option>프리미엄</option>
 						</>
 					);
-				case 'Watcha':
+				case "Watcha":
 					return (
 						<>
 							<option>일반</option>
 							<option>프리미엄</option>
 						</>
 					);
-				case 'Apple TV Plus':
+				case "Apple TV Plus":
 					return <option>일반</option>;
-				case 'Amazon Prime Video':
+				case "Diseny Plus":
+				case "Amazon Prime Video":
 					return (
 						<>
 							<option>월간</option>
@@ -137,15 +138,15 @@ const SettingSubBox = props => {
 		return (
 			<SelectM
 				id={ott_name}
-				defaultValue={'default'}
-				onChange={e => {
+				defaultValue={"default"}
+				onChange={(e) => {
 					member = e.target.value;
 				}}
 			>
 				<option
-					className='default'
-					style={{ fontWeight: '600' }}
-					value={'default'}
+					className="default"
+					style={{ fontWeight: "600" }}
+					value={"default"}
 					disabled
 				>
 					선택
@@ -155,7 +156,7 @@ const SettingSubBox = props => {
 		);
 	};
 	//쉐어인원 선택 드롭다운
-	const dropdownS = ott_name => {
+	const dropdownS = (ott_name) => {
 		const printS = () => {
 			return (
 				<>
@@ -169,16 +170,16 @@ const SettingSubBox = props => {
 		return (
 			<SelectS
 				id={ott_name}
-				defaultValue={'default'}
-				onChange={e => {
-					share = Number(e.target.value.replace(regex, ''));
+				defaultValue={"default"}
+				onChange={(e) => {
+					share = Number(e.target.value.replace(regex, ""));
 					SaveInfo();
 				}}
 			>
 				<option
-					className='default'
-					style={{ fontWeight: '600' }}
-					value={'default'}
+					className="default"
+					style={{ fontWeight: "600" }}
+					value={"default"}
 					disabled
 				>
 					선택
@@ -211,15 +212,15 @@ const SettingSubBox = props => {
 							</section>
 						</div>
 					) : (
-						console.log('')
+						console.log("")
 					)}
 				</ContainerTitle>
 				<SubContainer>
-					{ottArray.map(ott => (
+					{ottArray.map((ott) => (
 						<div
 							id={ott.name}
 							className={ott.name}
-							onChange={e => {
+							onChange={(e) => {
 								name = e.target.id;
 							}}
 						>
@@ -232,7 +233,7 @@ const SettingSubBox = props => {
 				</SubContainer>
 			</Container>
 			<GoNextBtn
-				style={{ backgroundColor: '#DCDCDC' }}
+				style={{ backgroundColor: "#DCDCDC" }}
 				//style={{ backgroundColor: btnActive ? '#d38189' : '#DCDCDC' }}
 				onClick={SendInfo}
 			>
