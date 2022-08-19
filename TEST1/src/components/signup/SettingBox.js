@@ -37,7 +37,7 @@ const SettingBox = () => {
 			img: data.ottArray[1].img,
 		},
 		{
-			name: 'Wavve',
+			name: 'wavve',
 			active: false,
 			img: data.ottArray[2].img,
 		},
@@ -47,12 +47,12 @@ const SettingBox = () => {
 			img: data.ottArray[3].img,
 		},
 		{
-			name: 'Apple TV',
+			name: 'Apple TV Plus',
 			active: false,
 			img: data.ottArray[4].img,
 		},
 		{
-			name: 'Prime Video',
+			name: 'Amazon Prime Video',
 			active: false,
 			img: data.ottArray[5].img,
 		},
