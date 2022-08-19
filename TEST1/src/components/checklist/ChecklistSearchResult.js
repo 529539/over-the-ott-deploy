@@ -203,11 +203,18 @@ const ChecklistSearchResult = (props) => {
 		console.log(props.selectedTitle);
 
 		props.setIsOpen(true);
-		if (media.season === undefined) {
-			setSetMovie(media);
+		if (props.selectedPv === "" || props.selectedSs === "default") {
+			alert("시리즈, OTT 모두 선택하였는지 확인해주세요!");
 		} else {
-			setSetTV(media);
+			if (media.season === undefined) {
+				setSetMovie(media);
+			} else {
+				setSetTV(media);
+			}
 		}
+
+		props.setSelectedPv("");
+		props.setSelectedSs("default");
 	};
 
 	return (
