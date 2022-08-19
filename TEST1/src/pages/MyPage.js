@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import Header from "../components/Header";
-import Background from "../components/Background";
-import { ReactComponent as NetflixLogo } from "../static/OTTcircle/Netflix.svg";
-import { ReactComponent as WatchaLogo } from "../static/OTTcircle/Watcha.svg";
-import { ReactComponent as DisneyPlusLogo } from "../static/OTTcircle/DisneyPlus.svg";
-import { ReactComponent as WavveLogo } from "../static/OTTcircle/Wavve.svg";
-import { ReactComponent as AppleTVLogo } from "../static/OTTcircle/AppleTV.svg";
-import { ReactComponent as PrimeVideoLogo } from "../static/OTTcircle/PrimeVideo.svg";
-import { HiMinusSm, HiPlusSm } from "react-icons/hi";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import Header from '../components/Header';
+import Background from '../components/Background';
+import { ReactComponent as NetflixLogo } from '../static/OTTcircle/Netflix.svg';
+import { ReactComponent as WatchaLogo } from '../static/OTTcircle/Watcha.svg';
+import { ReactComponent as DisneyPlusLogo } from '../static/OTTcircle/DisneyPlus.svg';
+import { ReactComponent as WavveLogo } from '../static/OTTcircle/Wavve.svg';
+import { ReactComponent as AppleTVLogo } from '../static/OTTcircle/AppleTV.svg';
+import { ReactComponent as PrimeVideoLogo } from '../static/OTTcircle/PrimeVideo.svg';
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 const MyPage = () => {
 	const nav = useNavigate();
 	const logoutHandler = () => {
-		axios.get("/account/logout/").then((response) => {
+		axios.get('/account/logout/').then(response => {
 			console.log(response.data);
 			//로그아웃 시 유저 토큰, 이름, 이메일 초기화
-			sessionStorage.setItem("token", "");
-			sessionStorage.setItem("username", "");
-			sessionStorage.setItem("email", "");
-			nav("/");
+			sessionStorage.setItem('token', '');
+			sessionStorage.setItem('username', '');
+			sessionStorage.setItem('email', '');
+			nav('/');
 		});
 	};
 
@@ -41,25 +41,25 @@ const MyPage = () => {
 
 	const getOtts = async () => {
 		const response = await axios
-			.get("/account/addott/")
-			.then((response) => {
+			.get('/account/addott/')
+			.then(response => {
 				let result = response.data.data.sort((a, b) => {
 					return a.ott.id - b.ott.id;
 				});
 				setOtts(result);
 			})
-			.catch((error) => {
-				console.log("구독 정보 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('구독 정보 불러오기 실패', error.message);
 			});
 	};
 
 	let disableOtts = [];
-	if (otts.map((row) => row.ott.ott).includes("Netflix") === false) {
+	if (otts.map(row => row.ott.ott).includes('Netflix') === false) {
 		disableOtts.push({
 			ott: {
 				id: 1,
-				ott: "Netflix",
-				membership: "선택",
+				ott: 'Netflix',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -67,12 +67,12 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Watcha") === false) {
+	if (otts.map(row => row.ott.ott).includes('Watcha') === false) {
 		disableOtts.push({
 			ott: {
 				id: 4,
-				ott: "Watcha",
-				membership: "선택",
+				ott: 'Watcha',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -84,8 +84,8 @@ const MyPage = () => {
 		disableOtts.push({
 			ott: {
 				id: 11,
-				ott: "Wavve",
-				membership: "선택",
+				ott: 'wavve',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -93,12 +93,12 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Disney Plus") === false) {
+	if (otts.map(row => row.ott.ott).includes('Disney Plus') === false) {
 		disableOtts.push({
 			ott: {
 				id: 6,
-				ott: "Disney Plus",
-				membership: "선택",
+				ott: 'Disney Plus',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -106,12 +106,12 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map((row) => row.ott.ott).includes("Apple TV Plus") === false) {
+	if (otts.map(row => row.ott.ott).includes('Apple TV Plus') === false) {
 		disableOtts.push({
 			ott: {
 				id: 8,
-				ott: "Apple TV",
-				membership: "선택",
+				ott: 'Apple TV Plus',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -123,8 +123,8 @@ const MyPage = () => {
 		disableOtts.push({
 			ott: {
 				id: 9,
-				ott: "Prime Video",
-				membership: "선택",
+				ott: 'Amazon Prime Video',
+				membership: '선택',
 				fee: 0,
 			},
 			pay_date: 0,
@@ -133,74 +133,74 @@ const MyPage = () => {
 		});
 	}
 
-	const ottImage = (name) => {
-		if (name === "Netflix")
+	const ottImage = name => {
+		if (name === 'Netflix')
 			return (
 				<>
 					<NetflixLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Watcha")
+		else if (name === 'Watcha')
 			return (
 				<>
 					<WatchaLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "wavve")
+		else if (name === 'wavve')
 			return (
 				<>
 					<WavveLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Disney Plus")
+		else if (name === 'Disney Plus')
 			return (
 				<>
 					<DisneyPlusLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Apple TV Plus")
+		else if (name === 'Apple TV Plus')
 			return (
 				<>
 					<AppleTVLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else if (name === "Amazon Prime Video")
+		else if (name === 'Amazon Prime Video')
 			return (
 				<>
 					<PrimeVideoLogo
 						style={{
-							filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))",
+							filter: 'drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25))',
 						}}
-						size="1vw"
+						size='1vw'
 					/>
 				</>
 			);
-		else console.error("Error: invalid OTT");
+		else console.error('Error: invalid OTT');
 	};
 
 	const color = (name) => {
@@ -214,70 +214,73 @@ const MyPage = () => {
 	};
 
 	const showButton = (name, id) => {
-		if (otts.map((row) => row.ott.ott).includes(name) === true) {
+		if (otts.map(row => row.ott.ott).includes(name) === true) {
 			return (
-				<EditBtn type="button" onClick={() => turnOff(name, id)}>
-					<HiMinusSm size="1.7vw" fill="#fff" />
+				<EditBtn type='button' onClick={() => turnOff(name, id)}>
+					<HiMinusSm size='1.7vw' fill='#fff' />
 				</EditBtn>
 			);
 		} else {
 			return (
-				<EditBtn type="button" onClick={() => turnOn(name, id)}>
-					<HiPlusSm size="1.7vw" fill="#fff" />
+				<EditBtn type='button' onClick={() => turnOn(name, id)}>
+					<HiPlusSm size='1.7vw' fill='#fff' />
 				</EditBtn>
 			);
 		}
 	};
 
 	const turnOn = (name, id) => {
-		console.log("+" + name);
+		console.log('+' + name);
 		axios
-			.post("/account/addott/", [
+			.post('/account/addott/', [
 				{
 					ott_name: name,
+					membership: '일반',
+					pay_date: 30,
+					share: 1,
 				},
 			])
-			.then((response) => {
+			.then(response => {
 				getOtts(response.data);
 			})
-			.catch((error) => {
-				console.log("추가 실패", error);
+			.catch(error => {
+				console.log('추가 실패', error);
 			});
 	};
 	const turnOff = (name, id) => {
-		console.log("-" + name);
+		console.log('-' + name);
 		axios
 			.delete(`/account/addott/${id}`)
-			.then((response) => {
+			.then(response => {
 				getOtts(response.data);
 			})
-			.catch((error) => {
-				console.log("삭제 실패", error);
+			.catch(error => {
+				console.log('삭제 실패', error);
 			});
 	};
 
 	const getOttsInfos = async () => {
 		const response = await axios
-			.get("/account/ott/")
-			.then((response) => {
+			.get('/account/ott/')
+			.then(response => {
 				setOttsInfos(response.data.data);
 			})
-			.catch((error) => {
-				console.log("구독권 정보 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('구독권 정보 불러오기 실패', error.message);
 			});
 	};
 
 	const dropdownD = (date, name) => {
 		return (
-			<Select defaultValue={"default"}>
+			<Select defaultValue={'default'}>
 				<option
-					className="default"
+					className='default'
 					style={{
 						color: color(name),
-						backgroundColor: "#c4c4c4",
-						fontWeight: "600",
+						backgroundColor: '#c4c4c4',
+						fontWeight: '600',
 					}}
-					value={"default"}
+					value={'default'}
 					disabled
 				>
 					{date}일
@@ -317,11 +320,11 @@ const MyPage = () => {
 				);
 		};
 		return (
-			<Select defaultValue={"default"}>
+			<Select defaultValue={'default'}>
 				<option
-					className="default"
-					style={{ color: color(name), fontWeight: "600" }}
-					value={"default"}
+					className='default'
+					style={{ color: color(name), fontWeight: '600' }}
+					value={'default'}
 					disabled
 				>
 					{membership}
@@ -360,11 +363,11 @@ const MyPage = () => {
 				);
 		};
 		return (
-			<Select defaultValue={"default"}>
+			<Select defaultValue={'default'}>
 				<option
-					className="default"
-					style={{ color: color(name), fontWeight: "600" }}
-					value={"default"}
+					className='default'
+					style={{ color: color(name), fontWeight: '600' }}
+					value={'default'}
 					disabled
 				>
 					{share}인
@@ -380,15 +383,15 @@ const MyPage = () => {
 			<Background />
 			<Wrapper>
 				<NotHeaderArea>
-					<div className="inner">
+					<div className='inner'>
 						<Container>
-							<div style={{ padding: "5vh 5vw 5vh 5vw" }}>
+							<div style={{ padding: '5vh 5vw 5vh 5vw' }}>
 								<div
 									style={{
-										display: "flex",
-										height: "2.2vw",
-										position: "relative",
-										margin: "4vh 0",
+										display: 'flex',
+										height: '2.2vw',
+										position: 'relative',
+										margin: '4vh 0',
 									}}
 								>
 									<MTitle>마이페이지</MTitle>
@@ -398,19 +401,19 @@ const MyPage = () => {
 								</div>
 								<div
 									style={{
-										display: "flex",
-										alignItems: "center",
-										height: "1.6vw",
-										margin: "8vh 0 4vh 0",
+										display: 'flex',
+										alignItems: 'center',
+										height: '1.6vw',
+										margin: '8vh 0 4vh 0',
 									}}
 								>
 									<Title>구독 중인 OTT 정보</Title>
 									<Btn
-										type="button"
+										type='button'
 										onClick={btnClick}
-										className={isEditing ? "editing" : ""}
+										className={isEditing ? 'editing' : ''}
 									>
-										<BtnText>{isEditing ? "완료" : "수정하기"}</BtnText>
+										<BtnText>{isEditing ? '완료' : '수정하기'}</BtnText>
 									</Btn>
 								</div>
 								<Line />
@@ -423,29 +426,29 @@ const MyPage = () => {
 												<Bold
 													style={{
 														color: color(ott.ott.ott),
-														marginRight: isEditing ? "0.7vw" : "0.5vw",
+														marginRight: isEditing ? '0.7vw' : '0.5vw',
 													}}
 												>
 													{isEditing
 														? dropdownD(ott.pay_date, ott.ott.ott)
-														: ott.pay_date + "일"}
+														: ott.pay_date + '일'}
 												</Bold>
 												<Bold
 													style={{
-														width: "5vw",
+														width: '5vw',
 														color: color(ott.ott.ott),
-														marginLeft: isEditing ? "1.6vw" : "0",
-														marginRight: isEditing ? "0" : "0.5vw",
+														marginLeft: isEditing ? '1.6vw' : '0',
+														marginRight: isEditing ? '0' : '0.5vw',
 													}}
 												>
 													{Math.round(ott.pay_amount)}원
 												</Bold>
-												<BlackLight>{isEditing ? null : "결제"}</BlackLight>
+												<BlackLight>{isEditing ? null : '결제'}</BlackLight>
 												<DevideLine />
 												<BlackLight
 													style={{
-														fontWeight: "600",
-														marginLeft: isEditing ? "0.6vw" : "0.3vw",
+														fontWeight: '600',
+														marginLeft: isEditing ? '0.6vw' : '0.3vw',
 													}}
 												>
 													{isEditing
@@ -459,14 +462,14 @@ const MyPage = () => {
 												{ott.fee === 0 ? null : (
 													<BlackLight
 														style={{
-															marginLeft: "0.6vw",
-															marginRight: "0.8vw",
-															fontWeight: "600",
+															marginLeft: '0.6vw',
+															marginRight: '0.8vw',
+															fontWeight: '600',
 														}}
 													>
 														{isEditing
 															? dropdownS(ott.share, ott.ott.id, ott.ott.ott)
-															: ott.share + "인"}
+															: ott.share + '인'}
 													</BlackLight>
 												)}
 												{isEditing ? showButton(ott.ott.ott, ott.id) : null}
@@ -476,27 +479,27 @@ const MyPage = () => {
 									{disableOtts.map((ott, index) => {
 										return (
 											<OTTContainer>
-												<ImageWrapper className="notText">
+												<ImageWrapper className='notText'>
 													{ottImage(ott.ott.ott)}
 												</ImageWrapper>
-												<BlackLight className="notText">매달</BlackLight>
+												<BlackLight className='notText'>매달</BlackLight>
 												<Bold
 													style={{ color: color(ott.ott.ott) }}
-													className="notText"
+													className='notText'
 												>
 													{ott.pay_date}일
 												</Bold>
 												<Bold
-													style={{ width: "5vw", color: color(ott.ott.ott) }}
-													className="notText"
+													style={{ width: '5vw', color: color(ott.ott.ott) }}
+													className='notText'
 												>
 													{ott.pay_amount}원
 												</Bold>
-												<BlackLight className="notText">결제</BlackLight>
-												<DevideLine className="notText" />
+												<BlackLight className='notText'>결제</BlackLight>
+												<DevideLine className='notText' />
 												<BlackLight
-													style={{ fontWeight: "600" }}
-													className="notText"
+													style={{ fontWeight: '600' }}
+													className='notText'
 												>
 													{ott.ott.membership}
 												</BlackLight>

@@ -125,7 +125,7 @@ const SettingSubBox = props => {
 					);
 				case 'Apple TV Plus':
 					return <option>일반</option>;
-				default:
+				case 'Amazon Prime Video':
 					return (
 						<>
 							<option>월간</option>

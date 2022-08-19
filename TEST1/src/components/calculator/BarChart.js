@@ -18,13 +18,13 @@ const BarChart = props => {
 				return '#D90B1C';
 			case 'Watcha':
 				return '#FF0558';
-			case 'Wavve':
+			case 'wavve':
 				return '#1F4EF5';
 			case 'Disney Plus':
 				return '#192F72';
-			case 'Apple TV':
+			case 'Apple TV Plus':
 				return '#77848C';
-			default:
+			case 'Amazon Prime Video':
 				return '#10BBE0';
 		}
 	}
@@ -35,13 +35,13 @@ const BarChart = props => {
 				return ottCSS[0].img;
 			case 'Watcha':
 				return ottCSS[1].img;
-			case 'Wavve':
+			case 'wavve':
 				return ottCSS[2].img;
 			case 'Disney Plus':
 				return ottCSS[3].img;
-			case 'Apple TV':
+			case 'Apple TV Plus':
 				return ottCSS[4].img;
-			default:
+			case 'Amazon Prime Video':
 				return ottCSS[5].img;
 		}
 	}
