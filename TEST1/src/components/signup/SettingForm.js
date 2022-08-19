@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const SettingForm = (props) => {
+const SettingForm = props => {
 	return (
 		<Container>
 			<SignupTop>
 				<p>{props.title1}</p>
 				<p>{props.title2}</p>
 			</SignupTop>
-			<div className="line1"></div>
+			<div className='line1'></div>
 		</Container>
 	);
 };

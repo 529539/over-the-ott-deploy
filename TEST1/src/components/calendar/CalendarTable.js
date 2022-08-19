@@ -400,11 +400,11 @@ const Date = styled.span`
 const Icons = styled.div`
 	width: 2.81vw;
 	height: 11.66vh;
-	position: fixed;
 	margin-left: 5.5vw;
+	position: absolute;
 	display: flex;
 	flex-direction: column;
-	justify-content: end;
+	justify-content: flex-end;
 	img {
 		position: absolute;
 		z-index: 2;
@@ -412,7 +412,7 @@ const Icons = styled.div`
 		filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
 	}
 	div {
-		position: absolute;
+		position: relative;
 		z-index: 1;
 		width: 0;
 		height: 0;
