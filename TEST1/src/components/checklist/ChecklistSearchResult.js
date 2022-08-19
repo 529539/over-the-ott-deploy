@@ -163,6 +163,9 @@ const ChecklistSearchResult = (props) => {
 			})
 			.then((response) => {
 				console.log(response.data);
+				props.setSelectedPv("");
+				props.setSelectedSs("default");
+				props.setSelectedTitle("");
 			})
 			.catch((error) => {
 				console.log("영화 리스트에 추가 실패", error);
@@ -193,28 +196,31 @@ const ChecklistSearchResult = (props) => {
 			})
 			.then((response) => {
 				console.log(response.data);
+				props.setSelectedPv("");
+				props.setSelectedSs("default");
+				props.setSelectedTitle("");
 			})
 			.catch((error) => {
 				console.log("TV 리스트에 추가 실패", error);
 			});
 	};
 	const addList = (media) => {
-		props.setSelectedTitle(media.title);
-		console.log(props.selectedTitle);
-
-		props.setIsOpen(true);
-		if (props.selectedPv === "" || props.selectedSs === "default") {
-			alert("시리즈, OTT 모두 선택하였는지 확인해주세요!");
-		} else {
+		if (props.selectedPv !== "" && props.selectedSs !== "default") {
+			props.setIsOpen(true);
 			if (media.season === undefined) {
 				setSetMovie(media);
+				props.setSelectedTitle(media.title);
 			} else {
 				setSetTV(media);
+				props.setSelectedTitle(media.title);
 			}
+		} else {
+			alert("시리즈, OTT 모두 선택하였는지 확인해주세요!");
+			props.setSelectedPv("");
+			props.setSelectedSs("default");
+			props.setSelectedTitle("");
+			window.location.reload();
 		}
-
-		props.setSelectedPv("");
-		props.setSelectedSs("default");
 	};
 
 	return (
