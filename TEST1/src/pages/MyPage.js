@@ -80,7 +80,7 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map(row => row.ott.ott).includes('wavve') === false) {
+	if (otts.map((row) => row.ott.ott).includes("wavve") === false) {
 		disableOtts.push({
 			ott: {
 				id: 11,
@@ -119,7 +119,7 @@ const MyPage = () => {
 			share: 0,
 		});
 	}
-	if (otts.map(row => row.ott.ott).includes('Amazon Prime Video') === false) {
+	if (otts.map((row) => row.ott.ott).includes("Amazon Prime Video") === false) {
 		disableOtts.push({
 			ott: {
 				id: 9,
@@ -203,14 +203,14 @@ const MyPage = () => {
 		else console.error('Error: invalid OTT');
 	};
 
-	const color = name => {
-		if (name === 'Netflix') return '#D90B1C';
-		else if (name === 'Watcha') return '#FF0558';
-		else if (name === 'wavve') return '#1F4EF5';
-		else if (name === 'Disney Plus') return '#192F72';
-		else if (name === 'Apple TV Plus') return '#77848C';
-		else if (name === 'Amazon Prime Video') return '#10BBE0';
-		else console.error('Error: invalid OTT');
+	const color = (name) => {
+		if (name === "Netflix") return "#D90B1C";
+		else if (name === "Watcha") return "#FF0558";
+		else if (name === "wavve") return "#1F4EF5";
+		else if (name === "Disney Plus") return "#192F72";
+		else if (name === "Apple TV Plus") return "#77848C";
+		else if (name === "Amazon Prime Video") return "#10BBE0";
+		else console.error("Error: invalid OTT");
 	};
 
 	const showButton = (name, id) => {

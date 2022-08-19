@@ -13,8 +13,8 @@ import { ReactComponent as PrimeVideoLogo } from "../../static/OTTcircle/PrimeVi
 const ChecklistListModal = ({
 	_handleModal,
 	isOpen,
-	type,
 	detailID,
+	type,
 	...rest
 }) => {
 	let id = detailID;

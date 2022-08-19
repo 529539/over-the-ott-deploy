@@ -27,7 +27,7 @@ const ChecklistShareModal = ({ _handleModal, ...rest }) => {
 						<KakaoLogo />
 					</LogoWrapper>
 					<AdWrapper>
-						<a href="https://www.wavve.com/" target="_blank">
+						<a href="https://www.bnbchain.org/" target="_blank">
 							<AdImage />
 						</a>
 					</AdWrapper>
