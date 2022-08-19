@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import Header from "../components/Header";
-import { ReactComponent as HeaderLogo } from "../static/HeaderLogo.svg";
-import { FiChevronLeft } from "react-icons/fi";
-import ChecklistSearchInput from "../components/checklist/ChecklistSearchInput";
-import ChecklistSearchResult from "../components/checklist/ChecklistSearchResult";
-import ChecklistSaveModal from "../components/checklist/ChecklistSaveModal";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import Header from '../components/Header';
+import { ReactComponent as HeaderLogo } from '../static/HeaderLogo.svg';
+import { FiChevronLeft } from 'react-icons/fi';
+import ChecklistSearchInput from '../components/checklist/ChecklistSearchInput';
+import ChecklistSearchResult from '../components/checklist/ChecklistSearchResult';
+import ChecklistSaveModal from '../components/checklist/ChecklistSaveModal';
 
 const ChecklistSearch = () => {
 	useEffect(() => {
@@ -19,45 +19,45 @@ const ChecklistSearch = () => {
 	const _closeModal = () => {
 		setIsOpen(false);
 	};
-	const [selectedPv, setSelectedPv] = useState("");
-	const [selectedSs, setSelectedSs] = useState("default");
-	const [selectedTitle, setSelectedTitle] = useState("");
+	const [selectedPv, setSelectedPv] = useState('');
+	const [selectedSs, setSelectedSs] = useState('default');
+	const [selectedTitle, setSelectedTitle] = useState('');
 
-	const [selected, setSelected] = useState("default");
-	const [input, setInput] = useState("");
-	const [printedInput, setPrintedInput] = useState("");
+	const [selected, setSelected] = useState('default');
+	const [input, setInput] = useState('');
+	const [printedInput, setPrintedInput] = useState('');
 	const [isStart, setIsStart] = useState(true);
 	const [isTV, setIsTV] = useState(false);
 	const [isMovie, setIsMovie] = useState(false);
 
 	useEffect(() => {
-		console.log("종류:" + selected + ", 검색어:" + input);
-		console.log("isTV", isTV);
-		console.log("isMovie", isMovie);
+		console.log('종류:' + selected + ', 검색어:' + input);
+		console.log('isTV', isTV);
+		console.log('isMovie', isMovie);
 	}, [input]);
 
 	const [HotTVs, setHotTVs] = useState([]);
 	const [HotMovies, setHotMovies] = useState([]);
 	const getHotTVs = async () => {
 		const response = await axios
-			.get("/checklist/search/tv/")
-			.then((response) => {
+			.get('/checklist/search/tv/')
+			.then(response => {
 				console.log(response.data);
 				setHotTVs(response.data.data);
 			})
-			.catch((error) => {
-				console.log("인기 TV 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('인기 TV 불러오기 실패', error.message);
 			});
 	};
 	const getHotMovies = async () => {
 		const response = await axios
-			.get("/checklist/search/movie/")
-			.then((response) => {
+			.get('/checklist/search/movie/')
+			.then(response => {
 				console.log(response.data);
 				setHotMovies(response.data.data);
 			})
-			.catch((error) => {
-				console.log("인기 영화 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('인기 영화 불러오기 실패', error.message);
 			});
 	};
 	useEffect(() => {
@@ -67,28 +67,28 @@ const ChecklistSearch = () => {
 
 	const [TVs, setTVs] = useState([]);
 	const [movies, setMovies] = useState([]);
-	const getTVs = async (keyword) => {
+	const getTVs = async keyword => {
 		const response = await axios
 			.get(`/checklist/search/tv/?keyword=${keyword}`)
-			.then((response) => {
+			.then(response => {
 				//console.log(response.data);
 				setTVs(response.data.data);
 				setPrintedInput(keyword);
 			})
-			.catch((error) => {
-				console.log("TV 검색 결과 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('TV 검색 결과 불러오기 실패', error.message);
 			});
 	};
-	const getMovies = async (keyword) => {
+	const getMovies = async keyword => {
 		const response = await axios
 			.get(`/checklist/search/movie/?keyword=${keyword}`)
-			.then((response) => {
+			.then(response => {
 				//console.log(response.data);
 				setMovies(response.data.data);
 				setPrintedInput(keyword);
 			})
-			.catch((error) => {
-				console.log("영화 검색 결과 불러오기 실패", error.message);
+			.catch(error => {
+				console.log('영화 검색 결과 불러오기 실패', error.message);
 			});
 	};
 
@@ -110,8 +110,8 @@ const ChecklistSearch = () => {
 				<NotHeaderArea>
 					<div>
 						<HeaderWrapper>
-							<Link to="/checklist" style={{ textDecoration: "none" }}>
-								<FiChevronLeft size="1.7vw" />
+							<Link to='/checklist' style={{ textDecoration: 'none' }}>
+								<FiChevronLeft size='1.7vw' />
 								<Text>체크리스트로 돌아가기</Text>
 							</Link>
 							<Line />
@@ -132,7 +132,7 @@ const ChecklistSearch = () => {
 								<div>
 									<SearchedText>추천 인기 작품</SearchedText>
 									<MediasWrapper>
-										{HotTVs.map((media) => {
+										{HotTVs.map(media => {
 											return (
 												<ChecklistSearchResult
 													media={media}
@@ -146,7 +146,7 @@ const ChecklistSearch = () => {
 												/>
 											);
 										})}
-										{HotMovies.map((media) => {
+										{HotMovies.map(media => {
 											return (
 												<ChecklistSearchResult
 													media={media}
@@ -166,13 +166,13 @@ const ChecklistSearch = () => {
 									</LogoContainer>
 								</div>
 							) : isTV ? (
-								<div style={{ minHeight: "75vh", height: "auto" }}>
+								<div style={{ minHeight: '75vh', height: 'auto' }}>
 									<SearchedText>TV "{printedInput}" 검색 결과</SearchedText>
 									{TVs.length === 0 ? (
 										<>{notFinded}</>
 									) : (
 										<MediasWrapper>
-											{TVs.map((media) => {
+											{TVs.map(media => {
 												return (
 													<ChecklistSearchResult
 														media={media}
@@ -201,13 +201,13 @@ const ChecklistSearch = () => {
 									</LogoContainer>
 								</div>
 							) : isMovie ? (
-								<div style={{ minHeight: "80vh", height: "auto" }}>
+								<div style={{ minHeight: '80vh', height: 'auto' }}>
 									<SearchedText>영화 "{printedInput}" 검색 결과</SearchedText>
 									{movies.length === 0 ? (
 										<>{notFinded}</>
 									) : (
 										<MediasWrapper>
-											{movies.map((media) => {
+											{movies.map(media => {
 												return (
 													<ChecklistSearchResult
 														media={media}
